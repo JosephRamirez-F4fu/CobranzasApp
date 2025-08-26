@@ -1,0 +1,16 @@
+<div class="max-w-4xl py-8">
+  <h1 class="text-2xl font-bold text-blue-800 mb-6">
+    Gestión de Instituciones
+  </h1>
+  <institution-form
+    (add)="addInstitution($event)"
+    [institution]="editingInstitution()"
+  ></institution-form>
+  <div class="mt-10">
+    <institution-table
+      [institutions]="institutions()"
+      (edit)="editInstitution($event.index, $event.institution)"
+      (del)="deleteInstitution($event)"
+    ></institution-table>
+  </div>
+</div>

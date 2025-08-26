@@ -1,1 +1,36 @@
-/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+
+/* Animaciones personalizadas para dinamismo */
+@layer utilities {
+  .animate-fade-in {
+    @apply opacity-0 translate-y-4;
+    animation: fadeIn 0.8s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    @apply opacity-0 translate-y-8;
+    animation: slideUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  .delay-150 {
+    animation-delay: 0.15s;
+  }
+
+  .delay-300 {
+    animation-delay: 0.3s;
+  }
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes slideUp {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

@@ -1,0 +1,43 @@
+<aside
+  class="bg-blue-800 text-white shadow-md w-64 min-h-screen px-6 py-8 flex flex-col border-r-4 border-blue-900"
+>
+  <h2 class="text-2xl font-bold tracking-wide mb-10 text-center">
+    Panel de Administración
+  </h2>
+  <nav class="flex-1">
+    <ul class="flex flex-col gap-4 font-medium">
+      <li>
+        <a
+          routerLink="/admin/inicio"
+          routerLinkActive="!text-blue-800 !bg-white"
+          class="block px-4 py-3 rounded transition hover:bg-blue-700 hover:text-white"
+          >Inicio</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/admin/instituciones"
+          routerLinkActive="!text-blue-800 !bg-white"
+          class="block px-4 py-3 rounded transition hover:bg-blue-700 hover:text-white"
+          >Instituciones</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/admin/usuarios"
+          routerLinkActive="!text-blue-800 !bg-white"
+          class="block px-4 py-3 rounded transition hover:bg-blue-700 hover:text-white"
+          >Usuarios</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/admin/logout"
+          routerLinkActive="!text-blue-800 !bg-white"
+          class="block px-4 py-3 rounded transition hover:bg-red-600 hover:text-white"
+          >Cerrar sesión</a
+        >
+      </li>
+    </ul>
+  </nav>
+</aside>

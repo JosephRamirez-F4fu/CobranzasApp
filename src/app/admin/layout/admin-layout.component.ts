@@ -2,11 +2,8 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-root',
+  selector: 'admin-layout',
+  templateUrl: './admin-layout.component.html',
   imports: [RouterOutlet],
-  templateUrl: './app.html',
-  styleUrl: './app.css',
 })
-export class App {
-  protected title = 'CobranzasApp';
-}
+export class AdminLayoutComponent {}

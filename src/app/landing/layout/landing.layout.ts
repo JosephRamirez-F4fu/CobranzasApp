@@ -2,11 +2,8 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-root',
+  selector: 'landing-layout',
   imports: [RouterOutlet],
-  templateUrl: './app.html',
-  styleUrl: './app.css',
+  templateUrl: './landing-layout.html',
 })
-export class App {
-  protected title = 'CobranzasApp';
-}
+export class LandingLayoutComponent {}

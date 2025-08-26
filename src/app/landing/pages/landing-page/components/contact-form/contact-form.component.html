@@ -1,0 +1,102 @@
+<div class="bg-white rounded-3xl shadow-2xl p-12 max-w-3xl mx-auto mt-16">
+  <h3 class="text-3xl font-bold text-blue-700 mb-8 text-center">
+    Solicita una demo o más información
+  </h3>
+
+  @if (!sent()) {
+  <form class="space-y-7" (submit)="onSubmit()" [formGroup]="form">
+    <div>
+      <label class="block text-lg font-medium text-gray-700 mb-2" for="nombre"
+        >Nombre</label
+      >
+      <input
+        id="nombre"
+        name="nombre"
+        type="text"
+        required
+        class="w-full px-6 py-4 border border-gray-300 rounded-xl text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+    </div>
+    <div>
+      <label
+        class="block text-lg font-medium text-gray-700 mb-2"
+        for="institucion"
+        >Institución</label
+      >
+      <input
+        id="institucion"
+        name="institucion"
+        type="text"
+        required
+        class="w-full px-6 py-4 border border-gray-300 rounded-xl text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+    </div>
+    <div>
+      <label class="block text-lg font-medium text-gray-700 mb-2" for="email"
+        >Correo electrónico</label
+      >
+      <input
+        id="email"
+        name="email"
+        type="email"
+        required
+        class="w-full px-6 py-4 border border-gray-300 rounded-xl text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+    </div>
+    <div>
+      <label class="block text-lg font-medium text-gray-700 mb-2" for="mensaje"
+        >Mensaje</label
+      >
+      <textarea
+        id="mensaje"
+        name="mensaje"
+        rows="4"
+        class="w-full px-6 py-4 border border-gray-300 rounded-xl text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+      ></textarea>
+    </div>
+    <button
+      type="submit"
+      [disabled]="loading()"
+      class="w-full py-4 px-6 bg-blue-600 text-white text-xl font-semibold rounded-xl hover:bg-blue-700 transition flex items-center justify-center"
+    >
+      @if (!loading()){ <span>Enviar consulta</span>} @else {
+      <span class="flex items-center">
+        <svg
+          class="animate-spin h-5 w-5 mr-2 text-white"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            class="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            stroke-width="4"
+          ></circle>
+          <path
+            class="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8v8z"
+          ></path>
+        </svg>
+        Enviando... </span
+      >}
+    </button>
+  </form>
+  } @else {
+  <div class="text-center py-12">
+    <div class="text-2xl text-blue-700 font-bold mb-4">
+      ¡Gracias por tu consulta!
+    </div>
+    <div class="text-lg text-gray-700 mb-2">
+      Nos pondremos en contacto contigo pronto.
+    </div>
+  </div>
+  }
+  <div class="text-sm text-gray-500 mt-8 text-center">
+    O escríbenos a
+    <span class="font-semibold text-blue-700">{{ companyEmail() }}</span>
+  </div>
+</div>
