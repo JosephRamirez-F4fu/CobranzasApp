@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { Institution } from '@services/institutions.service';
 
 @Component({
   selector: 'institution-form',
@@ -65,20 +66,8 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
   `,
 })
 export class InstitutionFormComponent implements OnChanges {
-  @Input() institution: {
-    nombre: string;
-    email: string;
-    telefono: string;
-    direccion: string;
-    codigo: string;
-  } | null = null;
-  @Output() add = new EventEmitter<{
-    nombre: string;
-    email: string;
-    telefono: string;
-    direccion: string;
-    codigo: string;
-  }>();
+  @Input() institution: Institution | null = null;
+  @Output() add = new EventEmitter<Institution>();
   form = new FormBuilder().group({
     nombre: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
@@ -102,6 +91,7 @@ export class InstitutionFormComponent implements OnChanges {
     if (this.form.valid) {
       const value = this.form.value;
       this.add.emit({
+        id: this.institution ? this.institution.id : null,
         nombre: value.nombre ?? '',
         email: value.email ?? '',
         telefono: value.telefono ?? '',

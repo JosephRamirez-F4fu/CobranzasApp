@@ -1,8 +1,8 @@
 import { Component, input, output } from '@angular/core';
-import { Institution } from '@services/institutions.service';
+import { User } from '@services/user.service';
 
 @Component({
-  selector: 'institution-table',
+  selector: 'user-table',
   standalone: true,
   imports: [],
   template: `
@@ -10,36 +10,29 @@ import { Institution } from '@services/institutions.service';
       <table class="w-full text-left">
         <thead>
           <tr class="border-b">
-            <th class="py-2">Código</th>
             <th class="py-2">Nombre</th>
             <th class="py-2">Email</th>
-            <th class="py-2">Teléfono</th>
-            <th class="py-2">Dirección</th>
+            <th class="py-2">Rol</th>
+            <th class="py-2">Institución</th>
             <th class="py-2 text-center">Acciones</th>
           </tr>
         </thead>
         <tbody>
-          @for ( inst of institutions(); track inst) {
+          @for (user of users(); track user) {
           <tr class="border-b hover:bg-blue-50">
-            <td class="py-2">{{ inst.codigo }}</td>
-            <td class="py-2">{{ inst.nombre }}</td>
-            <td class="py-2">{{ inst.email }}</td>
-            <td class="py-2">{{ inst.telefono }}</td>
-            <td class="py-2">{{ inst.direccion }}</td>
+            <td class="py-2">{{ user.nombreCompleto }}</td>
+            <td class="py-2">{{ user.correo }}</td>
+            <td class="py-2">{{ user.rol }}</td>
+            <td class="py-2">{{ user.institutionId || '-' }}</td>
             <td class="py-2 flex gap-2 justify-center">
               <button
-                (click)="
-                  edit.emit({
-                    id: inst.id!,
-                    institution: inst
-                  })
-                "
+                (click)="edit.emit({ id: user.id!, user })"
                 class="px-2 py-1 bg-yellow-400 text-xs rounded hover:bg-yellow-500"
               >
                 Editar
               </button>
               <button
-                (click)="del.emit(inst.id!)"
+                (click)="del.emit(user.id!)"
                 class="px-2 py-1 bg-red-500 text-xs text-white rounded hover:bg-red-600"
               >
                 Eliminar
@@ -49,7 +42,7 @@ import { Institution } from '@services/institutions.service';
           } @empty{
           <tr>
             <td colspan="5" class="py-2 text-center">
-              No hay instituciones registradas
+              No hay usuarios registrados
             </td>
           </tr>
           }
@@ -75,12 +68,10 @@ import { Institution } from '@services/institutions.service';
     </div>
   `,
 })
-export class InstitutionTableComponent {
-  institutions = input.required<Institution[]>();
-
-  edit = output<{ id: number; institution: Institution }>();
+export class UserTableComponent {
+  users = input.required<User[]>();
+  edit = output<{ id: number; user: User }>();
   del = output<number>();
-
   page = input.required<number>();
   totalPages = input.required<number>();
   pageChange = output<number>();

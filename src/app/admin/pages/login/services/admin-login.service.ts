@@ -4,6 +4,10 @@ import { LoginDto } from '../interfaces/login.dto';
 import { LoginResponseDto } from '../interfaces/login-response.dto';
 import { tap } from 'rxjs';
 
+export interface RefreshTokenRequest {
+  refreshToken: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -16,22 +20,33 @@ export class AdminLoginService {
       .post<LoginDto, LoginResponseDto>(`${this.domain}/login`, credentials)
       .pipe(
         tap((response) => {
-          if (response.accessToken) {
-            localStorage.setItem('accessToken', response.accessToken);
+          console.log('Login response:', response);
+          if (response.data.accessToken && response.data.refreshToken) {
+            localStorage.setItem('accessToken', response.data.accessToken);
+            localStorage.setItem('refreshToken', response.data.refreshToken);
           }
         })
       );
   }
 
   logout() {
-    return this.api.post<{}, void>(`${this.domain}/logout`, {}).pipe(
-      tap(() => {
-        localStorage.removeItem('accessToken');
+    return this.api
+      .post<RefreshTokenRequest, void>(`${this.domain}/logout`, {
+        refreshToken: this.getRefreshToken(),
       })
-    );
+      .pipe(
+        tap(() => {
+          localStorage.removeItem('accessToken');
+          localStorage.removeItem('refreshToken');
+        })
+      );
   }
 
   getAccessToken() {
-    return localStorage.getItem('accessToken');
+    return localStorage.getItem('accessToken') || '';
+  }
+
+  getRefreshToken() {
+    return localStorage.getItem('refreshToken') || '';
   }
 }

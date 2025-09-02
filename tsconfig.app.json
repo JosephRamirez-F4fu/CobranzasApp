@@ -10,7 +10,8 @@
       "@auth/*": ["src/app/auth/*"],
       "@utils/*": ["src/app/utils/*"],
       "@admin/*": ["src/app/admin/*"],
-      "@environments/*": ["src/app/environments/*"]
+      "@environments/*": ["src/app/environments/*"],
+      "@services/*": ["src/app/services/*"]
     }
   },
   "include": [

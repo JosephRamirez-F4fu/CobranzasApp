@@ -9,7 +9,10 @@
   <div class="mt-10">
     <institution-table
       [institutions]="institutions()"
-      (edit)="editInstitution($event.index, $event.institution)"
+      [page]="page()"
+      [totalPages]="totalPages()"
+      (pageChange)="loadInstitutions($event)"
+      (edit)="editInstitution($event.id, $event.institution)"
       (del)="deleteInstitution($event)"
     ></institution-table>
   </div>
