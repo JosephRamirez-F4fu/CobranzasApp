@@ -21,6 +21,7 @@ export interface InstitutionLogin {
 })
 export class LoginPageComponent {
   institution_service = inject(InstitutionsService);
+  institution = signal<Institution | null>(null);
   private route = inject(Router);
   private route_activated = inject(ActivatedRoute);
   code = signal<string>(
@@ -34,7 +35,6 @@ export class LoginPageComponent {
       return;
     }
   });
-  institution = signal<Institution | null>(null);
 
   load_institution = effect(() => {
     const c = this.code().trim();
@@ -45,6 +45,7 @@ export class LoginPageComponent {
         this.institution.set(InstitutionMapper.fromDto(institution.data));
       },
       error: () => {
+        this.route.navigate(['/auth/not-found']);
         this.institution.set(null);
       },
     });

@@ -1,4 +1,4 @@
-import { Estado } from './status-pay';
+import { Estado } from '../enums/status-pay';
 
 export interface EstadoCuenta {
   id: number;
