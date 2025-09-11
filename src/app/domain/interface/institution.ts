@@ -12,5 +12,5 @@ export interface Institution {
   address: string;
   logoUrl: string;
   logoLoginUrl: string;
-  instituionId: string;
+  code: string;
 }

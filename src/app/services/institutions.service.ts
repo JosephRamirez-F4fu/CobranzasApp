@@ -1,44 +1,43 @@
 import { inject, Injectable } from '@angular/core';
 import { ApiService } from 'src/app/shared/api/api.service';
+import { Institution } from '../domain/interface/institution';
 
-export interface InstitutionAPI {
+export interface InstitutionForCreate {
   id: number | null;
   email: string;
   phoneNumber: string;
   address: string | null;
-  instituionId: string;
+  code: string;
   name: string;
 }
 
-export interface Institution {
-  id: number | null;
-  codigo: string;
-  nombre: string;
-  email: string;
-  telefono: string;
-  direccion: string | null;
+export interface InstitutionLogin {
+  logoUrl: string;
+  logoLoginUrl: string;
+  code: string;
+  name: string;
+  id: number;
 }
 
 export class InstitutionMapper {
-  static toDto(institution: Institution): InstitutionAPI {
+  static forLogin(dto: Institution): InstitutionLogin {
     return {
-      id: institution.id,
-      email: institution.email,
-      phoneNumber: institution.telefono,
-      address: institution.direccion,
-      instituionId: institution.codigo,
-      name: institution.nombre,
+      logoUrl: dto.logoUrl ?? '',
+      logoLoginUrl: dto.logoLoginUrl ?? '',
+      code: dto.code,
+      name: dto.name,
+      id: dto.id,
     };
   }
 
-  static fromDto(dto: InstitutionAPI): Institution {
+  static forCreate(dto: Institution): InstitutionForCreate {
     return {
-      id: dto.id,
-      codigo: dto.instituionId,
+      id: dto.id ?? null,
       email: dto.email,
-      telefono: dto.phoneNumber,
-      direccion: dto.address,
-      nombre: dto.name,
+      phoneNumber: dto.phoneNumber,
+      address: dto.address ?? null,
+      code: dto.code,
+      name: dto.name,
     };
   }
 }
@@ -50,17 +49,17 @@ export class InstitutionsService {
   api = inject(ApiService);
   domain = 'institutions';
 
-  save(institution: Institution) {
-    return this.api.post<InstitutionAPI, InstitutionAPI>(
+  save(institution: InstitutionForCreate) {
+    return this.api.post<InstitutionForCreate, Institution>(
       `${this.domain}`,
-      InstitutionMapper.toDto(institution)
+      institution
     );
   }
 
-  update(institution: Institution) {
-    return this.api.put<InstitutionAPI, InstitutionAPI>(
+  update(institution: InstitutionForCreate) {
+    return this.api.put<InstitutionForCreate, Institution>(
       `${this.domain}/${institution.id}`,
-      InstitutionMapper.toDto(institution)
+      institution
     );
   }
 
@@ -69,12 +68,12 @@ export class InstitutionsService {
   }
 
   getPage(page: number, size: number) {
-    return this.api.get<{ items: InstitutionAPI[]; totalPages: number }>(
+    return this.api.get<{ items: Institution[]; totalPages: number }>(
       `${this.domain}?page=${page}&size=${size}`
     );
   }
 
   getByCode(code: string) {
-    return this.api.get<InstitutionAPI>(`${this.domain}/code/${code}`);
+    return this.api.get<Institution>(`${this.domain}/code/${code}`);
   }
 }

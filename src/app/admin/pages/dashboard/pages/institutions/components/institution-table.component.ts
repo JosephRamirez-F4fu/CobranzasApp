@@ -1,5 +1,5 @@
 import { Component, input, output } from '@angular/core';
-import { Institution } from '@services/institutions.service';
+import { InstitutionForCreate } from '@services/institutions.service';
 
 @Component({
   selector: 'institution-table',
@@ -21,11 +21,11 @@ import { Institution } from '@services/institutions.service';
         <tbody>
           @for ( inst of institutions(); track inst) {
           <tr class="border-b hover:bg-blue-50">
-            <td class="py-2">{{ inst.codigo }}</td>
-            <td class="py-2">{{ inst.nombre }}</td>
+            <td class="py-2">{{ inst.code }}</td>
+            <td class="py-2">{{ inst.name }}</td>
             <td class="py-2">{{ inst.email }}</td>
-            <td class="py-2">{{ inst.telefono }}</td>
-            <td class="py-2">{{ inst.direccion }}</td>
+            <td class="py-2">{{ inst.phoneNumber }}</td>
+            <td class="py-2">{{ inst.address }}</td>
             <td class="py-2 flex gap-2 justify-center">
               <button
                 (click)="
@@ -76,9 +76,9 @@ import { Institution } from '@services/institutions.service';
   `,
 })
 export class InstitutionTableComponent {
-  institutions = input.required<Institution[]>();
+  institutions = input.required<InstitutionForCreate[]>();
 
-  edit = output<{ id: number; institution: Institution }>();
+  edit = output<{ id: number; institution: InstitutionForCreate }>();
   del = output<number>();
 
   page = input.required<number>();

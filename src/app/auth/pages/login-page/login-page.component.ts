@@ -2,17 +2,10 @@ import { Component, inject, signal, effect } from '@angular/core';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
-  Institution,
+  InstitutionLogin,
   InstitutionMapper,
   InstitutionsService,
 } from '../../../services/institutions.service';
-
-export interface InstitutionLogin {
-  logoUrl: string;
-  logoLoginUrl: string;
-  institutionId: string;
-  name: string;
-}
 
 @Component({
   selector: 'login-page',
@@ -21,7 +14,7 @@ export interface InstitutionLogin {
 })
 export class LoginPageComponent {
   institution_service = inject(InstitutionsService);
-  institution = signal<Institution | null>(null);
+  institution = signal<InstitutionLogin | null>(null);
   private route = inject(Router);
   private route_activated = inject(ActivatedRoute);
   code = signal<string>(
@@ -42,7 +35,7 @@ export class LoginPageComponent {
 
     this.institution_service.getByCode(c).subscribe({
       next: (institution) => {
-        this.institution.set(InstitutionMapper.fromDto(institution.data));
+        this.institution.set(InstitutionMapper.forLogin(institution.data));
       },
       error: () => {
         this.route.navigate(['/auth/not-found']);

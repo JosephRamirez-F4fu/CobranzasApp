@@ -11,11 +11,11 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 
 import {
-  Institution,
   InstitutionMapper,
   InstitutionsService,
 } from '@services/institutions.service';
 import { User } from '@services/user.service';
+import { Institution } from 'src/app/domain/interface/institution';
 
 @Component({
   selector: 'user-form',
@@ -67,7 +67,7 @@ import { User } from '@services/user.service';
         >
           <option value="">Sin institución (rol MASTER)</option>
           <option *ngFor="let inst of institutions" [value]="inst.id">
-            {{ inst.codigo }} - {{ inst.nombre }}
+            {{ inst.code }} - {{ inst.name }}
           </option>
         </select>
       </div>
@@ -97,9 +97,7 @@ export class UserFormComponent implements OnChanges {
   ngOnInit() {
     this.institutionsService.getPage(0, 100).subscribe({
       next: (resp) => {
-        this.institutions = resp.data.items.map((dto: any) =>
-          InstitutionMapper.fromDto(dto)
-        );
+        this.institutions = resp.data.items;
       },
     });
   }

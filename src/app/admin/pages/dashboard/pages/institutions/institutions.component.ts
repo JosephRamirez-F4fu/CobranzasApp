@@ -2,10 +2,11 @@ import { Component, inject, signal } from '@angular/core';
 import { InstitutionFormComponent } from './components/institution-form.component';
 import { InstitutionTableComponent } from './components/institution-table.component';
 import {
-  Institution,
+  InstitutionForCreate,
   InstitutionMapper,
   InstitutionsService,
 } from '@services/institutions.service';
+import { Institution } from 'src/app/domain/interface/institution';
 
 @Component({
   selector: 'institutions',
@@ -15,7 +16,7 @@ import {
 })
 export default class InstitutionsComponent {
   institutions = signal<Institution[]>([]);
-  editingInstitution = signal<Institution | null>(null);
+  editingInstitution = signal<InstitutionForCreate | null>(null);
   editingIndex = signal<number | null>(null);
   service = inject(InstitutionsService);
   page = signal(1);
@@ -23,14 +24,16 @@ export default class InstitutionsComponent {
   totalPages = signal(1);
   loading = signal(false);
 
-  addInstitution(inst: Institution) {
-    if (this.editingIndex() !== null) {
-      // Editar
+  addInstitution(inst: InstitutionForCreate) {
+    // si viene con id, intentar actualizar (buscar índice por id)
+    if (inst.id != null) {
       this.service.update(inst).subscribe({
         next: (response) => {
-          const arr = [...this.institutions()];
-          arr[this.editingIndex()!] = InstitutionMapper.fromDto(response.data);
-          this.institutions.set(arr);
+          // search in array and updaqte value
+          this.institutions.update((list) =>
+            list.map((i) => (i.id === inst.id ? response.data : i))
+          );
+
           this.editingInstitution.set(null);
           this.editingIndex.set(null);
         },
@@ -39,12 +42,10 @@ export default class InstitutionsComponent {
         },
       });
     } else {
+      // nueva institución
       this.service.save(inst).subscribe({
         next: (response) => {
-          this.institutions.set([
-            ...this.institutions(),
-            InstitutionMapper.fromDto(response.data),
-          ]);
+          this.institutions.set([...this.institutions(), response.data]);
         },
         error: () => {
           // Manejo de error (opcional)
@@ -52,6 +53,7 @@ export default class InstitutionsComponent {
       });
     }
   }
+
   deleteInstitution(index: number) {
     const institution = this.institutions()[index];
     this.service.delete(institution.id!).subscribe({
@@ -71,9 +73,12 @@ export default class InstitutionsComponent {
     });
   }
 
-  editInstitution(index: number, updated: Institution) {
+  editInstitution(id: number, updated: InstitutionForCreate) {
+    const arr = [...this.institutions()];
+    const idx = arr.findIndex((i) => i.id === id);
+    this.editingIndex.set(idx >= 0 ? idx : null);
+    // pasar nueva referencia para forzar patch en el formulario
     this.editingInstitution.set({ ...updated });
-    this.editingIndex.set(index);
   }
 
   loadInstitutions(page: number = 1) {
@@ -81,9 +86,7 @@ export default class InstitutionsComponent {
     this.service.getPage(page, this.pageSize).subscribe({
       next: (response) => {
         // Suponiendo que response.data.items es el array y response.data.totalPages es el total
-        this.institutions.set(
-          response.data.items.map((dto: any) => InstitutionMapper.fromDto(dto))
-        );
+        this.institutions.set(response.data.items);
         this.totalPages.set(response.data.totalPages);
         this.page.set(page);
         this.loading.set(false);
