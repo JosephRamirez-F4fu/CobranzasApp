@@ -54,18 +54,12 @@ export default class InstitutionsComponent {
     }
   }
 
-  deleteInstitution(index: number) {
-    const institution = this.institutions()[index];
-    this.service.delete(institution.id!).subscribe({
+  deleteInstitution(id: number) {
+    this.service.delete(id).subscribe({
       next: () => {
-        const arr = [...this.institutions()];
-        arr.splice(index, 1);
-        this.institutions.set(arr);
-
-        if (this.editingIndex() === index) {
-          this.editingInstitution.set(null);
-          this.editingIndex.set(null);
-        }
+        this.institutions.update((list) => list.filter((i) => i.id !== id));
+        this.editingInstitution.set(null);
+        this.editingIndex.set(null);
       },
       error: () => {
         // Manejo de error (opcional)
