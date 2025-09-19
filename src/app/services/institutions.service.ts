@@ -1,6 +1,7 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { ApiService } from 'src/app/shared/api/api.service';
-import { Institution } from '../domain/interface/institution';
+import { Institution } from '@domain/interface/institution';
+import { tap } from 'rxjs';
 
 export interface InstitutionForCreate {
   id: number | null;
@@ -49,6 +50,8 @@ export class InstitutionsService {
   api = inject(ApiService);
   domain = 'institutions';
 
+  institution = signal<Institution | null>(null);
+
   save(institution: InstitutionForCreate) {
     return this.api.post<InstitutionForCreate, Institution>(
       `${this.domain}`,
@@ -74,6 +77,8 @@ export class InstitutionsService {
   }
 
   getByCode(code: string) {
-    return this.api.get<Institution>(`${this.domain}/code/${code}`);
+    return this.api
+      .get<Institution>(`${this.domain}/code/${code}`)
+      .pipe(tap((res) => this.institution.set(res.data)));
   }
 }

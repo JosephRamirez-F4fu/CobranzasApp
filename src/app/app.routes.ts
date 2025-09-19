@@ -10,6 +10,10 @@ export const routes: Routes = [
     loadChildren: () => import('./auth/auth.routes'),
   },
   {
+    path: 'institucion',
+    loadChildren: () => import('./institution/institution.routes'),
+  },
+  {
     path: '',
     loadChildren: () => import('./landing/landing.routes'),
   },

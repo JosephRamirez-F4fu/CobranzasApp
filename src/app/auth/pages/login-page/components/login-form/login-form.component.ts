@@ -1,17 +1,8 @@
-import { Component, inject, input, output } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { Component, inject, output } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { LoginDto } from '@domain/dtos/login.dto';
 import { FormUtils } from '@utils/form-utils';
 import { LoginErrorComponent } from '../login-error/login-error.component';
-
-interface LoginForm {
-  email: string;
-  password: string;
-}
 
 @Component({
   selector: 'app-login-form',
@@ -25,11 +16,15 @@ export class LoginFormComponent {
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]],
   });
-  loginOutput = output<LoginForm>();
+  loginOutput = output<LoginDto>();
   onSubmit() {
     this.loginForm.markAllAsTouched();
     if (this.loginForm.valid) {
-      this.loginOutput.emit(this.loginForm.value as LoginForm);
+      this.loginOutput.emit({
+        nombreUsuario: this.loginForm.value.email ?? '',
+        contrasena: this.loginForm.value.password ?? '',
+        institutionCode: null,
+      });
     }
   }
 }

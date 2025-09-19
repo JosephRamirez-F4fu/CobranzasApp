@@ -1,13 +1,13 @@
-import { inject } from '@angular/core';
 import type { HttpInterceptorFn } from '@angular/common/http';
 import { HttpErrorResponse } from '@angular/common/http';
-import { catchError, switchMap } from 'rxjs/operators';
-import { throwError } from 'rxjs';
-import { ApiService } from '../api/api.service';
-import { LoginDataService } from '@services/login-data.service';
+import { inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginResponseDto } from '../../admin/pages/login/interfaces/login-response.dto';
+import { LoginResponseDto } from '@domain/dtos/login-response.dto';
 import { AuthService } from '@services/auth.service';
+import { LoginDataService } from '@services/login-data.service';
+import { ApiService } from '@shared/api/api.service';
+import { throwError } from 'rxjs';
+import { catchError, switchMap } from 'rxjs/operators';
 
 const REFRESH_ENDPOINT = 'auth/refresh';
 const RETRY_HEADER = 'x-refresh-attempt';
@@ -31,10 +31,9 @@ export const refreshInterceptor: HttpInterceptorFn = (req, next) => {
       if (error.status === 403) {
         // Intentar refrescar el token (el refresh token va por cookie)
         return http
-          .post<{}, LoginResponseDto>(
-            REFRESH_ENDPOINT,
-            authService.refreshToken
-          )
+          .post<{}, LoginResponseDto>(REFRESH_ENDPOINT, {
+            refreshToken: authService._refreshToken()!,
+          })
           .pipe(
             switchMap((resp) => {
               // ApiService devuelve ApiResponse<T>, por lo que token suele estar en resp.data
@@ -57,9 +56,9 @@ export const refreshInterceptor: HttpInterceptorFn = (req, next) => {
             catchError((err: HttpErrorResponse) => {
               // Si el refresh falla con 403, redirigir al login según institution
               if (err.status == 403) {
-                const institutionId = loginDataService.getInstitutionId();
-                if (institutionId) {
-                  void router.navigate(['/auth/login', institutionId]);
+                const institutionCode = loginDataService.getInstitutionCode();
+                if (institutionCode) {
+                  void router.navigate(['/auth/institucion', institutionCode]);
                 } else {
                   void router.navigate(['/admin/login']);
                 }

@@ -1,21 +1,15 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
-  EventEmitter,
-  Output,
-  Input,
   OnChanges,
   SimpleChanges,
-  inject,
+  input,
+  output,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import {
-  InstitutionMapper,
-  InstitutionsService,
-} from '@services/institutions.service';
 import { User } from '@services/user.service';
-import { Institution } from 'src/app/domain/interface/institution';
+import { Institution } from '@domain/interface/institution';
 
 @Component({
   selector: 'user-form',
@@ -66,9 +60,9 @@ import { Institution } from 'src/app/domain/interface/institution';
           class="w-full border rounded px-3 py-2"
         >
           <option value="">Sin institución (rol MASTER)</option>
-          <option *ngFor="let inst of institutions" [value]="inst.id">
-            {{ inst.code }} - {{ inst.name }}
-          </option>
+          @for (inst of institutions(); track inst.id) {
+          <option [value]="inst.id">{{ inst.code }} - {{ inst.name }}</option>
+          }
         </select>
       </div>
       <button
@@ -81,8 +75,8 @@ import { Institution } from 'src/app/domain/interface/institution';
   `,
 })
 export class UserFormComponent implements OnChanges {
-  @Input() user: User | null = null;
-  @Output() add = new EventEmitter<User>();
+  user = input<User | null>(null);
+  add = output<User>();
   form = new FormBuilder().group({
     nombreCompleto: ['', Validators.required],
     nombreUsuario: ['', Validators.required],
@@ -91,24 +85,15 @@ export class UserFormComponent implements OnChanges {
     institutionId: [''],
   });
   editMode = false;
-  institutions: Institution[] = [];
-  institutionsService = inject(InstitutionsService);
-
-  ngOnInit() {
-    this.institutionsService.getPage(0, 100).subscribe({
-      next: (resp) => {
-        this.institutions = resp.data.items;
-      },
-    });
-  }
+  institutions = input.required<Institution[]>();
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['user'] && this.user) {
+    if (changes['user'] && this.user()) {
       this.form.patchValue({
-        ...this.user,
+        ...this.user(),
         institutionId:
-          this.user.institutionId !== null
-            ? String(this.user.institutionId)
+          this.user()?.institutionId !== null
+            ? String(this.user()?.institutionId)
             : '',
       });
       this.editMode = true;
@@ -126,7 +111,7 @@ export class UserFormComponent implements OnChanges {
     if (this.form.valid) {
       const value = this.form.value;
       this.add.emit({
-        id: this.user?.id ?? null,
+        id: this.user()?.id ?? null,
         nombreCompleto: value.nombreCompleto ?? '',
         nombreUsuario: value.nombreUsuario ?? '',
         correo: value.correo ?? '',

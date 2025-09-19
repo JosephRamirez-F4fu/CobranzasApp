@@ -1,5 +1,6 @@
 import { Component, input, output } from '@angular/core';
 import { User } from '@services/user.service';
+import { Institution } from '@domain/interface/institution';
 
 @Component({
   selector: 'user-table',
@@ -23,7 +24,7 @@ import { User } from '@services/user.service';
             <td class="py-2">{{ user.nombreCompleto }}</td>
             <td class="py-2">{{ user.correo }}</td>
             <td class="py-2">{{ user.rol }}</td>
-            <td class="py-2">{{ user.institutionId || '-' }}</td>
+            <td class="py-2">{{ institutionName(user.institutionId) }}</td>
             <td class="py-2 flex gap-2 justify-center">
               <button
                 (click)="edit.emit({ id: user.id!, user })"
@@ -75,11 +76,20 @@ export class UserTableComponent {
   page = input.required<number>();
   totalPages = input.required<number>();
   pageChange = output<number>();
+  institutions = input.required<Institution[]>();
 
   nextPage() {
     if (this.page() < this.totalPages()) this.pageChange.emit(this.page() + 1);
   }
   prevPage() {
     if (this.page() > 1) this.pageChange.emit(this.page() - 1);
+  }
+
+  institutionName(id: number | null) {
+    return (
+      this.institutions()
+        .find((inst) => inst.id === id)
+        ?.name.toLocaleUpperCase() || '-'
+    );
   }
 }

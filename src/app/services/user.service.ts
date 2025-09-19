@@ -5,7 +5,7 @@ export interface UserAPI {
   nombreUsuario: string;
   nombreCompleto: string;
   correo: string;
-  institucionId: number | null;
+  institutionId: number | null;
   rol: 'MASTER' | 'ADMIN';
   activo: boolean;
   id: number | null;
@@ -28,7 +28,7 @@ export class UserMapper {
       nombreCompleto: institution.nombreCompleto,
       correo: institution.correo,
       rol: institution.rol,
-      institucionId: institution.institutionId,
+      institutionId: institution.institutionId,
       nombreUsuario: institution.nombreUsuario,
       activo: true,
     };
@@ -41,7 +41,7 @@ export class UserMapper {
       nombreCompleto: dto.nombreCompleto,
       correo: dto.correo,
       rol: dto.rol,
-      institutionId: dto.institucionId,
+      institutionId: dto.institutionId,
       nombreUsuario: dto.nombreUsuario,
     };
   }

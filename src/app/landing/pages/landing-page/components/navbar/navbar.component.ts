@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'navbar',
   standalone: true,
   templateUrl: './navbar.component.html',
 })
-export class NavbarComponent {}
+export class NavbarComponent {
+  title = input.required<string>();
+}

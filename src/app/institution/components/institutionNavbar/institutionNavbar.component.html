@@ -1,0 +1,45 @@
+<nav class="h-full bg-green-600 p-4 rounded-r-2xl text-white">
+  <div class="text-xl font-semibold mb-4">Panel de Control</div>
+  <img
+    [src]="institution().logoUrl || 'academic.png'"
+    alt="logo"
+    class="w-32 h-32 object-contain mb-4"
+  />
+
+  <ul class="space-y-2">
+    @for ( item of items(); track item.path){
+    <li class="group">
+      <a
+        [routerLink]="item.path || '.'"
+        routerLinkActive="text-white font-semibold bg-green-500 rounded-lg"
+        class="flex items-center justify-between p-2 rounded-lg hover:bg-green-500 transition-colors"
+      >
+        <span class="truncate">{{ item.label }}</span>
+        <span *ngIf="item.children" class="text-sm text-gray-400">▾</span>
+      </a>
+      @if(item.children){
+      <ul class="mt-2 ml-4 space-y-1">
+        @for ( child of item.children; track child.path){
+        <li>
+          <a
+            [routerLink]="child.path || '.'"
+            routerLinkActive="text-white rounded-lg bg-green-500 font-medium"
+            class="block p-2 rounded hover:bg-green-500 transition-colors"
+            >{{ child.label }}</a
+          >
+        </li>
+        }
+      </ul>
+      }
+    </li>
+    }
+    <li>
+      <a
+        (click)="logout()"
+        class="flex items-center justify-between p-2 rounded-lg hover:bg-red-600 transition-colors cursor-pointer"
+      >
+        <span class="truncate">Cerrar Sesión</span>
+      </a>
+    </li>
+  </ul>
+</nav>

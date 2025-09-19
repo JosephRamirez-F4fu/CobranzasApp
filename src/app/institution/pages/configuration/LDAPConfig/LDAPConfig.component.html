@@ -1,0 +1,89 @@
+<div class="max-w-3xl">
+  <h2 class="text-lg font-semibold mb-4">Configuración LDAP</h2>
+  <form [formGroup]="form" (ngSubmit)="save()" class="space-y-6">
+    <div class="grid md:grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm font-medium mb-1">Host</label>
+        <input
+          formControlName="host"
+          type="text"
+          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring focus:border-sky-500 disabled:opacity-50"
+          [disabled]="!editing()"
+        />
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1">Puerto</label>
+        <input
+          formControlName="port"
+          type="number"
+          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring disabled:opacity-50"
+          [disabled]="!editing()"
+        />
+      </div>
+      <div class="md:col-span-2">
+        <label class="block text-sm font-medium mb-1">Base DN</label>
+        <input
+          formControlName="baseDn"
+          type="text"
+          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring disabled:opacity-50"
+          [disabled]="!editing()"
+        />
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1">Bind User</label>
+        <input
+          formControlName="bindUser"
+          type="text"
+          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring disabled:opacity-50"
+          [disabled]="!editing()"
+        />
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1">Bind Password</label>
+        <input
+          formControlName="bindPassword"
+          type="password"
+          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring disabled:opacity-50"
+          [disabled]="!editing()"
+        />
+      </div>
+      <div class="flex items-center gap-2 md:col-span-2">
+        <input
+          id="useSSL"
+          type="checkbox"
+          formControlName="useSSL"
+          class="h-4 w-4"
+          [disabled]="!editing()"
+        />
+        <label for="useSSL" class="text-sm font-medium">Usar SSL</label>
+      </div>
+    </div>
+
+    <div class="flex gap-3">
+      @if(!editing()){
+      <button
+        type="button"
+        class="px-4 py-2 bg-sky-600 text-white rounded text-sm hover:bg-sky-700"
+        (click)="enableEdit()"
+      >
+        Editar
+      </button>
+      } @else {
+      <button
+        type="submit"
+        class="px-4 py-2 bg-emerald-600 text-white rounded text-sm hover:bg-emerald-700 disabled:opacity-50"
+        [disabled]="saving()"
+      >
+        @if(saving()){ Guardando... } @else { Guardar }
+      </button>
+      <button
+        type="button"
+        class="px-4 py-2 bg-gray-200 text-gray-700 rounded text-sm hover:bg-gray-300"
+        (click)="cancel()"
+      >
+        Cancelar
+      </button>
+      }
+    </div>
+  </form>
+</div>

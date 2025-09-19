@@ -3,24 +3,25 @@ import { Injectable, signal } from '@angular/core';
   providedIn: 'root',
 })
 export class LoginDataService {
-  private institutionId = signal<string | null>(
-    localStorage.getItem('institutionId')
+  private institutionCode = signal<string | null>(
+    localStorage.getItem('institutionCode')
   );
   save() {
     localStorage.setItem(
-      'institutionId',
-      this.institutionId()?.toString() || ''
+      'institutionCode',
+      this.institutionCode()?.toString() || ''
     );
   }
 
-  setInstitutionId(id: string | null) {
-    this.institutionId.set(id);
+  setInstitutionCode(id: string | null) {
+    this.institutionCode.set(id);
+    this.save();
   }
   load() {
-    const id = localStorage.getItem('institutionId');
-    this.institutionId.set(id ? id : null);
+    const code = localStorage.getItem('institutionCode');
+    this.institutionCode.set(code ? code : null);
   }
-  getInstitutionId() {
-    return this.institutionId();
+  getInstitutionCode() {
+    return this.institutionCode();
   }
 }

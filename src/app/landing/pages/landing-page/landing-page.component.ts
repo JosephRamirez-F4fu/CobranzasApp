@@ -22,5 +22,6 @@ import { TestimonialsComponent } from './components/testimonials/testimonials.co
   templateUrl: './landing-page.component.html',
 })
 export class LandingPageComponent {
-  companyEmail = signal('contacto@tuempresa.com');
+  protected title = 'CobraloPe';
+  companyEmail = signal('info@famatconsulting.com');
 }

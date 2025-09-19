@@ -1,0 +1,84 @@
+<div class="max-w-3xl">
+  <h2 class="text-lg font-semibold mb-4">Perfil de Usuario</h2>
+
+  @if (loading()) {
+  <p class="text-sm text-gray-500">Cargando...</p>
+  } @else {
+  <form class="space-y-6" [formGroup]="form" (ngSubmit)="save()">
+    <div class="grid md:grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm font-medium mb-1">Nombre completo</label>
+        <input
+          type="text"
+          formControlName="nombreCompleto"
+          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring focus:border-sky-500 disabled:opacity-50"
+          [disabled]="!editing()"
+        />
+        @if(form.controls.nombreCompleto.invalid &&
+        form.controls.nombreCompleto.touched){
+        <p class="text-xs text-red-600 mt-1">Requerido.</p>
+        }
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1">Correo</label>
+        <input
+          type="email"
+          formControlName="correo"
+          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring focus:border-sky-500 disabled:opacity-50"
+          [disabled]="!editing()"
+        />
+        @if(form.controls.correo.invalid && form.controls.correo.touched){
+        <p class="text-xs text-red-600 mt-1">Correo inválido.</p>
+        }
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1">Rol</label>
+        <select
+          formControlName="rol"
+          class="w-full border rounded px-3 py-2 text-sm bg-white focus:outline-none focus:ring disabled:opacity-50"
+          [disabled]="!editing()"
+        >
+          <option value="ADMIN">Admin</option>
+          <option value="MASTER">Master</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1">Nombre de usuario</label>
+        <input
+          type="text"
+          formControlName="nombreUsuario"
+          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring focus:border-sky-500 disabled:opacity-50"
+          [disabled]="!editing()"
+        />
+      </div>
+    </div>
+
+    <div class="flex gap-3">
+      @if (!editing()) {
+      <button
+        type="button"
+        class="px-4 py-2 bg-sky-600 text-white rounded hover:bg-sky-700 text-sm"
+        (click)="enableEdit()"
+      >
+        Editar
+      </button>
+      } @else {
+      <button
+        type="submit"
+        class="px-4 py-2 bg-emerald-600 text-white rounded hover:bg-emerald-700 text-sm disabled:opacity-50"
+        [disabled]="saving()"
+      >
+        @if(saving()){ Guardando... } @else { Guardar }
+      </button>
+      <button
+        type="button"
+        class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 text-sm"
+        (click)="cancel()"
+      >
+        Cancelar
+      </button>
+      }
+    </div>
+  </form>
+  }
+</div>

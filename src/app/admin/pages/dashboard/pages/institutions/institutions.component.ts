@@ -1,12 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
-import { InstitutionFormComponent } from './components/institution-form.component';
-import { InstitutionTableComponent } from './components/institution-table.component';
+import { Institution } from '@domain/interface/institution';
 import {
   InstitutionForCreate,
-  InstitutionMapper,
   InstitutionsService,
 } from '@services/institutions.service';
-import { Institution } from 'src/app/domain/interface/institution';
+import { InstitutionFormComponent } from './components/institution-form.component';
+import { InstitutionTableComponent } from './components/institution-table.component';
 
 @Component({
   selector: 'institutions',

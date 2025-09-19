@@ -1,0 +1,95 @@
+<div class="max-w-4xl">
+  <h2 class="text-lg font-semibold mb-4">Datos de la Institución</h2>
+
+  <form class="space-y-6" [formGroup]="form" (ngSubmit)="save()">
+    <div class="grid md:grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm font-medium mb-1">Nombre</label>
+        <input
+          formControlName="name"
+          type="text"
+          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring focus:border-sky-500 disabled:opacity-50"
+          [disabled]="!editing()"
+        />
+        @if(form.controls.name.invalid && form.controls.name.touched){
+        <p class="text-xs text-red-600 mt-1">Requerido.</p>
+        }
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1">Dirección</label>
+        <input
+          formControlName="address"
+          type="text"
+          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring disabled:opacity-50"
+          [disabled]="!editing()"
+        />
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1">Teléfono</label>
+        <input
+          formControlName="phoneNumber"
+          type="text"
+          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring disabled:opacity-50"
+          [disabled]="!editing()"
+        />
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1">Email</label>
+        <input
+          formControlName="email"
+          type="email"
+          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring focus:border-sky-500 disabled:opacity-50"
+          [disabled]="!editing()"
+        />
+        @if(form.controls.email.invalid && form.controls.email.touched){
+        <p class="text-xs text-red-600 mt-1">Correo inválido.</p>
+        }
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1">Logo (URL)</label>
+        <input
+          formControlName="logoUrl"
+          type="text"
+          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring disabled:opacity-50"
+          [disabled]="!editing()"
+        />
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1">Logo Login (URL)</label>
+        <input
+          formControlName="logoLoginUrl"
+          type="text"
+          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring disabled:opacity-50"
+          [disabled]="!editing()"
+        />
+      </div>
+    </div>
+
+    <div class="flex gap-3">
+      @if(!editing()){
+      <button
+        type="button"
+        (click)="enableEdit()"
+        class="px-4 py-2 bg-sky-600 text-white rounded text-sm hover:bg-sky-700"
+      >
+        Editar
+      </button>
+      } @else {
+      <button
+        type="submit"
+        class="px-4 py-2 bg-emerald-600 text-white rounded text-sm hover:bg-emerald-700 disabled:opacity-50"
+        [disabled]="saving()"
+      >
+        @if(saving()){ Guardando... } @else { Guardar }
+      </button>
+      <button
+        type="button"
+        class="px-4 py-2 bg-gray-200 text-gray-700 rounded text-sm hover:bg-gray-300"
+        (click)="cancel()"
+      >
+        Cancelar
+      </button>
+      }
+    </div>
+  </form>
+</div>

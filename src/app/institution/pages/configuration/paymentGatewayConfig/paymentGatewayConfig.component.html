@@ -1,0 +1,80 @@
+<div class="max-w-3xl">
+  <h2 class="text-lg font-semibold mb-4">Pasarela de Pagos</h2>
+  <form [formGroup]="form" (ngSubmit)="save()" class="space-y-6">
+    <div class="grid md:grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm font-medium mb-1">Proveedor</label>
+        <input
+          formControlName="provider"
+          type="text"
+          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring focus:border-sky-500 disabled:opacity-50"
+          [disabled]="!editing()"
+        />
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1">API Key</label>
+        <input
+          formControlName="apiKey"
+          type="text"
+          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring disabled:opacity-50"
+          [disabled]="!editing()"
+        />
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1">Secret Key</label>
+        <input
+          formControlName="secretKey"
+          type="password"
+          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring disabled:opacity-50"
+          [disabled]="!editing()"
+        />
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1">Callback URL</label>
+        <input
+          formControlName="callbackUrl"
+          type="text"
+          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring disabled:opacity-50"
+          [disabled]="!editing()"
+        />
+      </div>
+      <div class="flex items-center gap-2">
+        <input
+          id="active"
+          type="checkbox"
+          formControlName="active"
+          class="h-4 w-4"
+          [disabled]="!editing()"
+        />
+        <label for="active" class="text-sm font-medium">Activo</label>
+      </div>
+    </div>
+
+    <div class="flex gap-3">
+      @if(!editing()){
+      <button
+        type="button"
+        class="px-4 py-2 bg-sky-600 text-white rounded text-sm hover:bg-sky-700"
+        (click)="enableEdit()"
+      >
+        Editar
+      </button>
+      } @else {
+      <button
+        type="submit"
+        class="px-4 py-2 bg-emerald-600 text-white rounded text-sm hover:bg-emerald-700 disabled:opacity-50"
+        [disabled]="saving()"
+      >
+        @if(saving()){ Guardando... } @else { Guardar }
+      </button>
+      <button
+        type="button"
+        class="px-4 py-2 bg-gray-200 text-gray-700 rounded text-sm hover:bg-gray-300"
+        (click)="cancel()"
+      >
+        Cancelar
+      </button>
+      }
+    </div>
+  </form>
+</div>

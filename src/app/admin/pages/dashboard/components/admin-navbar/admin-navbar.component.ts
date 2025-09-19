@@ -1,4 +1,4 @@
-import { AdminLoginService } from '@admin/pages/login/services/admin-login.service';
+import { LoginService } from '@services/admin-login.service';
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
@@ -8,7 +8,7 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
   templateUrl: './admin-navbar.component.html',
 })
 export class AdminNavbarComponent {
-  private loginService = inject(AdminLoginService);
+  private loginService = inject(LoginService);
   private router = inject(Router);
 
   logout() {

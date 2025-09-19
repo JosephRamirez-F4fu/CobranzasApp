@@ -1,9 +1,8 @@
+import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { LoginDto } from './interfaces/login.dto';
-import { CommonModule } from '@angular/common';
-import { AdminLoginService } from './services/admin-login.service';
 import { Router } from '@angular/router';
+import { LoginService } from '@services/admin-login.service';
 
 @Component({
   selector: 'admin-login',
@@ -19,7 +18,7 @@ export class AdminLoginComponent {
     password: this.fb.control('', Validators.required),
   });
 
-  loginService = inject(AdminLoginService);
+  loginService = inject(LoginService);
   router = inject(Router);
   loading = signal(false);
   error = signal('');
@@ -37,7 +36,8 @@ export class AdminLoginComponent {
       .login({
         nombreUsuario: this.form.value.email!,
         contrasena: this.form.value.password!,
-      } as LoginDto)
+        institutionCode: null,
+      })
       .subscribe({
         next: (response) => {
           this.loading.set(false);
