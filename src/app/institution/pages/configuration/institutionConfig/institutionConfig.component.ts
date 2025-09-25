@@ -8,6 +8,8 @@ import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { InstitutionConfigService } from '@services/institution-config.service';
 import { CommonModule } from '@angular/common';
 import { finalize } from 'rxjs';
+import { Institution } from '@domain/interface/institution';
+import { InstitutionsService } from '@services/institutions.service';
 
 @Component({
   selector: 'app-institution-config',
@@ -17,33 +19,58 @@ import { finalize } from 'rxjs';
 })
 export default class InstitutionConfigComponent {
   fb = inject(FormBuilder);
-  institutionService = inject(InstitutionConfigService);
+  institutionServiceConfig = inject(InstitutionConfigService);
+  institutionService = inject(InstitutionsService);
   editing = signal<boolean>(false);
   saving = signal<boolean>(false);
-
-  get current() {
-    return this.institutionService.institution();
-  }
+  institution = signal<Institution | null>(null);
 
   form = this.fb.group({
-    name: this.fb.control<string>(this.current?.name ?? '', {
+    name: this.fb.control<string>('', {
       validators: [Validators.required],
     }),
-    address: this.fb.control<string>(this.current?.address ?? ''),
-    phoneNumber: this.fb.control<string>(this.current?.phoneNumber ?? ''),
-    email: this.fb.control<string>(this.current?.email ?? '', {
+    address: this.fb.control<string>('', {
+      validators: [Validators.required],
+    }),
+    phoneNumber: this.fb.control<string>('', {
+      validators: [Validators.required],
+    }),
+    email: this.fb.control<string>('', {
       validators: [Validators.email],
     }),
-    logoUrl: this.fb.control<string>(this.current?.logoUrl ?? ''),
-    logoLoginUrl: this.fb.control<string>(this.current?.logoLoginUrl ?? ''),
+    logoUrl: this.fb.control<string>('', {
+      validators: [Validators.required],
+    }),
+    logoLoginUrl: this.fb.control<string>('', {
+      validators: [Validators.required],
+    }),
   });
+  constructor() {
+    this.load();
+    this.form.disable();
+  }
+
+  load() {
+    const inst = this.institutionService.institution();
+    if (inst) {
+      this.form.reset({
+        name: inst.name,
+        address: inst.address,
+        phoneNumber: inst.phoneNumber,
+        email: inst.email,
+        logoUrl: inst.logoUrl,
+        logoLoginUrl: inst.logoLoginUrl,
+      });
+    }
+  }
 
   enableEdit() {
     this.editing.set(true);
+    this.form.enable();
   }
 
   cancel() {
-    const inst = this.current;
+    const inst = this.institutionService.institution();
     if (inst) {
       this.form.reset({
         name: inst.name,
@@ -55,6 +82,7 @@ export default class InstitutionConfigComponent {
       });
     }
     this.editing.set(false);
+    this.form.disable();
   }
 
   save() {
@@ -63,7 +91,7 @@ export default class InstitutionConfigComponent {
       return;
     }
     this.saving.set(true);
-    this.institutionService
+    this.institutionServiceConfig
       .updateBasic({
         name: this.form.value.name!,
         address: this.form.value.address!,
@@ -74,8 +102,9 @@ export default class InstitutionConfigComponent {
       })
       .pipe(finalize(() => this.saving.set(false)))
       .subscribe((res) => {
-        this.institutionService.setInstitution(res.data);
+        this.institutionService.institution.set(res.data);
         this.editing.set(false);
+        this.form.disable();
       });
   }
 }

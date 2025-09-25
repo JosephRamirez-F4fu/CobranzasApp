@@ -9,7 +9,6 @@
           formControlName="name"
           type="text"
           class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring focus:border-sky-500 disabled:opacity-50"
-          [disabled]="!editing()"
         />
         @if(form.controls.name.invalid && form.controls.name.touched){
         <p class="text-xs text-red-600 mt-1">Requerido.</p>
@@ -21,7 +20,6 @@
           formControlName="address"
           type="text"
           class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring disabled:opacity-50"
-          [disabled]="!editing()"
         />
       </div>
       <div>
@@ -30,7 +28,6 @@
           formControlName="phoneNumber"
           type="text"
           class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring disabled:opacity-50"
-          [disabled]="!editing()"
         />
       </div>
       <div>
@@ -39,7 +36,6 @@
           formControlName="email"
           type="email"
           class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring focus:border-sky-500 disabled:opacity-50"
-          [disabled]="!editing()"
         />
         @if(form.controls.email.invalid && form.controls.email.touched){
         <p class="text-xs text-red-600 mt-1">Correo inválido.</p>
@@ -51,7 +47,6 @@
           formControlName="logoUrl"
           type="text"
           class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring disabled:opacity-50"
-          [disabled]="!editing()"
         />
       </div>
       <div>
@@ -60,7 +55,6 @@
           formControlName="logoLoginUrl"
           type="text"
           class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring disabled:opacity-50"
-          [disabled]="!editing()"
         />
       </div>
     </div>

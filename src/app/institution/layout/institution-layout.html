@@ -1,15 +1,18 @@
 <div
   class="min-h-screen flex bg-gradient-to-br from-slate-50 via-white to-slate-100"
 >
+  @if(instituion_service.institution()) {
   <aside class="w-64 hidden md:block">
     <institution-navbar [institution]="instituion_service.institution()!" />
   </aside>
+  }
 
   <main class="flex-1 p-6 md:p-8">
     <div class="max-w-8xl mx-auto">
       <header class="mb-6">
+        @if(instituion_service.institution()) {
         <div>Perfil: {{ instituion_service.institution()!.name }}</div>
-
+        }
         <div class="flex items-center justify-between">
           <h1 class="text-2xl font-semibold text-slate-700">
             Área Institución

@@ -12,7 +12,6 @@
           type="text"
           formControlName="nombreCompleto"
           class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring focus:border-sky-500 disabled:opacity-50"
-          [disabled]="!editing()"
         />
         @if(form.controls.nombreCompleto.invalid &&
         form.controls.nombreCompleto.touched){
@@ -25,22 +24,10 @@
           type="email"
           formControlName="correo"
           class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring focus:border-sky-500 disabled:opacity-50"
-          [disabled]="!editing()"
         />
         @if(form.controls.correo.invalid && form.controls.correo.touched){
         <p class="text-xs text-red-600 mt-1">Correo inválido.</p>
         }
-      </div>
-      <div>
-        <label class="block text-sm font-medium mb-1">Rol</label>
-        <select
-          formControlName="rol"
-          class="w-full border rounded px-3 py-2 text-sm bg-white focus:outline-none focus:ring disabled:opacity-50"
-          [disabled]="!editing()"
-        >
-          <option value="ADMIN">Admin</option>
-          <option value="MASTER">Master</option>
-        </select>
       </div>
       <div>
         <label class="block text-sm font-medium mb-1">Nombre de usuario</label>
@@ -48,7 +35,6 @@
           type="text"
           formControlName="nombreUsuario"
           class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring focus:border-sky-500 disabled:opacity-50"
-          [disabled]="!editing()"
         />
       </div>
     </div>
@@ -81,4 +67,67 @@
     </div>
   </form>
   }
+
+  <form
+    class="space-y-6"
+    [formGroup]="formChangPassword"
+    (ngSubmit)="changePassword()"
+  >
+    <h2 class="text-lg font-semibold mt-10 mb-4">Cambiar Contraseña</h2>
+    <div>
+      <label class="block text-sm font-medium mb-1">Contraseña Actual</label>
+      <input
+        type="password"
+        formControlName="oldPassword"
+        class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring focus:border-sky-500"
+        autocomplete="current-password"
+      />
+      @if(formChangPassword.controls.oldPassword.invalid &&
+      formChangPassword.controls.oldPassword.touched){
+      <p class="text-xs text-red-600 mt-1">Requerido.</p>
+      }
+    </div>
+    <div class="grid md:grid-cols-2 gap-4">
+      <div>
+        <label class="block text -sm font-medium mb-1">Nueva Contraseña</label>
+        <input
+          type="password"
+          formControlName="newPassword"
+          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus :ring focus:border-sky-500"
+          autocomplete="new-password"
+        />
+        @if(formChangPassword.controls.newPassword.invalid &&
+        formChangPassword.controls.newPassword.touched){
+        <p class="text-xs text-red-600 mt-1">
+          La contraseña debe tener al menos 6 caracteres.
+        </p>
+        }
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1"
+          >Confirmar Nueva Contraseña</label
+        >
+        <input
+          type="password"
+          formControlName="confirmNewPassword"
+          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring focus:border-sky-500"
+          autocomplete="new-password"
+        />
+        @if(formChangPassword.controls.confirmNewPassword.invalid &&
+        formChangPassword.controls.confirmNewPassword.touched){
+        <p class="text-xs text-red-600 mt-1">Las contraseñas no coinciden.</p>
+        }
+      </div>
+    </div>
+
+    <div class="flex gap-3">
+      <button
+        type="submit"
+        class="px-4 py-2 bg-emerald-600 text-white rounded hover:bg-emerald-700 text-sm disabled:opacity-50"
+        [disabled]="changingPassword()"
+      >
+        @if(changingPassword()){ Cambiando... } @else { Cambiar Contraseña }
+      </button>
+    </div>
+  </form>
 </div>

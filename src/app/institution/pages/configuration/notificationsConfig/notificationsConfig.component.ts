@@ -1,16 +1,19 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  effect,
   inject,
   signal,
 } from '@angular/core';
-import { InstitutionConfigService } from '@services/institution-config.service';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { finalize } from 'rxjs';
-import { InstitutionNotifications } from '@domain/dtos/institutionNotifications.dto';
-
-type ChannelType = 'ivr' | 'wsp' | 'sms' | 'email';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { finalize, of, switchMap } from 'rxjs';
+import { InstitutionsService } from '@services/institutions.service';
+import {
+  MedioEnvio,
+  NotificationConfigService,
+  NotificacionConfigResponse,
+} from '@services/notificationConfig.service';
 
 @Component({
   selector: 'app-notifications-config',
@@ -19,105 +22,178 @@ type ChannelType = 'ivr' | 'wsp' | 'sms' | 'email';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class NotificationsConfigComponent {
-  fb = inject(FormBuilder);
-  service = inject(InstitutionConfigService);
+  private fb = inject(FormBuilder);
+  private institutions = inject(InstitutionsService);
+  private notif = inject(NotificationConfigService);
 
-  channels: ChannelType[] = ['ivr', 'wsp', 'sms', 'email'];
-  selectedChannel = signal<ChannelType>('email');
-  editing = signal<boolean>(false);
-  saving = signal<boolean>(false);
+  loading = signal(true);
+  editing = signal(false);
+  saving = signal(false);
+  exists = signal(false);
+
+  MedioEnvio = MedioEnvio;
+  medios = Object.values(MedioEnvio) as MedioEnvio[];
+  medioSeleccionado = signal<MedioEnvio>(MedioEnvio.EMAIL);
 
   form = this.fb.group({
-    channel: this.fb.control<ChannelType>('email', {
+    // solo informativo en UI
+    medioEnvio: this.fb.control<string>('EMAIL'),
+    frecuencia: this.fb.control<string>('', {
       validators: [Validators.required],
     }),
-    enabled: this.fb.control<boolean>(true),
-    template: this.fb.control<string>('', {
+    diadDelMes: this.fb.control<number | null>(null, {
+      validators: [Validators.min(1), Validators.max(31)],
+    }),
+    horaEnvio: this.fb.control<string>('', {
+      validators: [Validators.required],
+    }),
+    activo: this.fb.control<boolean>(true),
+    mensaje: this.fb.control<string>('', {
       validators: [Validators.required, Validators.minLength(3)],
     }),
-    subject: this.fb.control<string>(''), // opcional para email
+    asunto: this.fb.control<string>(''),
   });
 
-  get currentList() {
-    return this.service.notifications();
-  }
+  private lastLoaded = signal<NotificacionConfigResponse | null>(null);
 
   constructor() {
-    this.form.controls.channel.valueChanges.subscribe((c) => {
-      if (c) this.loadChannel(c);
+    this.form.disable({ emitEvent: false });
+
+    // Carga cuando cambie institución o medio
+    effect(() => {
+      const code = this.institutions.institution()?.code;
+      const medio = this.medioSeleccionado();
+      if (code) this.load(code, medio);
     });
-    this.loadChannel(this.selectedChannel());
   }
 
-  private findChannel(c: ChannelType) {
-    return this.currentList.find((n: any) => n.channel === c);
-  }
-
-  loadChannel(channel: ChannelType) {
-    this.selectedChannel.set(channel);
-    const existing = this.findChannel(channel);
-    if (existing) {
-      this.form.patchValue({
-        channel: channel,
-        enabled: (existing as any).enabled ?? true,
-        template: (existing as any).template ?? '',
-        subject: (existing as any).subject ?? '',
+  private load(code: string, medio: MedioEnvio) {
+    this.loading.set(true);
+    this.notif
+      .existe(code, medio)
+      .pipe(
+        switchMap((exists) => {
+          this.exists.set(exists);
+          if (!exists) return of(null);
+          return this.notif.obtener(code, medio);
+        }),
+        finalize(() => {
+          this.loading.set(false);
+          this.editing.set(false);
+          this.form.disable({ emitEvent: false });
+        })
+      )
+      .subscribe((data) => {
+        if (data) {
+          this.patchForm(data);
+          this.lastLoaded.set(data);
+        } else {
+          this.form.reset(
+            {
+              medioEnvio: this.medioSeleccionado(),
+              frecuencia: '',
+              diadDelMes: null,
+              horaEnvio: '',
+              activo: true,
+              mensaje: '',
+              asunto: '',
+            },
+            { emitEvent: false }
+          );
+          this.lastLoaded.set(null);
+        }
       });
-    } else {
-      this.form.patchValue({
-        channel,
-        enabled: true,
-        template: '',
-        subject: '',
-      });
-    }
-    this.editing.set(false);
   }
 
-  selectChannel(c: ChannelType) {
-    this.form.controls.channel.setValue(c);
+  private patchForm(data: NotificacionConfigResponse) {
+    this.form.patchValue(
+      {
+        medioEnvio: data.medioEnvio,
+        frecuencia: data.frecuencia,
+        diadDelMes: data.diadDelMes,
+        horaEnvio: data.horaEnvio,
+        activo: data.activo,
+        mensaje: data.mensaje,
+        asunto: data.asunto,
+      },
+      { emitEvent: false }
+    );
+  }
+
+  selectMedio(m: MedioEnvio) {
+    if (this.medioSeleccionado() === m) return;
+    this.medioSeleccionado.set(m);
   }
 
   enableEdit() {
     this.editing.set(true);
+    this.form.enable({ emitEvent: false });
+    // mantener medio como solo lectura visual
+    this.form.controls.medioEnvio.disable({ emitEvent: false });
   }
 
   cancel() {
-    this.loadChannel(this.selectedChannel());
+    const data = this.lastLoaded();
+    if (data) {
+      this.patchForm(data);
+    } else {
+      this.form.reset(
+        {
+          medioEnvio: this.medioSeleccionado(),
+          frecuencia: '',
+          diadDelMes: null,
+          horaEnvio: '',
+          activo: true,
+          mensaje: '',
+          asunto: '',
+        },
+        { emitEvent: false }
+      );
+    }
+    this.editing.set(false);
+    this.form.disable({ emitEvent: false });
   }
 
   save() {
-    if (this.form.invalid || !this.service.institution()?.id) {
+    const inst = this.institutions.institution();
+    if (!inst?.code) return;
+
+    // Validación simple: asunto requerido para EMAIL
+    if (this.medioSeleccionado() === MedioEnvio.EMAIL) {
+      this.form.controls.asunto.addValidators(Validators.required);
+      this.form.controls.asunto.updateValueAndValidity({ emitEvent: false });
+    } else {
+      this.form.controls.asunto.removeValidators(Validators.required);
+      this.form.controls.asunto.updateValueAndValidity({ emitEvent: false });
+    }
+
+    if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
-    const institutionId = this.service.institution()!.id;
-    const existing = this.findChannel(this.selectedChannel());
-    const payload: InstitutionNotifications = {
-      ...(existing ?? ({} as InstitutionNotifications)),
-      channel: this.form.value.channel!,
-      enabled: this.form.value.enabled!,
-      template: this.form.value.template!,
-      subject: this.form.value.subject!,
-      institutionId: institutionId,
-    } as any; // Ajustar a la forma real del DTO si difiere
+
+    const medio = this.medioSeleccionado();
+    const payload = {
+      medioEnvio: medio,
+      frecuencia: this.form.value.frecuencia!,
+      diadDelMes: this.form.value.diadDelMes ?? 1,
+      horaEnvio: this.form.value.horaEnvio!,
+      activo: this.form.value.activo ?? true,
+      mensaje: this.form.value.mensaje!,
+      asunto: this.form.value.asunto ?? '',
+      institutionCode: inst.code,
+    };
 
     this.saving.set(true);
-    const obs = existing
-      ? this.service.updateNotifications(payload, (existing as any).id)
-      : this.service.addNotification(payload);
+    const req$ = this.exists()
+      ? this.notif.editar(inst.code, medio, payload)
+      : this.notif.registrar(payload);
 
-    obs.pipe(finalize(() => this.saving.set(false))).subscribe((res: any) => {
-      if (!existing) {
-        this.service.notifications.set([...this.currentList, res.data]);
-      } else {
-        this.service.notifications.set(
-          this.currentList.map((n: any) =>
-            n.id === (existing as any).id ? res.data : n
-          )
-        );
-      }
+    req$.pipe(finalize(() => this.saving.set(false))).subscribe((resp) => {
+      this.exists.set(true);
+      this.lastLoaded.set(resp);
       this.editing.set(false);
+      this.form.disable({ emitEvent: false });
     });
   }
 }

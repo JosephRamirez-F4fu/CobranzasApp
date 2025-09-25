@@ -52,6 +52,8 @@ export class InstitutionsService {
 
   institution = signal<Institution | null>(null);
 
+  constructor() {}
+
   save(institution: InstitutionForCreate) {
     return this.api.post<InstitutionForCreate, Institution>(
       `${this.domain}`,

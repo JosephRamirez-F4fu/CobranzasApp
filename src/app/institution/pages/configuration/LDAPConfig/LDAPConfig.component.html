@@ -1,61 +1,90 @@
 <div class="max-w-3xl">
   <h2 class="text-lg font-semibold mb-4">Configuración LDAP</h2>
+
+  @if (loading()) {
+  <p class="text-sm text-gray-500">Cargando configuración...</p>
+  }
+
   <form [formGroup]="form" (ngSubmit)="save()" class="space-y-6">
     <div class="grid md:grid-cols-2 gap-4">
+      <div class="md:col-span-2 flex items-center gap-2">
+        <input
+          id="useLdap"
+          type="checkbox"
+          formControlName="useLdap"
+          class="h-4 w-4"
+        />
+        <label for="useLdap" class="text-sm font-medium"
+          >Habilitar autenticación LDAP</label
+        >
+      </div>
+
       <div>
         <label class="block text-sm font-medium mb-1">Host</label>
         <input
-          formControlName="host"
+          formControlName="ldapHost"
           type="text"
           class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring focus:border-sky-500 disabled:opacity-50"
-          [disabled]="!editing()"
         />
+        @if(form.controls.ldapHost.invalid && form.controls.ldapHost.touched){
+        <p class="text-xs text-red-600 mt-1">Requerido.</p>
+        }
       </div>
+
       <div>
         <label class="block text-sm font-medium mb-1">Puerto</label>
         <input
-          formControlName="port"
-          type="number"
+          formControlName="ldapPort"
+          type="text"
+          inputmode="numeric"
+          pattern="\d*"
           class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring disabled:opacity-50"
-          [disabled]="!editing()"
         />
+        @if(form.controls.ldapPort.invalid && form.controls.ldapPort.touched){
+        <p class="text-xs text-red-600 mt-1">Número válido requerido.</p>
+        }
       </div>
+
       <div class="md:col-span-2">
         <label class="block text-sm font-medium mb-1">Base DN</label>
         <input
-          formControlName="baseDn"
+          formControlName="ldapBaseDn"
           type="text"
           class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring disabled:opacity-50"
-          [disabled]="!editing()"
         />
+        @if(form.controls.ldapBaseDn.invalid &&
+        form.controls.ldapBaseDn.touched){
+        <p class="text-xs text-red-600 mt-1">Requerido.</p>
+        }
       </div>
+
       <div>
-        <label class="block text-sm font-medium mb-1">Bind User</label>
+        <label class="block text-sm font-medium mb-1">User DN</label>
         <input
-          formControlName="bindUser"
+          formControlName="ldapUserDn"
           type="text"
           class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring disabled:opacity-50"
-          [disabled]="!editing()"
         />
+        @if(form.controls.ldapUserDn.invalid &&
+        form.controls.ldapUserDn.touched){
+        <p class="text-xs text-red-600 mt-1">Requerido.</p>
+        }
       </div>
+
       <div>
-        <label class="block text-sm font-medium mb-1">Bind Password</label>
+        <label class="block text-sm font-medium mb-1">Password</label>
         <input
-          formControlName="bindPassword"
+          formControlName="ldapPassword"
           type="password"
+          autocomplete="new-password"
           class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring disabled:opacity-50"
-          [disabled]="!editing()"
         />
-      </div>
-      <div class="flex items-center gap-2 md:col-span-2">
-        <input
-          id="useSSL"
-          type="checkbox"
-          formControlName="useSSL"
-          class="h-4 w-4"
-          [disabled]="!editing()"
-        />
-        <label for="useSSL" class="text-sm font-medium">Usar SSL</label>
+        @if(form.controls.ldapPassword.invalid &&
+        form.controls.ldapPassword.touched){
+        <p class="text-xs text-red-600 mt-1">
+          Requerido cuando LDAP está habilitado.
+        </p>
+        }
       </div>
     </div>
 
@@ -72,7 +101,7 @@
       <button
         type="submit"
         class="px-4 py-2 bg-emerald-600 text-white rounded text-sm hover:bg-emerald-700 disabled:opacity-50"
-        [disabled]="saving()"
+        [disabled]="saving() || form.invalid"
       >
         @if(saving()){ Guardando... } @else { Guardar }
       </button>

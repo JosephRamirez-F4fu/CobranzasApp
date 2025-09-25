@@ -1,57 +1,91 @@
 <div class="max-w-3xl">
   <h2 class="text-lg font-semibold mb-4">Pasarela de Pagos</h2>
+
+  @if (loading()) {
+  <p class="text-sm text-gray-500">Cargando configuración...</p>
+  }
+
   <form [formGroup]="form" (ngSubmit)="save()" class="space-y-6">
     <div class="grid md:grid-cols-2 gap-4">
       <div>
-        <label class="block text-sm font-medium mb-1">Proveedor</label>
+        <label class="block text-sm font-medium mb-1">Tipo</label>
+        <select
+          formControlName="tipo"
+          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring focus:border-sky-500 disabled:opacity-50"
+        >
+          <option [ngValue]="null">Seleccione...</option>
+          @for (t of tipos; track t) {
+          <option [ngValue]="t">{{ t }}</option>
+          }
+        </select>
+        @if(form.controls.tipo.invalid && form.controls.tipo.touched){
+        <p class="text-xs text-red-600 mt-1">Requerido.</p>
+        }
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium mb-1">API Public Key</label>
         <input
-          formControlName="provider"
+          formControlName="apiPublicKey"
           type="text"
           class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring focus:border-sky-500 disabled:opacity-50"
-          [disabled]="!editing()"
         />
+        @if(form.controls.apiPublicKey.invalid &&
+        form.controls.apiPublicKey.touched){
+        <p class="text-xs text-red-600 mt-1">Requerido.</p>
+        }
       </div>
+
       <div>
-        <label class="block text-sm font-medium mb-1">API Key</label>
+        <label class="block text-sm font-medium mb-1">API Secret</label>
         <input
-          formControlName="apiKey"
-          type="text"
-          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring disabled:opacity-50"
-          [disabled]="!editing()"
-        />
-      </div>
-      <div>
-        <label class="block text-sm font-medium mb-1">Secret Key</label>
-        <input
-          formControlName="secretKey"
+          formControlName="apiSecret"
           type="password"
-          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring disabled:opacity-50"
-          [disabled]="!editing()"
+          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring focus:border-sky-500 disabled:opacity-50"
         />
+        @if(form.controls.apiSecret.invalid && form.controls.apiSecret.touched){
+        <p class="text-xs text-red-600 mt-1">Requerido.</p>
+        }
       </div>
+
       <div>
-        <label class="block text-sm font-medium mb-1">Callback URL</label>
+        <label class="block text-sm font-medium mb-1">URL Base</label>
         <input
-          formControlName="callbackUrl"
+          formControlName="urlBase"
           type="text"
-          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring disabled:opacity-50"
-          [disabled]="!editing()"
+          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring focus:border-sky-500 disabled:opacity-50"
         />
+        @if(form.controls.urlBase.invalid && form.controls.urlBase.touched){
+        <p class="text-xs text-red-600 mt-1">Requerido.</p>
+        }
       </div>
+
+      <div>
+        <label class="block text-sm font-medium mb-1">Webhook URL</label>
+        <input
+          formControlName="urlWebhook"
+          type="text"
+          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring focus:border-sky-500 disabled:opacity-50"
+        />
+        @if(form.controls.urlWebhook.invalid &&
+        form.controls.urlWebhook.touched){
+        <p class="text-xs text-red-600 mt-1">Requerido.</p>
+        }
+      </div>
+
       <div class="flex items-center gap-2">
         <input
-          id="active"
+          id="activo"
           type="checkbox"
-          formControlName="active"
+          formControlName="activo"
           class="h-4 w-4"
-          [disabled]="!editing()"
         />
-        <label for="active" class="text-sm font-medium">Activo</label>
+        <label for="activo" class="text-sm font-medium">Activo</label>
       </div>
     </div>
 
     <div class="flex gap-3">
-      @if(!editing()){
+      @if (!editing()) {
       <button
         type="button"
         class="px-4 py-2 bg-sky-600 text-white rounded text-sm hover:bg-sky-700"
@@ -63,9 +97,9 @@
       <button
         type="submit"
         class="px-4 py-2 bg-emerald-600 text-white rounded text-sm hover:bg-emerald-700 disabled:opacity-50"
-        [disabled]="saving()"
+        [disabled]="saving() || form.invalid"
       >
-        @if(saving()){ Guardando... } @else { Guardar }
+        @if (saving()) { Guardando... } @else { Guardar }
       </button>
       <button
         type="button"

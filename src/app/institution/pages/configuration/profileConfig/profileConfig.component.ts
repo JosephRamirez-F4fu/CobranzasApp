@@ -35,8 +35,28 @@ export default class ProfileConfigComponent {
     }),
   });
 
+  formChangPassword = this.fb.group({
+    oldPassword: this.fb.control<string>('', {
+      validators: [Validators.required],
+    }),
+    newPassword: this.fb.control<string>('', {
+      validators: [Validators.required, Validators.minLength(6)],
+    }),
+    confirmNewPassword: this.fb.control<string>('', {
+      validators: [Validators.required],
+    }),
+  });
+
+  get passwordMismatch() {
+    return (
+      this.formChangPassword.controls.newPassword.value !==
+      this.formChangPassword.controls.confirmNewPassword.value
+    );
+  }
+
   constructor() {
     this.load();
+    this.form.disable();
   }
 
   load() {
@@ -56,6 +76,7 @@ export default class ProfileConfigComponent {
 
   enableEdit() {
     this.editing.set(true);
+    this.form.enable();
   }
 
   cancel() {
@@ -87,6 +108,25 @@ export default class ProfileConfigComponent {
       .subscribe((res) => {
         this.account.user.set(res.data);
         this.editing.set(false);
+      });
+  }
+
+  changingPassword = signal<boolean>(false);
+
+  changePassword() {
+    if (this.formChangPassword.invalid || this.passwordMismatch) {
+      this.formChangPassword.markAllAsTouched();
+      return;
+    }
+    this.saving.set(true);
+    this.account
+      .change_password({
+        oldPassword: this.formChangPassword.value.oldPassword!,
+        newPassword: this.formChangPassword.value.newPassword!,
+      })
+      .pipe(finalize(() => this.saving.set(false)))
+      .subscribe((res) => {
+        this.formChangPassword.reset();
       });
   }
 }
