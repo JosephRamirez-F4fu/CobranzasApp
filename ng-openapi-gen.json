@@ -1,0 +1,4 @@
+{
+  "input": "http://localhost:4000/api/v1/v3/api-docs",
+  "output": "src/app/api"
+}
