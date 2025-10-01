@@ -1,19 +1,19 @@
 <div class="max-w-4xl py-8">
   <h1 class="text-2xl font-bold text-blue-800 mb-6">Gestión de Usuarios</h1>
   <user-form
-    (add)="addUser($event)"
-    [user]="editingUser()"
-    [institutions]="institutions()"
+    (add)="onUserSaved($event)"
+    [user]="pageService.editingUser()"
+    [institutions]="pageService.institutions()"
   ></user-form>
   <div class="mt-10">
     <user-table
-      [institutions]="institutions()"
-      [users]="users()"
-      [page]="page()"
-      [totalPages]="totalPages()"
-      (pageChange)="loadUsers($event)"
-      (edit)="editUser($event.id, $event.user)"
-      (del)="deleteUser($event)"
+      [institutions]="pageService.institutions()"
+      [users]="pageService.users()"
+      [page]="pageService.page()"
+      [totalPages]="pageService.totalPages()"
+      (pageChange)="onPageChange($event)"
+      (edit)="onEditRequest($event)"
+      (del)="onDeleteRequest($event)"
     ></user-table>
   </div>
 </div>

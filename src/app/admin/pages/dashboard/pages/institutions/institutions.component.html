@@ -3,17 +3,18 @@
     Gestión de Instituciones
   </h1>
   <institution-form
-    (add)="addInstitution($event)"
-    [institution]="editingInstitution()"
+    (add)="onInstitutionSaved($event)"
+    (cancel)="onCancelEdit()"
+    [institution]="pageService.editingInstitution()"
   ></institution-form>
   <div class="mt-10">
     <institution-table
-      [institutions]="institutions()"
-      [page]="page()"
-      [totalPages]="totalPages()"
-      (pageChange)="loadInstitutions($event)"
-      (edit)="editInstitution($event.id, $event.institution)"
-      (del)="deleteInstitution($event)"
+      [institutions]="pageService.institutions()"
+      [page]="pageService.page()"
+      [totalPages]="pageService.totalPages()"
+      (pageChange)="onPageChange($event)"
+      (edit)="onEditRequest($event)"
+      (del)="onDeleteRequest($event)"
     ></institution-table>
   </div>
 </div>
