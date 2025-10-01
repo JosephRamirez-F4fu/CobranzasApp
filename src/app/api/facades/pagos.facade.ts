@@ -14,7 +14,7 @@ import {
   registrarPagoManualDesdePanel,
 } from '../functions';
 import { ApiResponseListPagoResponse } from '../models/api-response-list-pago-response';
-import { ApiResponseString } from '../models/api-response-string';
+import { ApiResponsePagoResponse } from '../models/api-response-pago-response';
 
 import { ApiFacadeBase } from './api-facade.base';
 
@@ -24,13 +24,13 @@ import { ApiFacadeBase } from './api-facade.base';
 export class PagosFacade extends ApiFacadeBase {
   registrarManual(
     params: RegistrarPagoManualDesdePanel$Params
-  ): Observable<ApiResponseString> {
+  ): Observable<ApiResponsePagoResponse> {
     return this.request(registrarPagoManualDesdePanel, params);
   }
 
   registrarAutomatico(
     params: RegistrarPagoAutomaticoDesdeIntegracion$Params
-  ): Observable<ApiResponseString> {
+  ): Observable<ApiResponsePagoResponse> {
     return this.request(registrarPagoAutomaticoDesdeIntegracion, params);
   }
 

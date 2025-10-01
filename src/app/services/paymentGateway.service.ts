@@ -42,13 +42,13 @@ export class PaymentGatewayService {
 
   obtenerPorInstitucion(code: string): Observable<PasarelaPagoResponse> {
     return this.api
-      .obtener({ institutionCode: code })
+      .obtener({ code })
       .pipe(map((response) => this.mapResponse(response).data));
   }
 
   existePorInstitucion(code: string): Observable<boolean> {
     return this.api
-      .verificar({ institutionCode: code })
+      .verificar({ code })
       .pipe(map((response) => this.mapBoolean(response)));
   }
 
@@ -57,13 +57,11 @@ export class PaymentGatewayService {
     data: PasarelaPagoRegister
   ): Observable<PasarelaPagoResponse> {
     return this.api
-      .actualizar({ institutionCode: code, body: this.mapToRegister(data) })
+      .actualizar({ code, body: this.mapToRegister(data) })
       .pipe(map((response) => this.mapResponse(response).data));
   }
 
-  private mapToRegister(
-    data: PasarelaPagoRegister
-  ): PasarelaPagoRegisterApi {
+  private mapToRegister(data: PasarelaPagoRegister): PasarelaPagoRegisterApi {
     return {
       activo: data.activo,
       apiPublicKey: data.apiPublicKey,
@@ -75,9 +73,11 @@ export class PaymentGatewayService {
     };
   }
 
-  private mapResponse(
-    response: ApiResponsePasarelaPagoResponse
-  ): { data: PasarelaPagoResponse; message: string; status: boolean } {
+  private mapResponse(response: ApiResponsePasarelaPagoResponse): {
+    data: PasarelaPagoResponse;
+    message: string;
+    status: boolean;
+  } {
     return {
       data: this.toDomain(response.data),
       message: response.message ?? '',
@@ -89,9 +89,7 @@ export class PaymentGatewayService {
     return response.data ?? false;
   }
 
-  private toDomain(
-    dto?: PasarelaPagoResponseApi | null
-  ): PasarelaPagoResponse {
+  private toDomain(dto?: PasarelaPagoResponseApi | null): PasarelaPagoResponse {
     return {
       id: dto?.id ?? 0,
       apiSecret: dto?.apiSecret ?? '',
@@ -112,9 +110,7 @@ export class PaymentGatewayService {
     }
   }
 
-  private mapGatewayTypeFromApi(
-    type?: 'Culqui' | null
-  ): PaymentGatewayType {
+  private mapGatewayTypeFromApi(type?: 'Culqui' | null): PaymentGatewayType {
     switch (type) {
       case 'Culqui':
         return PaymentGatewayType.CULQUI;

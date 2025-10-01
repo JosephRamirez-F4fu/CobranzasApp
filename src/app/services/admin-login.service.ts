@@ -29,10 +29,13 @@ export class LoginService {
         map((response) => this.mapLoginResponse(response)),
         tap((response) => {
           const { accessToken, refreshToken } = response.data;
+          console.log('Login successful');
           if (accessToken) {
             if (refreshToken) {
+              console.log('Refresh token provided');
               this.auth_service.setTokens(accessToken, refreshToken);
             } else {
+              console.log('No refresh token provided');
               this.auth_service.setAccessToken(accessToken);
             }
           }
@@ -41,23 +44,24 @@ export class LoginService {
   }
 
   logout() {
-    return this.api
-      .cerrarSesion()
-      .pipe(
-        map((response) => this.mapVoidResponse(response)),
-        tap(() => {
-          this.auth_service.clearTokens();
-        })
-      );
+    return this.api.cerrarSesion().pipe(
+      map((response) => this.mapVoidResponse(response)),
+      tap(() => {
+        this.auth_service.clearTokens();
+      })
+    );
   }
 
   private mapLoginResponse(
     response: ApiResponseAccessTokenResponse
   ): ApiResponse<LoginResponseDto> {
-    const data = response.data as (AccessTokenResponse & {
-      refreshToken?: string | null;
-    }) | null | undefined;
-
+    const data = response.data as
+      | (AccessTokenResponse & {
+          refreshToken?: string | null;
+        })
+      | null
+      | undefined;
+    console.log('Mapping login response:', response);
     return {
       data: {
         accessToken: data?.accessToken ?? '',

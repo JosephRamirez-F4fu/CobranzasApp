@@ -11,8 +11,8 @@ import {
   matricularAlumnoACronogramaSeleccionado,
   obtenerEstadoCuentaDeAlumnoPorCronograma,
 } from '../functions';
-import { ApiResponseAlumnoEstadoCuentaResponse } from '../models/api-response-alumno-estado-cuenta-response';
-import { ApiResponsePageEstadoCuentaResponse } from '../models/api-response-page-estado-cuenta-response';
+import { ApiResponseListCuentaResponse } from '../models/api-response-list-cuenta-response';
+import { ApiResponsePageCuentaResponse } from '../models/api-response-page-cuenta-response';
 import { ApiResponseString } from '../models/api-response-string';
 
 import { ApiFacadeBase } from './api-facade.base';
@@ -23,7 +23,7 @@ import { ApiFacadeBase } from './api-facade.base';
 export class EstadoDeCuentaFacade extends ApiFacadeBase {
   listar(
     params?: ListarEstadosDeCuentaConFiltros$Params
-  ): Observable<ApiResponsePageEstadoCuentaResponse> {
+  ): Observable<ApiResponsePageCuentaResponse> {
     return this.request(listarEstadosDeCuentaConFiltros, params);
   }
 
@@ -41,7 +41,7 @@ export class EstadoDeCuentaFacade extends ApiFacadeBase {
 
   obtenerDetalle(
     params: ObtenerEstadoCuentaDeAlumnoPorCronograma$Params
-  ): Observable<ApiResponseAlumnoEstadoCuentaResponse> {
+  ): Observable<ApiResponseListCuentaResponse> {
     return this.request(obtenerEstadoCuentaDeAlumnoPorCronograma, params);
   }
 }
