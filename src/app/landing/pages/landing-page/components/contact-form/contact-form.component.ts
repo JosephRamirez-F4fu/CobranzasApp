@@ -1,10 +1,6 @@
-import { Component, input, signal } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { Component, effect, inject, input, output } from '@angular/core';
+import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { ContactFormPayload } from '../../landing-page.service';
 
 @Component({
   selector: 'contact-form',
@@ -13,32 +9,37 @@ import {
   templateUrl: './contact-form.component.html',
 })
 export class ContactFormComponent {
+  private readonly fb = inject(FormBuilder);
   companyEmail = input.required<string>();
-  loading = signal(false);
-  sent = signal(false);
-  form: FormGroup;
+  loading = input.required<boolean>();
+  sent = input.required<boolean>();
+  submitForm = output<ContactFormPayload>();
+  form = this.fb.nonNullable.group({
+    nombre: ['', Validators.required],
+    institucion: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    mensaje: ['', Validators.required],
+  });
 
-  constructor(private fb: FormBuilder) {
-    this.form = this.fb.group({
-      nombre: ['', Validators.required],
-      institucion: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      mensaje: ['', Validators.required],
+  constructor() {
+    effect(() => {
+      if (this.sent()) {
+        this.form.reset();
+      }
     });
   }
 
   onSubmit() {
     if (this.form.invalid) return;
-    this.loading.set(true);
-    const { nombre, institucion, email, mensaje } = this.form.value;
-    const subject = encodeURIComponent('Consulta desde landing');
-    const body = encodeURIComponent(
-      `Nombre: ${nombre}\nInstitución: ${institucion}\nCorreo: ${email}\nMensaje: ${mensaje}`
-    );
-    window.location.href = `mailto:${this.companyEmail()}?subject=${subject}&body=${body}`;
-    setTimeout(() => {
-      this.loading.set(false);
-      this.sent.set(true);
-    }, 1000);
+
+    const { nombre, institucion, email, mensaje } = this.form.getRawValue();
+    const payload: ContactFormPayload = {
+      nombre,
+      institucion,
+      email,
+      mensaje,
+    };
+
+    this.submitForm.emit(payload);
   }
 }

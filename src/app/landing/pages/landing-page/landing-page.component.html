@@ -1,16 +1,22 @@
-<navbar [title]="title"></navbar>
-<hero></hero>
+<navbar [title]="landingPageService.title()"></navbar>
+<hero
+  [heading]="landingPageService.hero().heading"
+  [description]="landingPageService.hero().description"
+  [ctaLabel]="landingPageService.hero().ctaLabel"
+  [ctaHref]="landingPageService.hero().ctaHref"
+  [backgroundImage]="landingPageService.hero().backgroundImage"
+></hero>
 <section id="features" class="relative py-16 bg-gray-50">
   <div
     class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/diagmonds-light.png')] pointer-events-none"
   ></div>
-  <features></features>
+  <features [features]="landingPageService.features()"></features>
 </section>
 <section id="detalles" class="relative py-16 bg-white">
   <div
     class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/hexellence.png')] pointer-events-none"
   ></div>
-  <details-section></details-section>
+  <details-section [details]="landingPageService.details()"></details-section>
 </section>
 <section id="proceso" class="relative py-16 bg-blue-50 overflow-hidden">
   <svg
@@ -24,14 +30,19 @@
       d="M0,32L48,42.7C96,53,192,75,288,74.7C384,75,480,53,576,53.3C672,53,768,75,864,74.7C960,75,1056,53,1152,53.3C1248,53,1344,75,1392,85.3L1440,96V0H1392C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0H0Z"
     ></path>
   </svg>
-  <process></process>
+  <process [steps]="landingPageService.process()"></process>
 </section>
 <section id="testimonios" class="relative py-16 bg-gray-50">
   <div
     class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/dots.png')] pointer-events-none"
   ></div>
-  <testimonials></testimonials>
+  <testimonials [testimonials]="landingPageService.testimonials()"></testimonials>
 </section>
 <section id="contacto" class="relative py-16 bg-white">
-  <contact-form [companyEmail]="companyEmail()"></contact-form>
+  <contact-form
+    [companyEmail]="landingPageService.companyEmail()"
+    [loading]="landingPageService.loading()"
+    [sent]="landingPageService.sent()"
+    (submitForm)="landingPageService.submitContact($event)"
+  ></contact-form>
 </section>
