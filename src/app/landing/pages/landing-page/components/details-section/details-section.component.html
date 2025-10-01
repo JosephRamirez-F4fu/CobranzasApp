@@ -3,24 +3,23 @@
 >
   <div>
     <h2 class="text-3xl font-bold text-blue-800 mb-4">
-      ¿Por qué automatizar tus cobranzas?
+      {{ details().heading }}
     </h2>
     <ul class="list-disc pl-5 text-gray-700 space-y-2 mb-6">
-      <li>Reduce la morosidad y mejora el flujo de caja.</li>
-      <li>Minimiza tareas manuales y errores administrativos.</li>
-      <li>Ofrece una mejor experiencia a padres y alumnos.</li>
-      <li>Acceso a reportes y métricas en tiempo real.</li>
+      @for (bullet of details().bullets; track bullet) {
+        <li>{{ bullet }}</li>
+      }
     </ul>
     <a
-      href="#contacto"
+      [href]="details().ctaHref"
       class="inline-block bg-blue-600 text-white font-semibold px-6 py-2 rounded hover:bg-blue-700 transition"
-      >Solicita tu demo</a
+      >{{ details().ctaLabel }}</a
     >
   </div>
   <div class="flex justify-center">
     <img
-      src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=600&q=80"
-      alt="Automatización"
+      [src]="details().imageSrc"
+      [alt]="details().imageAlt"
       class="rounded-xl shadow-lg w-full max-w-xs md:max-w-sm"
     />
   </div>

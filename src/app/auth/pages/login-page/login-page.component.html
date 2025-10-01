@@ -3,9 +3,14 @@
     class="bg-gradient-to-b from-white/70 to-blue-50 rounded-xl p-8 shadow-sm"
   >
     <div class="grid gap-8 md:grid-cols-2 items-center">
-      <app-institution-info [institution]="institution()" />
+      <app-institution-info [institution]="pageService.institution()" />
       <div class="w-full">
-        <app-login-form class="w-full" (loginOutput)="onLoginOutput($event)" />
+        <app-login-form
+          class="w-full"
+          [authError]="pageService.loginError()"
+          [loading]="pageService.loginLoading()"
+          (loginOutput)="onLoginOutput($event)"
+        />
       </div>
     </div>
   </div>

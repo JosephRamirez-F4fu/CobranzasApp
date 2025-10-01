@@ -41,8 +41,13 @@
 
   <button
     type="submit"
-    class="w-full py-2 px-4 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition cursor-pointer"
+    [disabled]="loading()"
+    class="w-full py-2 px-4 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition cursor-pointer disabled:opacity-70"
   >
-    Iniciar sesión
+    <span *ngIf="!loading()">Iniciar sesión</span>
+    <span *ngIf="loading()">Enviando...</span>
   </button>
+  <p *ngIf="authError()" class="text-sm text-red-600 text-center">
+    {{ authError() }}
+  </p>
 </form>
