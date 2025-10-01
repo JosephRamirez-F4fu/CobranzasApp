@@ -1,32 +1,40 @@
 import { inject, Injectable } from '@angular/core';
-import { ApiService } from '@shared/api/api.service';
+import { map, tap } from 'rxjs/operators';
+import type { ApiResponse } from '@shared/api/api.service';
 import { LoginDto } from '@domain/dtos/login.dto';
 import { LoginResponseDto } from '@domain/dtos/login-response.dto';
-import { tap } from 'rxjs';
 import { AuthService } from './auth.service';
-
-export interface RefreshTokenRequest {
-  refreshToken: string;
-}
+import { AutenticacionFacade } from '../api/facades/autenticacion.facade';
+import { ApiResponseAccessTokenResponse } from '../api/models/api-response-access-token-response';
+import { AccessTokenResponse } from '../api/models/access-token-response';
+import { ApiResponseVoid } from '../api/models/api-response-void';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
-  private domain = 'auth';
-  private api = inject(ApiService);
+  private api = inject(AutenticacionFacade);
   private auth_service = inject(AuthService);
 
   login(credentials: LoginDto) {
     return this.api
-      .post<LoginDto, LoginResponseDto>(`${this.domain}/login`, credentials)
+      .iniciarSesion({
+        body: {
+          nombreUsuario: credentials.nombreUsuario,
+          contrasena: credentials.contrasena,
+          institutionCode: credentials.institutionCode ?? undefined,
+        },
+      })
       .pipe(
+        map((response) => this.mapLoginResponse(response)),
         tap((response) => {
-          if (response.data.accessToken && response.data.refreshToken) {
-            this.auth_service.setTokens(
-              response.data.accessToken,
-              response.data.refreshToken
-            );
+          const { accessToken, refreshToken } = response.data;
+          if (accessToken) {
+            if (refreshToken) {
+              this.auth_service.setTokens(accessToken, refreshToken);
+            } else {
+              this.auth_service.setAccessToken(accessToken);
+            }
           }
         })
       );
@@ -34,13 +42,37 @@ export class LoginService {
 
   logout() {
     return this.api
-      .post<RefreshTokenRequest, void>(`${this.domain}/logout`, {
-        refreshToken: this.auth_service._refreshToken()!,
-      })
+      .cerrarSesion()
       .pipe(
+        map((response) => this.mapVoidResponse(response)),
         tap(() => {
           this.auth_service.clearTokens();
         })
       );
+  }
+
+  private mapLoginResponse(
+    response: ApiResponseAccessTokenResponse
+  ): ApiResponse<LoginResponseDto> {
+    const data = response.data as (AccessTokenResponse & {
+      refreshToken?: string | null;
+    }) | null | undefined;
+
+    return {
+      data: {
+        accessToken: data?.accessToken ?? '',
+        refreshToken: data?.refreshToken ?? '',
+      },
+      message: response.message ?? '',
+      status: response.success ?? false,
+    };
+  }
+
+  private mapVoidResponse(response: ApiResponseVoid): ApiResponse<void> {
+    return {
+      data: undefined,
+      message: response.message ?? '',
+      status: response.success ?? false,
+    };
   }
 }

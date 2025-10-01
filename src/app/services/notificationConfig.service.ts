@@ -1,6 +1,10 @@
 import { inject, Injectable } from '@angular/core';
-import { ApiService } from '@shared/api/api.service';
 import { map, Observable } from 'rxjs';
+import { ConfiguracionDeNotificacionesFacade } from '../api/facades/configuracion-de-notificaciones.facade';
+import { NotificacionConfigracionRegister } from '../api/models/notificacion-configracion-register';
+import { ApiResponseNotificacionConfigracionResponse } from '../api/models/api-response-notificacion-configracion-response';
+import { ApiResponseBoolean } from '../api/models/api-response-boolean';
+import { NotificacionConfigracionResponse } from '../api/models/notificacion-configracion-response';
 
 export enum MedioEnvio {
   EMAIL = 'EMAIL',
@@ -36,18 +40,14 @@ export interface NotificacionConfigResponse {
   providedIn: 'root',
 })
 export class NotificationConfigService {
-  private api = inject(ApiService);
-  private readonly base = 'notificacion-configuracion';
+  private api = inject(ConfiguracionDeNotificacionesFacade);
 
   registrar(
     data: NotificacionConfigRegister
   ): Observable<NotificacionConfigResponse> {
     return this.api
-      .post<NotificacionConfigRegister, NotificacionConfigResponse>(
-        `${this.base}`,
-        data
-      )
-      .pipe(map((r) => r.data));
+      .registrar({ body: this.mapToRegister(data) })
+      .pipe(map((response) => this.mapResponse(response).data));
   }
 
   obtener(
@@ -55,22 +55,14 @@ export class NotificationConfigService {
     medio: MedioEnvio
   ): Observable<NotificacionConfigResponse> {
     return this.api
-      .get<NotificacionConfigResponse>(
-        `${this.base}/institucion/${encodeURIComponent(
-          code
-        )}/medio/${encodeURIComponent(medio)}`
-      )
-      .pipe(map((r) => r.data));
+      .obtenerPorMedio({ code, medioEnvio: medio })
+      .pipe(map((response) => this.mapResponse(response).data));
   }
 
   existe(code: string, medio: MedioEnvio): Observable<boolean> {
     return this.api
-      .get<boolean>(
-        `${this.base}/existe/${encodeURIComponent(
-          code
-        )}/medio/${encodeURIComponent(medio)}`
-      )
-      .pipe(map((r) => r.data));
+      .verificarExistencia({ code, medioEnvio: medio })
+      .pipe(map((response) => this.mapBoolean(response)));
   }
 
   editar(
@@ -79,12 +71,52 @@ export class NotificationConfigService {
     data: NotificacionConfigRegister
   ): Observable<NotificacionConfigResponse> {
     return this.api
-      .put<NotificacionConfigRegister, NotificacionConfigResponse>(
-        `${this.base}/${encodeURIComponent(code)}/medio/${encodeURIComponent(
-          medio
-        )}`,
-        data
-      )
-      .pipe(map((r) => r.data));
+      .actualizar({ code, medioEnvio: medio, body: this.mapToRegister(data) })
+      .pipe(map((response) => this.mapResponse(response).data));
+  }
+
+  private mapToRegister(
+    data: NotificacionConfigRegister
+  ): NotificacionConfigracionRegister {
+    return {
+      activo: data.activo,
+      asunto: data.asunto,
+      diadDelMes: data.diadDelMes,
+      frecuencia: data.frecuencia,
+      horaEnvio: data.horaEnvio,
+      institutionCode: data.institutionCode,
+      medioEnvio: data.medioEnvio,
+      mensaje: data.mensaje,
+    };
+  }
+
+  private mapResponse(
+    response: ApiResponseNotificacionConfigracionResponse
+  ): { data: NotificacionConfigResponse; message: string; status: boolean } {
+    return {
+      data: this.toDomain(response.data),
+      message: response.message ?? '',
+      status: response.success ?? false,
+    };
+  }
+
+  private mapBoolean(response: ApiResponseBoolean): boolean {
+    return response.data ?? false;
+  }
+
+  private toDomain(
+    dto?: NotificacionConfigracionResponse | null
+  ): NotificacionConfigResponse {
+    return {
+      activo: dto?.activo ?? false,
+      asunto: dto?.asunto ?? '',
+      diadDelMes: dto?.diadDelMes ?? 0,
+      frecuencia: dto?.frecuencia ?? '',
+      horaEnvio: dto?.horaEnvio ?? '',
+      id: dto?.id ?? 0,
+      institutionCode: dto?.institutionCode ?? '',
+      medioEnvio: (dto?.medioEnvio as MedioEnvio) ?? MedioEnvio.EMAIL,
+      mensaje: dto?.mensaje ?? '',
+    };
   }
 }

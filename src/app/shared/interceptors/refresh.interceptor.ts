@@ -2,18 +2,17 @@ import type { HttpInterceptorFn } from '@angular/common/http';
 import { HttpErrorResponse } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginResponseDto } from '@domain/dtos/login-response.dto';
 import { AuthService } from '@services/auth.service';
 import { LoginDataService } from '@services/login-data.service';
-import { ApiService } from '@shared/api/api.service';
 import { throwError } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
+import { AutenticacionFacade } from '../../api/facades/autenticacion.facade';
 
 const REFRESH_ENDPOINT = 'auth/refresh';
 const RETRY_HEADER = 'x-refresh-attempt';
 
 export const refreshInterceptor: HttpInterceptorFn = (req, next) => {
-  const http = inject(ApiService);
+  const authApi = inject(AutenticacionFacade);
   const loginDataService = inject(LoginDataService);
   const authService = inject(AuthService);
   const router = inject(Router);
@@ -30,18 +29,13 @@ export const refreshInterceptor: HttpInterceptorFn = (req, next) => {
     catchError((error: HttpErrorResponse) => {
       if (error.status === 403) {
         // Intentar refrescar el token (el refresh token va por cookie)
-        return http
-          .post<{}, LoginResponseDto>(REFRESH_ENDPOINT, {
-            refreshToken: authService._refreshToken()!,
-          })
+        return authApi
+          .renovarToken()
           .pipe(
             switchMap((resp) => {
-              // ApiService devuelve ApiResponse<T>, por lo que token suele estar en resp.data
-              if (resp && (resp as any).data?.accessToken) {
-                localStorage.setItem(
-                  'accessToken',
-                  (resp as any).data.accessToken
-                );
+              const token = resp.data?.accessToken;
+              if (token) {
+                authService.setAccessToken(token);
               }
 
               // Reintentar la petición original marcándola para no reintentar otra vez
