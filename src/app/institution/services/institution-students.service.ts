@@ -78,6 +78,7 @@ export interface InstitutionStudentEnrollment {
 export interface InstitutionStudentAccountStatus {
   id: number;
   nombreCompleto: string;
+  nivelAcademico: string;
   totalPagado: number;
   totalPendiente: number;
   morosidad: number;
@@ -164,6 +165,10 @@ export class InstitutionStudentsService {
       data: {
         id: status?.alumnoId ?? 0,
         nombreCompleto: status?.nombreCompleto ?? '',
+        nivelAcademico:
+          (status as { nivel?: string; nivelEducativo?: string })?.nivelEducativo ||
+          (status as { nivel?: string })?.nivel ||
+          '',
         totalPagado: status?.totalPagado ?? 0,
         totalPendiente: status?.totalPendiente ?? 0,
         morosidad: status?.morosidad ?? 0,

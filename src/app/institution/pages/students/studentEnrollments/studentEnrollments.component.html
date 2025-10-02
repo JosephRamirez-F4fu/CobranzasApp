@@ -86,6 +86,134 @@
             El alumno aún no cuenta con matrículas asociadas.
           </p>
         </ng-template>
+
+        <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <header class="space-y-2">
+            <h3 class="text-xl font-semibold text-slate-900">Registrar nueva matrícula</h3>
+            <p class="text-sm text-slate-500">
+              Solo se pueden asignar cronogramas que pertenezcan al nivel actual del alumno
+              <strong class="font-semibold text-slate-900">{{ studentLevel() || 'no definido' }}</strong>.
+              Los cronogramas de otros niveles se muestran deshabilitados para evitar matrículas incorrectas.
+            </p>
+          </header>
+
+          <div *ngIf="enrollmentSuccess() as successMessage" class="mt-4 rounded-xl bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-700 shadow-sm">
+            {{ successMessage }}
+          </div>
+
+          <div *ngIf="enrollmentError() as enrollmentErrorMessage" class="mt-4 rounded-xl bg-rose-50 px-4 py-3 text-sm font-semibold text-rose-700 shadow-sm">
+            {{ enrollmentErrorMessage }}
+          </div>
+
+          <div *ngIf="schedulesError() as scheduleError" class="mt-4 rounded-xl bg-rose-50 px-4 py-3 text-sm font-semibold text-rose-700 shadow-sm">
+            {{ scheduleError }}
+          </div>
+
+          <div *ngIf="schedulesLoading()" class="mt-4 rounded-xl border border-dashed border-slate-200 bg-white px-4 py-3 text-sm text-slate-500">
+            Cargando cronogramas disponibles…
+          </div>
+
+          <form
+            *ngIf="!schedulesLoading()"
+            class="mt-6 space-y-6"
+            [formGroup]="enrollmentForm"
+            (ngSubmit)="onSubmitEnrollment()"
+          >
+            <div class="space-y-2">
+              <label class="block text-sm font-semibold text-slate-700" for="scheduleId">
+                Cronograma académico
+              </label>
+              <select
+                id="scheduleId"
+                formControlName="scheduleId"
+                class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                <option [ngValue]="null">Selecciona un cronograma</option>
+                <option
+                  *ngFor="let schedule of schedules()"
+                  [ngValue]="schedule.id"
+                  [disabled]="isScheduleDisabled(schedule)"
+                >
+                  {{ schedule.anioLectivo }} · Nivel {{ schedule.nivelEducativo || 'Sin nivel' }} ·
+                  {{ schedule.numCuotas }} cuota{{ schedule.numCuotas === 1 ? '' : 's' }} de
+                  {{ schedule.montoCuota | currency:'PEN':'symbol':'1.2-2' }}
+                </option>
+              </select>
+              <p class="text-xs text-slate-500">
+                Si un cronograma aparece deshabilitado es porque pertenece a un nivel distinto al del alumno.
+              </p>
+              <p
+                *ngIf="eligibleSchedules().length === 0 && !schedulesError()"
+                class="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs font-semibold text-amber-700"
+              >
+                No se encontraron cronogramas activos para el nivel {{ studentLevel() || 'del alumno' }}.
+              </p>
+              <p *ngIf="hasFieldError('scheduleId')" class="text-xs font-semibold text-rose-600">
+                Selecciona un cronograma válido para continuar.
+              </p>
+            </div>
+
+            <div *ngIf="scheduleDetailLoading()" class="rounded-xl border border-dashed border-slate-200 bg-white px-4 py-3 text-sm text-slate-500">
+              Obteniendo detalle del cronograma seleccionado…
+            </div>
+
+            <div *ngIf="scheduleDetailError() as scheduleDetailErrorMessage" class="rounded-xl bg-rose-50 px-4 py-3 text-sm font-semibold text-rose-700 shadow-sm">
+              {{ scheduleDetailErrorMessage }}
+            </div>
+
+            <div *ngIf="scheduleDetail() as detail" class="space-y-4 rounded-xl border border-slate-200 bg-slate-50 p-4">
+              <header class="flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <p class="text-xs font-semibold uppercase tracking-wide text-indigo-600">
+                    Detalle del cronograma seleccionado
+                  </p>
+                  <h4 class="text-lg font-semibold text-slate-900">
+                    Periodo académico: {{ detail.items[0]?.academicPeriod || 'Sin definir' }}
+                  </h4>
+                </div>
+                <span class="text-xs font-semibold text-slate-500">
+                  {{ detail.items.length }} cuota{{ detail.items.length === 1 ? '' : 's' }} planificadas
+                </span>
+              </header>
+              <div class="grid gap-3 md:grid-cols-2">
+                <article *ngFor="let quota of detail.items" class="rounded-lg bg-white p-3 shadow">
+                  <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    {{ quota.quotaLabel || 'Cuota' }}
+                  </p>
+                  <p class="text-sm font-semibold text-slate-900">
+                    {{ quota.amount | currency:'PEN':'symbol':'1.2-2' }}
+                  </p>
+                  <p class="text-xs text-slate-500">Vence el {{ quota.dueDate | date:'mediumDate' }}</p>
+                </article>
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <label class="flex items-center gap-2 text-sm text-slate-600">
+                <input
+                  type="checkbox"
+                  formControlName="confirm"
+                  class="h-4 w-4 rounded border border-slate-300 text-indigo-600 focus:ring-indigo-500"
+                />
+                <span>
+                  Confirmo que el cronograma seleccionado pertenece al nivel {{ studentLevel() || 'actual del alumno' }} y deseo proceder con la matrícula.
+                </span>
+              </label>
+              <p *ngIf="hasFieldError('confirm')" class="text-xs font-semibold text-rose-600">
+                Debes confirmar que comprendes la restricción de nivel antes de matricular.
+              </p>
+            </div>
+
+            <button
+              type="submit"
+              class="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/60 disabled:cursor-not-allowed disabled:opacity-60"
+              [disabled]="enrolling() || enrollmentForm.invalid"
+            >
+              <ng-container *ngIf="enrolling(); else enrollLabel">Matriculando alumno…</ng-container>
+              <ng-template #enrollLabel>Matricular al alumno</ng-template>
+            </button>
+          </form>
+        </section>
       </section>
     </ng-container>
   </ng-container>
