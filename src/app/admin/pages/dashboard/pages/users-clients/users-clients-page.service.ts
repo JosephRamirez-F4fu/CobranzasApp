@@ -1,7 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { Institution } from '@domain/interface/institution';
 import { InstitutionsService } from '@services/institutions.service';
-import { User, UserMapper, UserService } from '@services/user.service';
+import { User, UserService } from '@services/user.service';
 
 @Injectable()
 export class UsersClientsPageService {
@@ -27,7 +27,7 @@ export class UsersClientsPageService {
     this.loading.set(true);
     this.userService.getPage(nextPage - 1, this.pageSize).subscribe({
       next: (response) => {
-        this.users.set(response.data.items.map(UserMapper.fromDto));
+        this.users.set(response.data.items);
         this.totalPages.set(response.data.totalPages);
         this.page.set(nextPage);
         this.loading.set(false);
@@ -45,8 +45,8 @@ export class UsersClientsPageService {
     }
 
     this.userService.save(user).subscribe({
-      next: (response) => {
-        this.users.set([...this.users(), UserMapper.fromDto(response.data)]);
+      next: () => {
+        this.loadUsers(this.page());
       },
     });
   }
@@ -54,7 +54,7 @@ export class UsersClientsPageService {
   deleteUser(id: number) {
     this.userService.delete(id).subscribe({
       next: () => {
-        this.users.update((items) => items.filter((user) => user.id !== id));
+        this.loadUsers(this.page());
       },
     });
   }
@@ -71,11 +71,8 @@ export class UsersClientsPageService {
 
   private updateUser(user: User) {
     this.userService.update(user).subscribe({
-      next: (response) => {
-        const updated = UserMapper.fromDto(response.data);
-        this.users.update((items) =>
-          items.map((item) => (item.id === updated.id ? updated : item))
-        );
+      next: () => {
+        this.loadUsers(this.page());
         this.clearEdit();
       },
     });
