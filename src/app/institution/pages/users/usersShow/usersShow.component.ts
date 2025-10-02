@@ -198,11 +198,6 @@ export default class UsersShowComponent {
     this.configurePasswordValidators(false);
   }
 
-  onClearForm() {
-    this.resetForm();
-    this.configurePasswordValidators(false);
-  }
-
   onPageChange(page: number) {
     this.load(page);
   }
@@ -220,8 +215,9 @@ export default class UsersShowComponent {
   private configurePasswordValidators(isEditing: boolean) {
     const control = this.form.controls.contrasena;
     control.clearValidators();
+    control.addValidators([Validators.minLength(6)]);
     if (!isEditing) {
-      control.setValidators([Validators.required, Validators.minLength(6)]);
+      control.addValidators([Validators.required]);
     }
     control.updateValueAndValidity();
   }

@@ -5,7 +5,6 @@
     [editing]="editing()"
     (submitted)="onSubmit()"
     (canceled)="onCancelEdit()"
-    (cleared)="onClearForm()"
   ></app-institution-user-form>
 
   <div *ngIf="feedback() as message" class="rounded-xl bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-700 shadow-lg shadow-emerald-500/20">

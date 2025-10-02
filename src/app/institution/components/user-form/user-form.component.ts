@@ -21,7 +21,6 @@ export class InstitutionUserFormComponent {
   @Input() editing = false;
   @Output() submitted = new EventEmitter<void>();
   @Output() canceled = new EventEmitter<void>();
-  @Output() cleared = new EventEmitter<void>();
 
   onSubmit() {
     this.submitted.emit();
@@ -29,9 +28,5 @@ export class InstitutionUserFormComponent {
 
   onCancel() {
     this.canceled.emit();
-  }
-
-  onClear() {
-    this.cleared.emit();
   }
 }
