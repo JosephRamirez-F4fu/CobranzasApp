@@ -82,13 +82,13 @@ const InstitucionRoutes: Routes = [
         children: [
           {
             path: 'estado-cuenta',
-            data: { title: 'Estado de cuenta' },
+            data: { title: 'Estado de cuenta', queryParams: ['studentId'] },
             loadComponent: () =>
               import('./pages/students/accountStatus/accountStatus.component'),
           },
           {
             path: 'detalle-pagos',
-            data: { title: 'Detalle de pagos' },
+            data: { title: 'Detalle de pagos', queryParams: ['studentId'] },
             loadComponent: () =>
               import(
                 './pages/students/paymentDetails/paymentDetails.component'
@@ -96,7 +96,7 @@ const InstitucionRoutes: Routes = [
           },
           {
             path: 'historial-detalle',
-            data: { title: 'Historial de pagos' },
+            data: { title: 'Historial de pagos', queryParams: ['studentId'] },
             loadComponent: () =>
               import(
                 './pages/students/paymentHistory/paymentHistory.component'
@@ -104,7 +104,7 @@ const InstitucionRoutes: Routes = [
           },
           {
             path: 'matriculas',
-            data: { title: 'Matrículas' },
+            data: { title: 'Matrículas', queryParams: ['studentId'] },
             loadComponent: () =>
               import(
                 './pages/students/studentEnrollments/studentEnrollments.component'

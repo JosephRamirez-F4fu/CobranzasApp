@@ -11,6 +11,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import {
   ActivatedRoute,
   NavigationEnd,
+  Params,
   Router,
   RouterLink,
   RouterLinkActive,
@@ -22,6 +23,7 @@ interface NavItem {
   path: string;
   label: string;
   children?: NavItem[];
+  queryParamKeys?: string[];
 }
 
 @Component({
@@ -43,6 +45,11 @@ export class InstitutionNavbarComponent {
     ),
     { initialValue: this.router.url }
   );
+  currentQueryParams = computed(() => {
+    const url = this.activeUrl() || '/';
+    const tree = this.router.parseUrl(url);
+    return tree.queryParams ?? {};
+  });
 
   constructor() {
     const normalize = (s?: string) =>
@@ -71,6 +78,9 @@ export class InstitutionNavbarComponent {
           childrenItems.push({
             path: full,
             label: sc.data?.['title'] ?? this.humanize(seg || base),
+            queryParamKeys: this.extractQueryParamKeys(
+              sc.data?.['queryParams']
+            ),
           } as NavItem);
         }
 
@@ -82,6 +92,9 @@ export class InstitutionNavbarComponent {
             path: parentPath,
             label: c.data?.['title'] ?? this.humanize(parentPath),
             children: childrenItems.length ? childrenItems : undefined,
+            queryParamKeys: this.extractQueryParamKeys(
+              c.data?.['queryParams']
+            ),
           } as NavItem;
         }
         if (parentPath) seen.add(parentPath);
@@ -90,11 +103,40 @@ export class InstitutionNavbarComponent {
           path: parentPath,
           label: c.data?.['title'] ?? this.humanize(parentPath),
           children: childrenItems.length ? childrenItems : undefined,
+          queryParamKeys: this.extractQueryParamKeys(c.data?.['queryParams']),
         } as NavItem;
       })
       .filter(Boolean) as NavItem[];
 
     this.items.set(items);
+  }
+
+  private extractQueryParamKeys(config: unknown): string[] | undefined {
+    if (!config) return undefined;
+    if (Array.isArray(config)) return config.map((v) => String(v));
+    if (typeof config === 'string') return [config];
+    if (typeof config === 'object') {
+      return Object.entries(config)
+        .filter(([, value]) => value !== false && value !== undefined)
+        .map(([key]) => key);
+    }
+    return undefined;
+  }
+
+  getQueryParams(item: NavItem): Params | undefined {
+    const keys = item.queryParamKeys;
+    if (!keys?.length) return undefined;
+    const current = this.currentQueryParams();
+    const params: Params = {};
+    let hasValue = false;
+    for (const key of keys) {
+      const value = current[key];
+      if (value !== undefined) {
+        params[key] = value;
+        hasValue = true;
+      }
+    }
+    return hasValue ? params : undefined;
   }
 
   humanize(path?: string): string {
