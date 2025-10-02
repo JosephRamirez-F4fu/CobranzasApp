@@ -8,10 +8,17 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { AccountService } from '@services/account.service';
 import { CommonModule } from '@angular/common';
 import { finalize } from 'rxjs';
+import { ConfigSectionComponent } from '../../../components/config-section/config-section.component';
+import { ConfigFormActionsComponent } from '../../../components/config-form-actions/config-form-actions.component';
 
 @Component({
   selector: 'app-profile-config',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    ConfigSectionComponent,
+    ConfigFormActionsComponent,
+  ],
   templateUrl: './profileConfig.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

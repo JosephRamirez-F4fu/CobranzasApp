@@ -11,10 +11,17 @@ import { finalize, of, switchMap } from 'rxjs';
 import { InstitutionsService } from '@services/institutions.service';
 import { PaymentGatewayService } from '@services/paymentGateway.service';
 import { PaymentGatewayType } from '@domain/dtos/institutionPaymentGateway.dto';
+import { ConfigSectionComponent } from '../../../components/config-section/config-section.component';
+import { ConfigFormActionsComponent } from '../../../components/config-form-actions/config-form-actions.component';
 
 @Component({
   selector: 'app-payment-gateway-config',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    ConfigSectionComponent,
+    ConfigFormActionsComponent,
+  ],
   templateUrl: './paymentGatewayConfig.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

@@ -11,10 +11,17 @@ import { CommonModule } from '@angular/common';
 import { finalize } from 'rxjs';
 import { InstitutionsService } from '@services/institutions.service';
 import { InstitutionLDAPSettings } from '@domain/dtos/institutionLDAP.dto';
+import { ConfigSectionComponent } from '../../../components/config-section/config-section.component';
+import { ConfigFormActionsComponent } from '../../../components/config-form-actions/config-form-actions.component';
 
 @Component({
   selector: 'app-ldapconfig',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    ConfigSectionComponent,
+    ConfigFormActionsComponent,
+  ],
   templateUrl: './LDAPConfig.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
