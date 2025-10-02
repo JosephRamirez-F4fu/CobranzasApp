@@ -1,6 +1,4 @@
-<div class="max-w-5xl">
-  <h2 class="text-lg font-semibold mb-4">Notificaciones</h2>
-
+<app-config-section title="Notificaciones" maxWidthClass="max-w-5xl">
   @if (loading()) {
   <p class="text-sm text-gray-500">Cargando configuración...</p>
   }
@@ -106,31 +104,12 @@
       }
     </div>
 
-    <div class="flex gap-3">
-      @if(!editing()){
-      <button
-        type="button"
-        class="px-4 py-2 bg-sky-600 text-white rounded text-sm hover:bg-sky-700"
-        (click)="enableEdit()"
-      >
-        Editar
-      </button>
-      } @else {
-      <button
-        type="submit"
-        class="px-4 py-2 bg-emerald-600 text-white rounded text-sm hover:bg-emerald-700 disabled:opacity-50"
-        [disabled]="saving() || form.invalid"
-      >
-        @if(saving()){ Guardando... } @else { Guardar }
-      </button>
-      <button
-        type="button"
-        class="px-4 py-2 bg-gray-200 text-gray-700 rounded text-sm hover:bg-gray-300"
-        (click)="cancel()"
-      >
-        Cancelar
-      </button>
-      }
-    </div>
+    <app-config-form-actions
+      [editing]="editing()"
+      [saving]="saving()"
+      [disableSave]="form.invalid"
+      (edit)="enableEdit()"
+      (cancel)="cancel()"
+    />
   </form>
-</div>
+</app-config-section>

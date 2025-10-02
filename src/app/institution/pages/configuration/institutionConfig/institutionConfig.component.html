@@ -1,6 +1,4 @@
-<div class="max-w-4xl">
-  <h2 class="text-lg font-semibold mb-4">Datos de la Institución</h2>
-
+<app-config-section title="Datos de la Institución" maxWidthClass="max-w-4xl">
   <form class="space-y-6" [formGroup]="form" (ngSubmit)="save()">
     <div class="grid md:grid-cols-2 gap-4">
       <div>
@@ -59,31 +57,11 @@
       </div>
     </div>
 
-    <div class="flex gap-3">
-      @if(!editing()){
-      <button
-        type="button"
-        (click)="enableEdit()"
-        class="px-4 py-2 bg-sky-600 text-white rounded text-sm hover:bg-sky-700"
-      >
-        Editar
-      </button>
-      } @else {
-      <button
-        type="submit"
-        class="px-4 py-2 bg-emerald-600 text-white rounded text-sm hover:bg-emerald-700 disabled:opacity-50"
-        [disabled]="saving()"
-      >
-        @if(saving()){ Guardando... } @else { Guardar }
-      </button>
-      <button
-        type="button"
-        class="px-4 py-2 bg-gray-200 text-gray-700 rounded text-sm hover:bg-gray-300"
-        (click)="cancel()"
-      >
-        Cancelar
-      </button>
-      }
-    </div>
+    <app-config-form-actions
+      [editing]="editing()"
+      [saving]="saving()"
+      (edit)="enableEdit()"
+      (cancel)="cancel()"
+    />
   </form>
-</div>
+</app-config-section>

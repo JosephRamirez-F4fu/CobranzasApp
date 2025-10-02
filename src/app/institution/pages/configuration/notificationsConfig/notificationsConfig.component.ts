@@ -14,10 +14,17 @@ import {
   NotificationConfigService,
   NotificacionConfigResponse,
 } from '@services/notificationConfig.service';
+import { ConfigSectionComponent } from '../../../components/config-section/config-section.component';
+import { ConfigFormActionsComponent } from '../../../components/config-form-actions/config-form-actions.component';
 
 @Component({
   selector: 'app-notifications-config',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    ConfigSectionComponent,
+    ConfigFormActionsComponent,
+  ],
   templateUrl: './notificationsConfig.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
