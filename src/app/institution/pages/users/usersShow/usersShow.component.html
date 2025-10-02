@@ -1,1 +1,25 @@
-<p>users works!</p>,
+<section class="mx-auto grid max-w-6xl gap-6">
+  <app-institution-user-form
+    [form]="form"
+    [saving]="saving()"
+    [editing]="editing()"
+    (submitted)="onSubmit()"
+    (canceled)="onCancelEdit()"
+  ></app-institution-user-form>
+
+  <div *ngIf="feedback() as message" class="rounded-xl bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-700 shadow-lg shadow-emerald-500/20">
+    {{ message }}
+  </div>
+
+  <app-institution-user-table
+    [users]="users()"
+    [loading]="loading()"
+    [page]="page()"
+    [totalPages]="totalPages()"
+    [totalItems]="totalItems()"
+    (edit)="onEdit($event)"
+    (deactivate)="onDeactivate($event)"
+    (remove)="onDelete($event)"
+    (pageChange)="onPageChange($event)"
+  ></app-institution-user-table>
+</section>
