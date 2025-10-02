@@ -1,29 +1,43 @@
-<div
-  class="min-h-screen flex bg-gradient-to-br from-slate-50 via-white to-slate-100"
->
-  @if (layoutService.institution()) {
-    <aside class="w-64 hidden md:block">
-      <institution-navbar [institution]="layoutService.institution()!" />
-    </aside>
-  }
+<div class="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-slate-100">
+  <div
+    class="mx-auto flex min-h-screen w-full max-w-[1440px] gap-6 px-4 py-6 md:px-8 lg:px-12"
+  >
+    @if (layoutService.institution()) {
+      <aside class="hidden w-72 shrink-0 md:block">
+        <institution-navbar [institution]="layoutService.institution()!" />
+      </aside>
+    }
 
-  <main class="flex-1 p-6 md:p-8">
-    <div class="max-w-8xl mx-auto">
-      <header class="mb-6">
-        @if (layoutService.institution()) {
-          <div>Perfil: {{ layoutService.institution()!.name }}</div>
-        }
-        <div class="flex items-center justify-between">
-          <h1 class="text-2xl font-semibold text-slate-700">
-            Área Institución
-          </h1>
-          <!-- ...existing code... -->
-        </div>
-      </header>
+    <main class="flex-1">
+      <div class="flex flex-col gap-6">
+        <header
+          class="flex flex-col gap-6 rounded-3xl bg-white/85 p-6 shadow-2xl shadow-emerald-100/70 ring-1 ring-white/60 backdrop-blur-lg lg:flex-row lg:items-center lg:justify-between"
+        >
+          <div class="space-y-2">
+            <p class="text-xs font-semibold uppercase tracking-[0.45em] text-emerald-500">
+              Panel institucional
+            </p>
+            <h1 class="text-3xl font-semibold text-slate-700">Área Institución</h1>
+            <p class="text-sm text-slate-500">
+              Administra usuarios, estudiantes y cronogramas desde un solo lugar.
+            </p>
+          </div>
 
-      <section class="bg-white min-h-[70vh]">
-        <router-outlet />
-      </section>
-    </div>
-  </main>
+          @if (layoutService.user() && layoutService.institution()) {
+            <institution-profile-card
+              class="w-full max-w-sm"
+              [user]="layoutService.user()!"
+              [institution]="layoutService.institution()!"
+            />
+          }
+        </header>
+
+        <section
+          class="min-h-[70vh] rounded-3xl border border-slate-200/80 bg-white/90 p-4 shadow-xl shadow-slate-200/70 backdrop-blur"
+        >
+          <router-outlet />
+        </section>
+      </div>
+    </main>
+  </div>
 </div>
