@@ -1,115 +1,117 @@
-<app-config-section title="Notificaciones" maxWidthClass="max-w-5xl">
-  @if (loading()) {
-  <p class="text-sm text-gray-500">Cargando configuración...</p>
-  }
-
-  <div class="flex flex-wrap gap-2 mb-6">
-    @for (m of medios; track m) {
-    <button
-      type="button"
-      (click)="selectMedio(m)"
-      class="px-3 py-1 rounded text-sm border transition-colors"
-      [class.bg-sky-600]="medioSeleccionado() === m"
-      [class.text-white]="medioSeleccionado() === m"
-      [class.border-sky-600]="medioSeleccionado() === m"
-      [class.bg-white]="medioSeleccionado() !== m"
-    >
-      {{ m }}
-    </button>
+<section class="mx-auto flex max-w-6xl flex-col gap-8 p-6 md:p-8">
+  <app-config-section title="Notificaciones" maxWidthClass="w-full">
+    @if (loading()) {
+    <p class="text-sm font-medium text-slate-500">Cargando configuración...</p>
     }
-  </div>
 
-  <form [formGroup]="form" (ngSubmit)="save()" class="space-y-6">
-    <div class="grid md:grid-cols-2 gap-4">
-      <div>
-        <label class="block text-sm font-medium mb-1">Medio</label>
-        <input
-          type="text"
-          formControlName="medioEnvio"
-          class="w-full border rounded px-3 py-2 text-sm bg-gray-100"
-          readonly
-        />
-      </div>
-
-      <div class="flex items-center gap-2 mt-6 md:mt-0">
-        <input
-          id="activo"
-          type="checkbox"
-          formControlName="activo"
-          class="h-4 w-4"
-        />
-        <label for="activo" class="text-sm font-medium">Habilitado</label>
-      </div>
-
-      <div>
-        <label class="block text-sm font-medium mb-1">Frecuencia</label>
-        <input
-          type="text"
-          formControlName="frecuencia"
-          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring focus:border-sky-500 disabled:opacity-50"
-        />
-        @if(form.controls.frecuencia.invalid &&
-        form.controls.frecuencia.touched){
-        <p class="text-xs text-red-600 mt-1">Requerido.</p>
-        }
-      </div>
-
-      <div>
-        <label class="block text-sm font-medium mb-1">Día del mes</label>
-        <input
-          type="number"
-          formControlName="diadDelMes"
-          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring focus:border-sky-500 disabled:opacity-50"
-          min="1"
-          max="31"
-        />
-      </div>
-
-      <div>
-        <label class="block text-sm font-medium mb-1">Hora de envío</label>
-        <input
-          type="time"
-          formControlName="horaEnvio"
-          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring focus:border-sky-500 disabled:opacity-50"
-        />
-        @if(form.controls.horaEnvio.invalid && form.controls.horaEnvio.touched){
-        <p class="text-xs text-red-600 mt-1">Requerido.</p>
-        }
-      </div>
-
-      <div class="md:col-span-2">
-        <label class="block text-sm font-medium mb-1">Mensaje</label>
-        <textarea
-          rows="4"
-          formControlName="mensaje"
-          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring focus:border-sky-500 disabled:opacity-50"
-        ></textarea>
-        @if(form.controls.mensaje.invalid && form.controls.mensaje.touched){
-        <p class="text-xs text-red-600 mt-1">Mínimo 3 caracteres.</p>
-        }
-      </div>
-
-      @if(medioSeleccionado() === MedioEnvio.EMAIL){
-      <div class="md:col-span-2">
-        <label class="block text-sm font-medium mb-1">Asunto (Email)</label>
-        <input
-          type="text"
-          formControlName="asunto"
-          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring disabled:opacity-50"
-        />
-        @if(form.controls.asunto.invalid && form.controls.asunto.touched){
-        <p class="text-xs text-red-600 mt-1">Requerido.</p>
-        }
-      </div>
+    <div class="mb-6 flex flex-wrap gap-3">
+      @for (m of medios; track m) {
+      <button
+        type="button"
+        (click)="selectMedio(m)"
+        class="rounded-full border px-4 py-2 text-sm font-semibold transition focus:outline-none focus:ring-4 focus:ring-sky-200"
+        [ngClass]="
+          medioSeleccionado() === m
+            ? 'border-sky-600 bg-sky-600 text-white shadow-lg shadow-sky-500/30'
+            : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50'
+        "
+      >
+        {{ m }}
+      </button>
       }
     </div>
 
-    <app-config-form-actions
-      [editing]="editing()"
-      [saving]="saving()"
-      [disableSave]="form.invalid"
-      (edit)="enableEdit()"
-      (cancel)="cancel()"
-    />
-  </form>
-</app-config-section>
+    <form [formGroup]="form" (ngSubmit)="save()" class="space-y-6">
+      <div class="grid gap-6 md:grid-cols-2">
+        <div class="space-y-1">
+          <label class="mb-1 block text-sm font-semibold text-slate-700">Medio</label>
+          <input
+            type="text"
+            formControlName="medioEnvio"
+            class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 shadow-sm"
+            readonly
+          />
+        </div>
+
+        <div class="mt-2 flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50/60 px-4 py-3 md:mt-0">
+          <input
+            id="activo"
+            type="checkbox"
+            formControlName="activo"
+            class="h-4 w-4 rounded border-slate-300 text-sky-600 focus:ring-sky-500"
+          />
+          <label for="activo" class="text-sm font-semibold text-slate-700">Habilitado</label>
+        </div>
+
+        <div class="space-y-1">
+          <label class="mb-1 block text-sm font-semibold text-slate-700">Frecuencia</label>
+          <input
+            type="text"
+            formControlName="frecuencia"
+            class="w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-3 text-sm font-medium text-slate-800 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-200 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
+          />
+          @if(form.controls.frecuencia.invalid && form.controls.frecuencia.touched){
+          <p class="text-xs font-medium text-rose-500">Requerido.</p>
+          }
+        </div>
+
+        <div class="space-y-1">
+          <label class="mb-1 block text-sm font-semibold text-slate-700">Día del mes</label>
+          <input
+            type="number"
+            formControlName="diadDelMes"
+            class="w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-3 text-sm font-medium text-slate-800 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-200 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
+            min="1"
+            max="31"
+          />
+        </div>
+
+        <div class="space-y-1">
+          <label class="mb-1 block text-sm font-semibold text-slate-700">Hora de envío</label>
+          <input
+            type="time"
+            formControlName="horaEnvio"
+            class="w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-3 text-sm font-medium text-slate-800 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-200 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
+          />
+          @if(form.controls.horaEnvio.invalid && form.controls.horaEnvio.touched){
+          <p class="text-xs font-medium text-rose-500">Requerido.</p>
+          }
+        </div>
+
+        <div class="md:col-span-2 space-y-1">
+          <label class="mb-1 block text-sm font-semibold text-slate-700">Mensaje</label>
+          <textarea
+            rows="4"
+            formControlName="mensaje"
+            class="w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-3 text-sm font-medium text-slate-800 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-200 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
+          ></textarea>
+          @if(form.controls.mensaje.invalid && form.controls.mensaje.touched){
+          <p class="text-xs font-medium text-rose-500">Mínimo 3 caracteres.</p>
+          }
+        </div>
+
+        @if(medioSeleccionado() === MedioEnvio.EMAIL){
+        <div class="md:col-span-2 space-y-1">
+          <label class="mb-1 block text-sm font-semibold text-slate-700">Asunto (Email)</label>
+          <input
+            type="text"
+            formControlName="asunto"
+            class="w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-3 text-sm font-medium text-slate-800 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-200 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
+          />
+          @if(form.controls.asunto.invalid && form.controls.asunto.touched){
+          <p class="text-xs font-medium text-rose-500">Requerido.</p>
+          }
+        </div>
+        }
+      </div>
+
+      <app-config-form-actions
+        [editing]="editing()"
+        [saving]="saving()"
+        [disableSave]="form.invalid"
+        (edit)="enableEdit()"
+        (cancel)="cancel()"
+      />
+    </form>
+  </app-config-section>
+</section>

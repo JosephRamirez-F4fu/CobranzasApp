@@ -12,11 +12,11 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div class="flex gap-3">
+    <div class="flex flex-wrap items-center gap-3">
       <button
         *ngIf="!editing"
         type="button"
-        class="px-4 py-2 bg-sky-600 text-white rounded text-sm hover:bg-sky-700"
+        class="inline-flex items-center justify-center rounded-xl border border-sky-600 bg-sky-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-sky-700 focus:outline-none focus:ring-4 focus:ring-sky-200"
         (click)="edit.emit()"
       >
         {{ editLabel }}
@@ -25,14 +25,14 @@ import { CommonModule } from '@angular/common';
       <ng-container *ngIf="editing">
         <button
           type="submit"
-          class="px-4 py-2 bg-emerald-600 text-white rounded text-sm hover:bg-emerald-700 disabled:opacity-50"
+          class="inline-flex items-center justify-center rounded-xl border border-emerald-600 bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-emerald-700 focus:outline-none focus:ring-4 focus:ring-emerald-200 disabled:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60 disabled:shadow-none"
           [disabled]="saving || disableSave"
         >
           {{ saving ? savingLabel : saveLabel }}
         </button>
         <button
           type="button"
-          class="px-4 py-2 bg-gray-200 text-gray-700 rounded text-sm hover:bg-gray-300"
+          class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-600 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50 focus:outline-none focus:ring-4 focus:ring-slate-200"
           (click)="cancel.emit()"
         >
           {{ cancelLabel }}
