@@ -1,0 +1,177 @@
+<form
+  [formGroup]="form"
+  (ngSubmit)="onSubmit()"
+  class="grid gap-6 rounded-2xl bg-white p-6 shadow-xl shadow-slate-900/10"
+>
+  <header class="space-y-1">
+    <h2 class="text-2xl font-semibold text-slate-900">
+      {{ editing ? 'Actualizar cronograma de matrícula' : 'Registrar nuevo cronograma de matrícula' }}
+    </h2>
+    <p class="text-sm text-slate-500">
+      Define los parámetros generales del cronograma. Podrás ajustar la cuota inicial desde la tabla.
+    </p>
+  </header>
+
+  <div class="grid gap-4 sm:grid-cols-2">
+    <label class="flex flex-col gap-1 font-semibold text-slate-800">
+      <span class="text-sm">Año lectivo</span>
+      <input
+        type="number"
+        formControlName="anioLectivo"
+        placeholder="Ej. 2024"
+        min="2000"
+        class="rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-medium text-slate-900 shadow-sm transition focus:border-indigo-500 focus:outline-none focus:ring-4 focus:ring-indigo-200"
+        [ngClass]="{
+          'border-rose-400 focus:border-rose-500 focus:ring-rose-200':
+            form.controls['anioLectivo'].invalid && form.controls['anioLectivo'].touched
+        }"
+      />
+      <small
+        *ngIf="form.controls['anioLectivo'].invalid && form.controls['anioLectivo'].touched"
+        class="text-sm font-medium text-rose-500"
+      >
+        El año lectivo es obligatorio.
+      </small>
+    </label>
+
+    <label class="flex flex-col gap-1 font-semibold text-slate-800">
+      <span class="text-sm">Nivel educativo</span>
+      <select
+        formControlName="nivelEducativo"
+        class="rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-medium text-slate-900 shadow-sm transition focus:border-indigo-500 focus:outline-none focus:ring-4 focus:ring-indigo-200"
+        [ngClass]="{
+          'border-rose-400 focus:border-rose-500 focus:ring-rose-200':
+            form.controls['nivelEducativo'].invalid && form.controls['nivelEducativo'].touched
+        }"
+      >
+        <option value="">Seleccione una opción</option>
+        <option value="INICIAL">Inicial</option>
+        <option value="PRIMARIA">Primaria</option>
+        <option value="SECUNDARIA">Secundaria</option>
+      </select>
+      <small
+        *ngIf="form.controls['nivelEducativo'].invalid && form.controls['nivelEducativo'].touched"
+        class="text-sm font-medium text-rose-500"
+      >
+        Seleccione el nivel educativo.
+      </small>
+    </label>
+
+    <label class="flex flex-col gap-1 font-semibold text-slate-800">
+      <span class="text-sm">Monto por cuota (S/)</span>
+      <input
+        type="number"
+        formControlName="montoCuota"
+        placeholder="Ej. 350"
+        min="0"
+        step="0.01"
+        class="rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-medium text-slate-900 shadow-sm transition focus:border-indigo-500 focus:outline-none focus:ring-4 focus:ring-indigo-200"
+        [ngClass]="{
+          'border-rose-400 focus:border-rose-500 focus:ring-rose-200':
+            form.controls['montoCuota'].invalid && form.controls['montoCuota'].touched
+        }"
+      />
+      <small
+        *ngIf="form.controls['montoCuota'].invalid && form.controls['montoCuota'].touched"
+        class="text-sm font-medium text-rose-500"
+      >
+        El monto por cuota es obligatorio.
+      </small>
+    </label>
+
+    <label class="flex flex-col gap-1 font-semibold text-slate-800">
+      <span class="text-sm">Número de cuotas</span>
+      <input
+        type="number"
+        formControlName="numCuotas"
+        placeholder="Ej. 10"
+        min="1"
+        class="rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-medium text-slate-900 shadow-sm transition focus:border-indigo-500 focus:outline-none focus:ring-4 focus:ring-indigo-200"
+        [ngClass]="{
+          'border-rose-400 focus:border-rose-500 focus:ring-rose-200':
+            form.controls['numCuotas'].invalid && form.controls['numCuotas'].touched
+        }"
+      />
+      <small
+        *ngIf="form.controls['numCuotas'].invalid && form.controls['numCuotas'].touched"
+        class="text-sm font-medium text-rose-500"
+      >
+        Indique cuántas cuotas tendrá el cronograma.
+      </small>
+    </label>
+
+    <label class="flex flex-col gap-1 font-semibold text-slate-800">
+      <span class="text-sm">Interés por mora (%)</span>
+      <input
+        type="number"
+        formControlName="interesMoraCuota"
+        placeholder="Ej. 2.5"
+        min="0"
+        step="0.01"
+        class="rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-medium text-slate-900 shadow-sm transition focus:border-indigo-500 focus:outline-none focus:ring-4 focus:ring-indigo-200"
+        [ngClass]="{
+          'border-rose-400 focus:border-rose-500 focus:ring-rose-200':
+            form.controls['interesMoraCuota'].invalid && form.controls['interesMoraCuota'].touched
+        }"
+      />
+      <small
+        *ngIf="form.controls['interesMoraCuota'].invalid && form.controls['interesMoraCuota'].touched"
+        class="text-sm font-medium text-rose-500"
+      >
+        Ingrese el porcentaje de interés moratorio.
+      </small>
+    </label>
+
+    <label class="flex flex-col gap-1 font-semibold text-slate-800 sm:col-span-2">
+      <span class="text-sm">Fecha de inicio</span>
+      <input
+        type="date"
+        formControlName="fechaInicio"
+        class="rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-medium text-slate-900 shadow-sm transition focus:border-indigo-500 focus:outline-none focus:ring-4 focus:ring-indigo-200"
+        [ngClass]="{
+          'border-rose-400 focus:border-rose-500 focus:ring-rose-200':
+            form.controls['fechaInicio'].invalid && form.controls['fechaInicio'].touched
+        }"
+      />
+      <small
+        *ngIf="form.controls['fechaInicio'].invalid && form.controls['fechaInicio'].touched"
+        class="text-sm font-medium text-rose-500"
+      >
+        Seleccione la fecha de inicio del cronograma.
+      </small>
+    </label>
+
+    <label class="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-700 sm:col-span-2">
+      <input type="checkbox" formControlName="activo" class="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" />
+      <span>El cronograma estará activo al guardarlo</span>
+    </label>
+  </div>
+
+  <footer class="flex flex-wrap items-center gap-3">
+    <button
+      type="submit"
+      [disabled]="form.invalid || saving"
+      class="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-indigo-500 to-violet-500 px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-500/30 transition hover:-translate-y-0.5 hover:shadow-indigo-500/40 disabled:cursor-not-allowed disabled:opacity-70"
+    >
+      {{ saving ? 'Guardando…' : (editing ? 'Actualizar cronograma' : 'Registrar cronograma') }}
+    </button>
+    <button
+      type="button"
+      *ngIf="editing"
+      (click)="onCancel()"
+      [disabled]="saving"
+      class="inline-flex items-center justify-center rounded-full bg-slate-200 px-6 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-300 disabled:cursor-not-allowed disabled:opacity-70"
+    >
+      Cancelar
+    </button>
+    <button
+      type="button"
+      *ngIf="!editing"
+      (click)="onClear()"
+      [disabled]="saving"
+      class="inline-flex items-center justify-center rounded-full bg-slate-200 px-6 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-300 disabled:cursor-not-allowed disabled:opacity-70"
+    >
+      Limpiar
+    </button>
+  </footer>
+</form>
