@@ -1,97 +1,96 @@
-<app-config-section title="Configuración LDAP">
-  @if (loading()) {
-  <p class="text-sm text-gray-500">Cargando configuración...</p>
-  }
+<section class="mx-auto flex max-w-5xl flex-col gap-8 p-6 md:p-8">
+  <app-config-section title="Configuración LDAP" maxWidthClass="w-full">
+    @if (loading()) {
+    <p class="text-sm font-medium text-slate-500">Cargando configuración...</p>
+    }
 
-  <form [formGroup]="form" (ngSubmit)="save()" class="space-y-6">
-    <div class="grid md:grid-cols-2 gap-4">
-      <div class="md:col-span-2 flex items-center gap-2">
-        <input
-          id="useLdap"
-          type="checkbox"
-          formControlName="useLdap"
-          class="h-4 w-4"
-        />
-        <label for="useLdap" class="text-sm font-medium"
-          >Habilitar autenticación LDAP</label
-        >
+    <form [formGroup]="form" (ngSubmit)="save()" class="space-y-6">
+      <div class="grid gap-6 md:grid-cols-2">
+        <div class="md:col-span-2 flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50/60 px-4 py-3">
+          <input
+            id="useLdap"
+            type="checkbox"
+            formControlName="useLdap"
+            class="h-4 w-4 rounded border-slate-300 text-sky-600 focus:ring-sky-500"
+          />
+          <label for="useLdap" class="text-sm font-semibold text-slate-700"
+            >Habilitar autenticación LDAP</label
+          >
+        </div>
+
+        <div class="space-y-1">
+          <label class="mb-1 block text-sm font-semibold text-slate-700">Host</label>
+          <input
+            formControlName="ldapHost"
+            type="text"
+            class="w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-3 text-sm font-medium text-slate-800 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-200 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
+          />
+          @if(form.controls.ldapHost.invalid && form.controls.ldapHost.touched){
+          <p class="text-xs font-medium text-rose-500">Requerido.</p>
+          }
+        </div>
+
+        <div class="space-y-1">
+          <label class="mb-1 block text-sm font-semibold text-slate-700">Puerto</label>
+          <input
+            formControlName="ldapPort"
+            type="text"
+            inputmode="numeric"
+            pattern="\d*"
+            class="w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-3 text-sm font-medium text-slate-800 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-200 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
+          />
+          @if(form.controls.ldapPort.invalid && form.controls.ldapPort.touched){
+          <p class="text-xs font-medium text-rose-500">Número válido requerido.</p>
+          }
+        </div>
+
+        <div class="md:col-span-2 space-y-1">
+          <label class="mb-1 block text-sm font-semibold text-slate-700">Base DN</label>
+          <input
+            formControlName="ldapBaseDn"
+            type="text"
+            class="w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-3 text-sm font-medium text-slate-800 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-200 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
+          />
+          @if(form.controls.ldapBaseDn.invalid && form.controls.ldapBaseDn.touched){
+          <p class="text-xs font-medium text-rose-500">Requerido.</p>
+          }
+        </div>
+
+        <div class="space-y-1">
+          <label class="mb-1 block text-sm font-semibold text-slate-700">User DN</label>
+          <input
+            formControlName="ldapUserDn"
+            type="text"
+            class="w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-3 text-sm font-medium text-slate-800 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-200 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
+          />
+          @if(form.controls.ldapUserDn.invalid && form.controls.ldapUserDn.touched){
+          <p class="text-xs font-medium text-rose-500">Requerido.</p>
+          }
+        </div>
+
+        <div class="space-y-1">
+          <label class="mb-1 block text-sm font-semibold text-slate-700">Password</label>
+          <input
+            formControlName="ldapPassword"
+            type="password"
+            autocomplete="new-password"
+            class="w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-3 text-sm font-medium text-slate-800 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-200 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
+          />
+          @if(form.controls.ldapPassword.invalid && form.controls.ldapPassword.touched){
+          <p class="text-xs font-medium text-rose-500">
+            Requerido cuando LDAP está habilitado.
+          </p>
+          }
+        </div>
       </div>
 
-      <div>
-        <label class="block text-sm font-medium mb-1">Host</label>
-        <input
-          formControlName="ldapHost"
-          type="text"
-          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring focus:border-sky-500 disabled:opacity-50"
-        />
-        @if(form.controls.ldapHost.invalid && form.controls.ldapHost.touched){
-        <p class="text-xs text-red-600 mt-1">Requerido.</p>
-        }
-      </div>
-
-      <div>
-        <label class="block text-sm font-medium mb-1">Puerto</label>
-        <input
-          formControlName="ldapPort"
-          type="text"
-          inputmode="numeric"
-          pattern="\d*"
-          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring disabled:opacity-50"
-        />
-        @if(form.controls.ldapPort.invalid && form.controls.ldapPort.touched){
-        <p class="text-xs text-red-600 mt-1">Número válido requerido.</p>
-        }
-      </div>
-
-      <div class="md:col-span-2">
-        <label class="block text-sm font-medium mb-1">Base DN</label>
-        <input
-          formControlName="ldapBaseDn"
-          type="text"
-          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring disabled:opacity-50"
-        />
-        @if(form.controls.ldapBaseDn.invalid &&
-        form.controls.ldapBaseDn.touched){
-        <p class="text-xs text-red-600 mt-1">Requerido.</p>
-        }
-      </div>
-
-      <div>
-        <label class="block text-sm font-medium mb-1">User DN</label>
-        <input
-          formControlName="ldapUserDn"
-          type="text"
-          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring disabled:opacity-50"
-        />
-        @if(form.controls.ldapUserDn.invalid &&
-        form.controls.ldapUserDn.touched){
-        <p class="text-xs text-red-600 mt-1">Requerido.</p>
-        }
-      </div>
-
-      <div>
-        <label class="block text-sm font-medium mb-1">Password</label>
-        <input
-          formControlName="ldapPassword"
-          type="password"
-          autocomplete="new-password"
-          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring disabled:opacity-50"
-        />
-        @if(form.controls.ldapPassword.invalid &&
-        form.controls.ldapPassword.touched){
-        <p class="text-xs text-red-600 mt-1">
-          Requerido cuando LDAP está habilitado.
-        </p>
-        }
-      </div>
-    </div>
-
-    <app-config-form-actions
-      [editing]="editing()"
-      [saving]="saving()"
-      [disableSave]="form.invalid"
-      (edit)="enableEdit()"
-      (cancel)="cancel()"
-    />
-  </form>
-</app-config-section>
+      <app-config-form-actions
+        [editing]="editing()"
+        [saving]="saving()"
+        [disableSave]="form.invalid"
+        (edit)="enableEdit()"
+        (cancel)="cancel()"
+      />
+    </form>
+  </app-config-section>
+</section>

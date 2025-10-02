@@ -1,93 +1,93 @@
-<app-config-section title="Pasarela de Pagos">
-  @if (loading()) {
-  <p class="text-sm text-gray-500">Cargando configuración...</p>
-  }
+<section class="mx-auto flex max-w-5xl flex-col gap-8 p-6 md:p-8">
+  <app-config-section title="Pasarela de Pagos" maxWidthClass="w-full">
+    @if (loading()) {
+    <p class="text-sm font-medium text-slate-500">Cargando configuración...</p>
+    }
 
-  <form [formGroup]="form" (ngSubmit)="save()" class="space-y-6">
-    <div class="grid md:grid-cols-2 gap-4">
-      <div>
-        <label class="block text-sm font-medium mb-1">Tipo</label>
-        <select
-          formControlName="tipo"
-          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring focus:border-sky-500 disabled:opacity-50"
-        >
-          <option [ngValue]="null">Seleccione...</option>
-          @for (t of tipos; track t) {
-          <option [ngValue]="t">{{ t }}</option>
+    <form [formGroup]="form" (ngSubmit)="save()" class="space-y-6">
+      <div class="grid gap-6 md:grid-cols-2">
+        <div class="space-y-1">
+          <label class="mb-1 block text-sm font-semibold text-slate-700">Tipo</label>
+          <select
+            formControlName="tipo"
+            class="w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-3 text-sm font-medium text-slate-800 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-200 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
+          >
+            <option [ngValue]="null">Seleccione...</option>
+            @for (t of tipos; track t) {
+            <option [ngValue]="t">{{ t }}</option>
+            }
+          </select>
+          @if(form.controls.tipo.invalid && form.controls.tipo.touched){
+          <p class="text-xs font-medium text-rose-500">Requerido.</p>
           }
-        </select>
-        @if(form.controls.tipo.invalid && form.controls.tipo.touched){
-        <p class="text-xs text-red-600 mt-1">Requerido.</p>
-        }
+        </div>
+
+        <div class="space-y-1">
+          <label class="mb-1 block text-sm font-semibold text-slate-700">API Public Key</label>
+          <input
+            formControlName="apiPublicKey"
+            type="text"
+            class="w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-3 text-sm font-medium text-slate-800 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-200 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
+          />
+          @if(form.controls.apiPublicKey.invalid && form.controls.apiPublicKey.touched){
+          <p class="text-xs font-medium text-rose-500">Requerido.</p>
+          }
+        </div>
+
+        <div class="space-y-1">
+          <label class="mb-1 block text-sm font-semibold text-slate-700">API Secret</label>
+          <input
+            formControlName="apiSecret"
+            type="password"
+            class="w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-3 text-sm font-medium text-slate-800 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-200 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
+          />
+          @if(form.controls.apiSecret.invalid && form.controls.apiSecret.touched){
+          <p class="text-xs font-medium text-rose-500">Requerido.</p>
+          }
+        </div>
+
+        <div class="space-y-1">
+          <label class="mb-1 block text-sm font-semibold text-slate-700">URL Base</label>
+          <input
+            formControlName="urlBase"
+            type="text"
+            class="w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-3 text-sm font-medium text-slate-800 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-200 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
+          />
+          @if(form.controls.urlBase.invalid && form.controls.urlBase.touched){
+          <p class="text-xs font-medium text-rose-500">Requerido.</p>
+          }
+        </div>
+
+        <div class="space-y-1">
+          <label class="mb-1 block text-sm font-semibold text-slate-700">Webhook URL</label>
+          <input
+            formControlName="urlWebhook"
+            type="text"
+            class="w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-3 text-sm font-medium text-slate-800 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-200 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
+          />
+          @if(form.controls.urlWebhook.invalid && form.controls.urlWebhook.touched){
+          <p class="text-xs font-medium text-rose-500">Requerido.</p>
+          }
+        </div>
+
+        <div class="flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50/60 px-4 py-3">
+          <input
+            id="activo"
+            type="checkbox"
+            formControlName="activo"
+            class="h-4 w-4 rounded border-slate-300 text-sky-600 focus:ring-sky-500"
+          />
+          <label for="activo" class="text-sm font-semibold text-slate-700">Activo</label>
+        </div>
       </div>
 
-      <div>
-        <label class="block text-sm font-medium mb-1">API Public Key</label>
-        <input
-          formControlName="apiPublicKey"
-          type="text"
-          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring focus:border-sky-500 disabled:opacity-50"
-        />
-        @if(form.controls.apiPublicKey.invalid &&
-        form.controls.apiPublicKey.touched){
-        <p class="text-xs text-red-600 mt-1">Requerido.</p>
-        }
-      </div>
-
-      <div>
-        <label class="block text-sm font-medium mb-1">API Secret</label>
-        <input
-          formControlName="apiSecret"
-          type="password"
-          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring focus:border-sky-500 disabled:opacity-50"
-        />
-        @if(form.controls.apiSecret.invalid && form.controls.apiSecret.touched){
-        <p class="text-xs text-red-600 mt-1">Requerido.</p>
-        }
-      </div>
-
-      <div>
-        <label class="block text-sm font-medium mb-1">URL Base</label>
-        <input
-          formControlName="urlBase"
-          type="text"
-          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring focus:border-sky-500 disabled:opacity-50"
-        />
-        @if(form.controls.urlBase.invalid && form.controls.urlBase.touched){
-        <p class="text-xs text-red-600 mt-1">Requerido.</p>
-        }
-      </div>
-
-      <div>
-        <label class="block text-sm font-medium mb-1">Webhook URL</label>
-        <input
-          formControlName="urlWebhook"
-          type="text"
-          class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring focus:border-sky-500 disabled:opacity-50"
-        />
-        @if(form.controls.urlWebhook.invalid &&
-        form.controls.urlWebhook.touched){
-        <p class="text-xs text-red-600 mt-1">Requerido.</p>
-        }
-      </div>
-
-      <div class="flex items-center gap-2">
-        <input
-          id="activo"
-          type="checkbox"
-          formControlName="activo"
-          class="h-4 w-4"
-        />
-        <label for="activo" class="text-sm font-medium">Activo</label>
-      </div>
-    </div>
-
-    <app-config-form-actions
-      [editing]="editing()"
-      [saving]="saving()"
-      [disableSave]="form.invalid"
-      (edit)="enableEdit()"
-      (cancel)="cancel()"
-    />
-  </form>
-</app-config-section>
+      <app-config-form-actions
+        [editing]="editing()"
+        [saving]="saving()"
+        [disableSave]="form.invalid"
+        (edit)="enableEdit()"
+        (cancel)="cancel()"
+      />
+    </form>
+  </app-config-section>
+</section>

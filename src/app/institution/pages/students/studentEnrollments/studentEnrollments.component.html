@@ -1,1 +1,95 @@
-<p>AlumnSchedules works!</p>,
+<section class="mx-auto grid max-w-6xl gap-6">
+  <header class="space-y-2">
+    <p class="text-sm font-semibold uppercase tracking-wide text-indigo-500">Alumnos</p>
+    <h1 class="text-3xl font-bold text-slate-900">Matrículas del alumno</h1>
+    <p class="text-sm text-slate-500">
+      Visualiza las matrículas activas y pasadas del alumno, con sus montos y estado de pago.
+    </p>
+    <a
+      routerLink="/institution/alumnos"
+      class="inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 transition hover:-translate-y-0.5 hover:text-indigo-500"
+    >
+      ← Volver al listado de alumnos
+    </a>
+  </header>
+
+  <div *ngIf="error() as errorMessage" class="rounded-xl bg-rose-50 px-4 py-3 text-sm font-semibold text-rose-700 shadow-lg shadow-rose-300/30">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="loading()" class="rounded-xl border border-dashed border-slate-200 bg-white px-4 py-6 text-center text-sm text-slate-500">
+    Cargando matrículas…
+  </div>
+
+  <ng-container *ngIf="!loading()">
+    <ng-container *ngIf="status() as account; else selectStudent">
+      <section class="grid gap-4 rounded-2xl bg-white p-6 shadow-xl shadow-slate-900/10">
+        <header class="flex flex-col gap-1">
+          <h2 class="text-2xl font-semibold text-slate-900">{{ account.nombreCompleto }}</h2>
+          <p class="text-sm text-slate-500">Identificador: {{ account.id }}</p>
+        </header>
+
+        <div *ngIf="account.matriculas.length; else noEnrollments" class="space-y-4">
+          <article *ngFor="let enrollment of account.matriculas" class="rounded-2xl border border-slate-200 bg-slate-50 p-5 shadow-sm">
+            <header class="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <p class="text-sm font-semibold text-indigo-600">{{ enrollment.periodoAcademico || 'Periodo sin definir' }}</p>
+                <h3 class="text-xl font-bold text-slate-900">Matrícula #{{ enrollment.id }}</h3>
+              </div>
+              <span
+                class="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold"
+                [ngClass]="{
+                  'bg-emerald-100 text-emerald-700': enrollment.estado === 'PAGADO',
+                  'bg-amber-100 text-amber-700': enrollment.estado === 'PENDIENTE',
+                  'bg-rose-100 text-rose-700': enrollment.estado === 'VENCIDO' || enrollment.estado === 'ANULADO'
+                }"
+              >
+                {{ enrollment.estado || 'PENDIENTE' }}
+              </span>
+            </header>
+
+            <dl class="mt-4 grid gap-3 text-sm text-slate-600 sm:grid-cols-2 md:grid-cols-4">
+              <div>
+                <dt class="text-xs font-semibold uppercase tracking-wide">Monto total</dt>
+                <dd class="font-semibold text-slate-900">{{ enrollment.montoTotal | currency:'PEN':'symbol':'1.2-2' }}</dd>
+              </div>
+              <div>
+                <dt class="text-xs font-semibold uppercase tracking-wide">Pagado</dt>
+                <dd class="font-semibold text-emerald-700">{{ enrollment.totalPagado | currency:'PEN':'symbol':'1.2-2' }}</dd>
+              </div>
+              <div>
+                <dt class="text-xs font-semibold uppercase tracking-wide">Saldo pendiente</dt>
+                <dd class="font-semibold text-amber-700">{{ enrollment.saldoPendiente | currency:'PEN':'symbol':'1.2-2' }}</dd>
+              </div>
+              <div>
+                <dt class="text-xs font-semibold uppercase tracking-wide">Morosidad</dt>
+                <dd class="font-semibold text-rose-700">{{ enrollment.morosidad | currency:'PEN':'symbol':'1.2-2' }}</dd>
+              </div>
+            </dl>
+
+            <div class="mt-4 flex flex-wrap gap-3 text-xs text-slate-500">
+              <span class="inline-flex items-center gap-1 rounded-full bg-white px-3 py-1 font-semibold text-indigo-600">
+                {{ enrollment.pagos.length }} pago{{ enrollment.pagos.length === 1 ? '' : 's' }} registrados
+              </span>
+              <span class="inline-flex items-center gap-1 rounded-full bg-white px-3 py-1 font-semibold text-slate-500">
+                Último movimiento:
+                {{ enrollment.pagos.length ? (enrollment.pagos[enrollment.pagos.length - 1].fechaPago | date:'mediumDate') : 'Sin registros' }}
+              </span>
+            </div>
+          </article>
+        </div>
+        <ng-template #noEnrollments>
+          <p class="rounded-xl border border-dashed border-slate-200 bg-white px-4 py-3 text-sm text-slate-500">
+            El alumno aún no cuenta con matrículas asociadas.
+          </p>
+        </ng-template>
+      </section>
+    </ng-container>
+  </ng-container>
+
+  <ng-template #selectStudent>
+    <div class="rounded-2xl border border-dashed border-slate-200 bg-white p-8 text-center text-sm text-slate-500">
+      Selecciona un alumno desde el módulo de alumnos para revisar sus matrículas.
+    </div>
+  </ng-template>
+</section>

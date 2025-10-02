@@ -1,0 +1,37 @@
+<div
+  class="w-full rounded-2xl border border-slate-200/80 bg-white/95 px-5 py-4 shadow-xl shadow-emerald-100/60 ring-1 ring-white/80"
+>
+  <div class="flex items-center gap-4">
+    <div
+      class="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-green-600 text-lg font-semibold text-white shadow-inner shadow-emerald-900/20"
+    >
+      {{ initials() }}
+    </div>
+    <div class="min-w-0">
+      <p class="truncate text-sm font-semibold text-slate-700">
+        {{ user().nombreCompleto || user().nombreUsuario }}
+      </p>
+      <p class="text-xs font-medium uppercase tracking-widest text-emerald-600">
+        {{ roleLabel() }}
+      </p>
+    </div>
+  </div>
+
+  <div class="mt-4 space-y-2 text-xs text-slate-500">
+    <div class="flex items-center gap-2" title="{{ user().correo }}">
+      <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+      <span class="font-medium text-slate-600">Correo</span>
+      <span class="truncate">{{ user().correo }}</span>
+    </div>
+    <div class="flex items-center gap-2" title="{{ user().nombreUsuario }}">
+      <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+      <span class="font-medium text-slate-600">Usuario</span>
+      <span class="truncate">{{ user().nombreUsuario }}</span>
+    </div>
+    <div class="flex items-center gap-2" title="{{ institution().name }}">
+      <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+      <span class="font-medium text-slate-600">Institución</span>
+      <span class="truncate">{{ institution().name }}</span>
+    </div>
+  </div>
+</div>
