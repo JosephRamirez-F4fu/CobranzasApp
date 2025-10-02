@@ -1,68 +1,116 @@
 <section class="mx-auto grid max-w-6xl gap-6">
   <header class="space-y-2">
-    <p class="text-sm font-semibold uppercase tracking-wide text-indigo-500">Alumnos</p>
+    <p class="text-sm font-semibold uppercase tracking-wide text-indigo-500">
+      Alumnos
+    </p>
     <h1 class="text-3xl font-bold text-slate-900">Historial de pagos</h1>
     <p class="text-sm text-slate-500">
-      Revisa la cronología de pagos realizados por el alumno en todas sus matrículas.
+      Revisa la cronología de pagos realizados por el alumno en todas sus
+      matrículas.
     </p>
     <a
-      routerLink="/institution/alumnos"
+      routerLink="/institucion/alumnos"
       class="inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 transition hover:-translate-y-0.5 hover:text-indigo-500"
     >
       ← Volver al listado de alumnos
     </a>
   </header>
 
-  <div *ngIf="error() as errorMessage" class="rounded-xl bg-rose-50 px-4 py-3 text-sm font-semibold text-rose-700 shadow-lg shadow-rose-300/30">
+  <div
+    *ngIf="error() as errorMessage"
+    class="rounded-xl bg-rose-50 px-4 py-3 text-sm font-semibold text-rose-700 shadow-lg shadow-rose-300/30"
+  >
     {{ errorMessage }}
   </div>
 
-  <div *ngIf="loading()" class="rounded-xl border border-dashed border-slate-200 bg-white px-4 py-6 text-center text-sm text-slate-500">
+  <div
+    *ngIf="loading()"
+    class="rounded-xl border border-dashed border-slate-200 bg-white px-4 py-6 text-center text-sm text-slate-500"
+  >
     Cargando historial de pagos…
   </div>
 
   <ng-container *ngIf="!loading()">
     <ng-container *ngIf="status() as account; else selectStudent">
-      <section class="grid gap-4 rounded-2xl bg-white p-6 shadow-xl shadow-slate-900/10">
+      <section
+        class="grid gap-4 rounded-2xl bg-white p-6 shadow-xl shadow-slate-900/10"
+      >
         <header class="flex flex-col gap-1">
-          <h2 class="text-2xl font-semibold text-slate-900">{{ account.nombreCompleto }}</h2>
+          <h2 class="text-2xl font-semibold text-slate-900">
+            {{ account.nombreCompleto }}
+          </h2>
           <p class="text-sm text-slate-500">Identificador: {{ account.id }}</p>
         </header>
 
         <div *ngIf="sortedPayments.length; else noPayments" class="space-y-4">
-          <article *ngFor="let payment of sortedPayments" class="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4 shadow-sm">
+          <article
+            *ngFor="let payment of sortedPayments"
+            class="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4 shadow-sm"
+          >
             <div class="flex flex-wrap items-center justify-between gap-2">
               <div>
-                <p class="text-sm font-semibold text-indigo-600">{{ payment.periodoAcademico || 'Sin periodo' }}</p>
-                <h3 class="text-xl font-bold text-slate-900">Pago {{ payment.id }}</h3>
+                <p class="text-sm font-semibold text-indigo-600">
+                  {{ payment.periodoAcademico || "Sin periodo" }}
+                </p>
+                <h3 class="text-xl font-bold text-slate-900">
+                  Pago {{ payment.id }}
+                </h3>
               </div>
-              <span class="text-xs font-semibold uppercase tracking-wide text-slate-500">Matrícula #{{ payment.matriculaId }}</span>
+              <span
+                class="text-xs font-semibold uppercase tracking-wide text-slate-500"
+                >Matrícula #{{ payment.matriculaId }}</span
+              >
             </div>
-            <div class="grid gap-3 text-sm text-slate-600 sm:grid-cols-2 md:grid-cols-4">
+            <div
+              class="grid gap-3 text-sm text-slate-600 sm:grid-cols-2 md:grid-cols-4"
+            >
               <div>
-                <p class="text-xs font-semibold uppercase tracking-wide">Fecha</p>
-                <p class="font-semibold text-slate-900">{{ payment.fechaPago | date:'fullDate' }}</p>
+                <p class="text-xs font-semibold uppercase tracking-wide">
+                  Fecha
+                </p>
+                <p class="font-semibold text-slate-900">
+                  {{ payment.fechaPago | date : "fullDate" }}
+                </p>
               </div>
               <div>
-                <p class="text-xs font-semibold uppercase tracking-wide">Monto</p>
-                <p class="font-semibold text-emerald-700">{{ payment.montoPagado | currency:'PEN':'symbol':'1.2-2' }}</p>
+                <p class="text-xs font-semibold uppercase tracking-wide">
+                  Monto
+                </p>
+                <p class="font-semibold text-emerald-700">
+                  {{
+                    payment.montoPagado | currency : "PEN" : "symbol" : "1.2-2"
+                  }}
+                </p>
               </div>
               <div>
-                <p class="text-xs font-semibold uppercase tracking-wide">Método</p>
-                <p class="font-semibold text-slate-900">{{ payment.metodoPago || 'Sin método' }}</p>
+                <p class="text-xs font-semibold uppercase tracking-wide">
+                  Método
+                </p>
+                <p class="font-semibold text-slate-900">
+                  {{ payment.metodoPago || "Sin método" }}
+                </p>
               </div>
               <div>
-                <p class="text-xs font-semibold uppercase tracking-wide">Operación</p>
-                <p class="font-semibold text-slate-500">{{ payment.numeroOperacion || '—' }}</p>
+                <p class="text-xs font-semibold uppercase tracking-wide">
+                  Operación
+                </p>
+                <p class="font-semibold text-slate-500">
+                  {{ payment.numeroOperacion || "—" }}
+                </p>
               </div>
             </div>
-            <p *ngIf="payment.observaciones" class="rounded-xl bg-white px-4 py-3 text-sm text-slate-500">
+            <p
+              *ngIf="payment.observaciones"
+              class="rounded-xl bg-white px-4 py-3 text-sm text-slate-500"
+            >
               Nota: {{ payment.observaciones }}
             </p>
           </article>
         </div>
         <ng-template #noPayments>
-          <p class="rounded-xl border border-dashed border-slate-200 bg-white px-4 py-3 text-sm text-slate-500">
+          <p
+            class="rounded-xl border border-dashed border-slate-200 bg-white px-4 py-3 text-sm text-slate-500"
+          >
             No se registran pagos para el alumno seleccionado.
           </p>
         </ng-template>
@@ -71,8 +119,11 @@
   </ng-container>
 
   <ng-template #selectStudent>
-    <div class="rounded-2xl border border-dashed border-slate-200 bg-white p-8 text-center text-sm text-slate-500">
-      Selecciona un alumno desde el módulo de alumnos para revisar su historial de pagos.
+    <div
+      class="rounded-2xl border border-dashed border-slate-200 bg-white p-8 text-center text-sm text-slate-500"
+    >
+      Selecciona un alumno desde el módulo de alumnos para revisar su historial
+      de pagos.
     </div>
   </ng-template>
 </section>
