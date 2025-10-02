@@ -1,0 +1,224 @@
+<form
+  [formGroup]="form"
+  (ngSubmit)="onSubmit()"
+  class="grid gap-6 rounded-2xl bg-white p-6 shadow-xl shadow-slate-900/10"
+>
+  <header class="space-y-1">
+    <h2 class="text-2xl font-semibold text-slate-900">
+      {{ editing ? 'Actualizar alumno' : 'Registrar nuevo alumno' }}
+    </h2>
+    <p class="text-sm text-slate-500">
+      Gestiona los datos generales y la información de contacto del tutor desde este formulario.
+    </p>
+  </header>
+
+  <section class="grid gap-6 lg:grid-cols-2">
+    <div class="space-y-4">
+      <h3 class="text-sm font-semibold uppercase tracking-wide text-slate-500">Datos del alumno</h3>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <label class="flex flex-col gap-1 font-semibold text-slate-800 sm:col-span-2">
+          <span class="text-sm">Nombre completo</span>
+          <input
+            type="text"
+            formControlName="nombreCompleto"
+            placeholder="Ej. María López"
+            class="rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-medium text-slate-900 shadow-sm transition focus:border-indigo-500 focus:outline-none focus:ring-4 focus:ring-indigo-200"
+            [ngClass]="{
+              'border-rose-400 focus:border-rose-500 focus:ring-rose-200':
+                form.controls['nombreCompleto'].invalid && form.controls['nombreCompleto'].touched
+            }"
+          />
+          <small
+            *ngIf="form.controls['nombreCompleto'].invalid && form.controls['nombreCompleto'].touched"
+            class="text-sm font-medium text-rose-500"
+          >
+            El nombre es obligatorio.
+          </small>
+        </label>
+
+        <label class="flex flex-col gap-1 font-semibold text-slate-800">
+          <span class="text-sm">Documento de identidad</span>
+          <input
+            type="text"
+            formControlName="dni"
+            placeholder="DNI o documento equivalente"
+            class="rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-medium text-slate-900 shadow-sm transition focus:border-indigo-500 focus:outline-none focus:ring-4 focus:ring-indigo-200"
+            [ngClass]="{
+              'border-rose-400 focus:border-rose-500 focus:ring-rose-200':
+                form.controls['dni'].invalid && form.controls['dni'].touched
+            }"
+          />
+          <small
+            *ngIf="form.controls['dni'].invalid && form.controls['dni'].touched"
+            class="text-sm font-medium text-rose-500"
+          >
+            Ingrese un documento válido (entre 8 y 12 caracteres).
+          </small>
+        </label>
+
+        <label class="flex flex-col gap-1 font-semibold text-slate-800">
+          <span class="text-sm">Nivel</span>
+          <input
+            type="text"
+            formControlName="nivel"
+            placeholder="Ej. Secundaria"
+            class="rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-medium text-slate-900 shadow-sm transition focus:border-indigo-500 focus:outline-none focus:ring-4 focus:ring-indigo-200"
+            [ngClass]="{
+              'border-rose-400 focus:border-rose-500 focus:ring-rose-200':
+                form.controls['nivel'].invalid && form.controls['nivel'].touched
+            }"
+          />
+          <small
+            *ngIf="form.controls['nivel'].invalid && form.controls['nivel'].touched"
+            class="text-sm font-medium text-rose-500"
+          >
+            El nivel es obligatorio.
+          </small>
+        </label>
+
+        <label class="flex flex-col gap-1 font-semibold text-slate-800">
+          <span class="text-sm">Grado</span>
+          <input
+            type="text"
+            formControlName="grado"
+            placeholder="Ej. 3°"
+            class="rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-medium text-slate-900 shadow-sm transition focus:border-indigo-500 focus:outline-none focus:ring-4 focus:ring-indigo-200"
+            [ngClass]="{
+              'border-rose-400 focus:border-rose-500 focus:ring-rose-200':
+                form.controls['grado'].invalid && form.controls['grado'].touched
+            }"
+          />
+          <small
+            *ngIf="form.controls['grado'].invalid && form.controls['grado'].touched"
+            class="text-sm font-medium text-rose-500"
+          >
+            El grado es obligatorio.
+          </small>
+        </label>
+
+        <label class="flex flex-col gap-1 font-semibold text-slate-800">
+          <span class="text-sm">Sección</span>
+          <input
+            type="text"
+            formControlName="seccion"
+            placeholder="Ej. A"
+            class="rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-medium text-slate-900 shadow-sm transition focus:border-indigo-500 focus:outline-none focus:ring-4 focus:ring-indigo-200"
+            [ngClass]="{
+              'border-rose-400 focus:border-rose-500 focus:ring-rose-200':
+                form.controls['seccion'].invalid && form.controls['seccion'].touched
+            }"
+          />
+          <small
+            *ngIf="form.controls['seccion'].invalid && form.controls['seccion'].touched"
+            class="text-sm font-medium text-rose-500"
+          >
+            La sección es obligatoria.
+          </small>
+        </label>
+
+        <label class="flex flex-col gap-1 font-semibold text-slate-800 sm:col-span-2">
+          <span class="text-sm">Dirección</span>
+          <textarea
+            rows="3"
+            formControlName="direccion"
+            placeholder="Dirección completa de residencia"
+            class="rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-medium text-slate-900 shadow-sm transition focus:border-indigo-500 focus:outline-none focus:ring-4 focus:ring-indigo-200"
+            [ngClass]="{
+              'border-rose-400 focus:border-rose-500 focus:ring-rose-200':
+                form.controls['direccion'].invalid && form.controls['direccion'].touched
+            }"
+          ></textarea>
+          <small
+            *ngIf="form.controls['direccion'].invalid && form.controls['direccion'].touched"
+            class="text-sm font-medium text-rose-500"
+          >
+            La dirección es obligatoria.
+          </small>
+        </label>
+      </div>
+    </div>
+
+    <div class="space-y-4">
+      <h3 class="text-sm font-semibold uppercase tracking-wide text-slate-500">Responsable de pago</h3>
+      <div class="grid gap-4">
+        <label class="flex flex-col gap-1 font-semibold text-slate-800">
+          <span class="text-sm">Nombre del responsable</span>
+          <input
+            type="text"
+            formControlName="responsablePago"
+            placeholder="Ej. Juan Pérez"
+            class="rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-medium text-slate-900 shadow-sm transition focus:border-indigo-500 focus:outline-none focus:ring-4 focus:ring-indigo-200"
+            [ngClass]="{
+              'border-rose-400 focus:border-rose-500 focus:ring-rose-200':
+                form.controls['responsablePago'].invalid && form.controls['responsablePago'].touched
+            }"
+          />
+          <small
+            *ngIf="form.controls['responsablePago'].invalid && form.controls['responsablePago'].touched"
+            class="text-sm font-medium text-rose-500"
+          >
+            El responsable es obligatorio.
+          </small>
+        </label>
+
+        <label class="flex flex-col gap-1 font-semibold text-slate-800">
+          <span class="text-sm">Correo electrónico</span>
+          <input
+            type="email"
+            formControlName="emailTutor"
+            placeholder="responsable@correo.com"
+            class="rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-medium text-slate-900 shadow-sm transition focus:border-indigo-500 focus:outline-none focus:ring-4 focus:ring-indigo-200"
+            [ngClass]="{
+              'border-rose-400 focus:border-rose-500 focus:ring-rose-200':
+                form.controls['emailTutor'].invalid && form.controls['emailTutor'].touched
+            }"
+          />
+          <small
+            *ngIf="form.controls['emailTutor'].invalid && form.controls['emailTutor'].touched"
+            class="text-sm font-medium text-rose-500"
+          >
+            Ingrese un correo válido.
+          </small>
+        </label>
+
+        <label class="flex flex-col gap-1 font-semibold text-slate-800">
+          <span class="text-sm">Teléfono de contacto</span>
+          <input
+            type="tel"
+            formControlName="telefonoTutor"
+            placeholder="Número de contacto"
+            class="rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-medium text-slate-900 shadow-sm transition focus:border-indigo-500 focus:outline-none focus:ring-4 focus:ring-indigo-200"
+          />
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <footer class="flex flex-wrap items-center gap-3">
+    <button
+      type="submit"
+      [disabled]="form.invalid || saving"
+      class="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-indigo-500 to-violet-500 px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-500/30 transition hover:-translate-y-0.5 hover:shadow-indigo-500/40 disabled:cursor-not-allowed disabled:opacity-70"
+    >
+      {{ saving ? 'Guardando…' : (editing ? 'Actualizar alumno' : 'Registrar alumno') }}
+    </button>
+    <button
+      type="button"
+      *ngIf="editing"
+      (click)="onCancel()"
+      [disabled]="saving"
+      class="inline-flex items-center justify-center rounded-full bg-slate-200 px-6 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-300 disabled:cursor-not-allowed disabled:opacity-70"
+    >
+      Cancelar
+    </button>
+    <button
+      type="button"
+      *ngIf="!editing"
+      (click)="onClear()"
+      [disabled]="saving"
+      class="inline-flex items-center justify-center rounded-full bg-slate-200 px-6 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-300 disabled:cursor-not-allowed disabled:opacity-70"
+    >
+      Limpiar
+    </button>
+  </footer>
+</form>
