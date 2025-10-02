@@ -23,6 +23,7 @@
         <li>
           <a
             [routerLink]="item.path || '.'"
+            [queryParams]="getQueryParams(item)"
             [routerLinkActiveOptions]="{ exact: !(item.children?.length) }"
             routerLinkActive="bg-emerald-100/90 text-emerald-700 shadow-inner shadow-emerald-200/80"
             class="group flex items-center justify-between rounded-2xl px-4 py-2.5 text-sm font-medium text-slate-600 transition-all duration-150 hover:bg-emerald-50 hover:text-emerald-700"
@@ -39,6 +40,7 @@
                 <li>
                   <a
                     [routerLink]="child.path || '.'"
+                    [queryParams]="getQueryParams(child)"
                     routerLinkActive="bg-emerald-100/90 text-emerald-700 shadow-inner shadow-emerald-200/80"
                     class="block rounded-xl px-3 py-2 text-sm text-slate-500 transition-colors hover:bg-emerald-50 hover:text-emerald-700"
                   >
