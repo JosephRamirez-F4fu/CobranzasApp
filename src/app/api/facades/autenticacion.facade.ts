@@ -10,6 +10,7 @@ import {
   renovarTokenDeAcceso,
 } from '../functions';
 import { ApiResponseAccessTokenResponse } from '../models/api-response-access-token-response';
+import { ApiResponseOtpChallengeResponse } from '../models/api-response-otp-challenge-response';
 import { ApiResponseVoid } from '../models/api-response-void';
 
 import { ApiFacadeBase } from './api-facade.base';
@@ -20,7 +21,7 @@ import { ApiFacadeBase } from './api-facade.base';
 export class AutenticacionFacade extends ApiFacadeBase {
   iniciarSesion(
     params: IniciarSesionConCredenciales$Params
-  ): Observable<ApiResponseAccessTokenResponse> {
+  ): Observable<ApiResponseOtpChallengeResponse> {
     return this.request(iniciarSesionConCredenciales, params);
   }
 
