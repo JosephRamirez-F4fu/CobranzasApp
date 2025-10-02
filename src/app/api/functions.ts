@@ -85,6 +85,8 @@ export type { ListarCronogramasConFiltros$Params } from './fn/cronogramas/listar
 export { listarCronogramasConFiltros } from './fn/cronogramas/listar-cronogramas-con-filtros';
 export type { CrearCronogramaParaInstitucionAutenticada$Params } from './fn/cronogramas/crear-cronograma-para-institucion-autenticada';
 export { crearCronogramaParaInstitucionAutenticada } from './fn/cronogramas/crear-cronograma-para-institucion-autenticada';
+export type { ListarCuotasPorCronograma$Params } from './fn/cronogramas/listar-cuotas-por-cronograma';
+export { listarCuotasPorCronograma } from './fn/cronogramas/listar-cuotas-por-cronograma';
 export type { RegistrarPagoManualDesdePanel$Params } from './fn/pagos/registrar-pago-manual-desde-panel';
 export { registrarPagoManualDesdePanel } from './fn/pagos/registrar-pago-manual-desde-panel';
 export type { RegistrarPagoAutomaticoDesdeIntegracion$Params } from './fn/pagos/registrar-pago-automatico-desde-integracion';

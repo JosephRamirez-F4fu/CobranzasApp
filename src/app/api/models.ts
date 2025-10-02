@@ -12,6 +12,7 @@ export type { ApiResponseAlumnoEstadoCuentaResponse } from './models/api-respons
 export type { ApiResponseBoolean } from './models/api-response-boolean';
 export type { ApiResponseInstitutionResponse } from './models/api-response-institution-response';
 export type { ApiResponseListCuentaResponse } from './models/api-response-list-cuenta-response';
+export type { ApiResponseListCuotaResponse } from './models/api-response-list-cuota-response';
 export type { ApiResponseListNotificacionResponse } from './models/api-response-list-notificacion-response';
 export type { ApiResponseListPagoResponse } from './models/api-response-list-pago-response';
 export type { ApiResponseNotificacionConfigracionResponse } from './models/api-response-notificacion-configracion-response';
@@ -31,6 +32,7 @@ export type { CronogramaResponse } from './models/cronograma-response';
 export type { CuentaRequest } from './models/cuenta-request';
 export type { CuentaResponse } from './models/cuenta-response';
 export type { CuotaRequest } from './models/cuota-request';
+export type { CuotaResponse } from './models/cuota-response';
 export type { InstitutionRequestRegister } from './models/institution-request-register';
 export type { InstitutionResponse } from './models/institution-response';
 export type { InstitutionUpdateLdpa } from './models/institution-update-ldpa';
