@@ -11,8 +11,9 @@ import {
   withFetch,
   withInterceptors,
 } from '@angular/common/http';
-import { refreshInterceptor } from './shared/interceptors/refresh.interceptor';
 import { bearerInterceptor } from './shared/interceptors/bearer.interceptor';
+import { credentialsInterceptor } from './shared/interceptors/credentials.interceptor';
+import { refreshInterceptor } from './shared/interceptors/refresh.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,8 +21,12 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideHttpClient(
-      withFetch({ credentials: 'include' }),
-      withInterceptors([bearerInterceptor, refreshInterceptor])
+      withFetch(),
+      withInterceptors([
+        credentialsInterceptor,
+        bearerInterceptor,
+        refreshInterceptor,
+      ])
     ),
   ],
 };
