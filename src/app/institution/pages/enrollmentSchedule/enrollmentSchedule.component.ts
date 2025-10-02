@@ -64,7 +64,7 @@ type InstitutionEnrollmentQuotaFormGroup = FormGroup<{
   ],
   templateUrl: './enrollmentSchedule.component.html',
   host: {
-    class: 'block min-h-full bg-slate-100 p-6',
+    class: 'block min-h-full  p-6',
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -83,9 +83,9 @@ export default class EnrollmentScheduleComponent {
   readonly page = signal(0);
   readonly editing = signal(false);
   readonly feedback = signal<string | null>(null);
-  readonly selectedQuotaSchedule = signal<
-    InstitutionEnrollmentSchedule | null
-  >(null);
+  readonly selectedQuotaSchedule = signal<InstitutionEnrollmentSchedule | null>(
+    null
+  );
 
   readonly levels: InstitutionEnrollmentLevel[] = [
     'INICIAL',
@@ -162,11 +162,11 @@ export default class EnrollmentScheduleComponent {
       return;
     }
 
-    const value = this.form.getRawValue() as InstitutionEnrollmentScheduleFormValue;
+    const value =
+      this.form.getRawValue() as InstitutionEnrollmentScheduleFormValue;
     const payload: InstitutionEnrollmentSchedulePayload = {
       anioLectivo: Number(value.anioLectivo ?? 0),
-      nivelEducativo: value
-        .nivelEducativo as InstitutionEnrollmentLevel,
+      nivelEducativo: value.nivelEducativo as InstitutionEnrollmentLevel,
       montoCuota: Number(value.montoCuota ?? 0),
       numCuotas: Number(value.numCuotas ?? 0),
       interesMoraCuota: Number(value.interesMoraCuota ?? 0),
@@ -179,19 +179,17 @@ export default class EnrollmentScheduleComponent {
       ? this.schedulesService.update(value.id, payload)
       : this.schedulesService.create(payload);
 
-    request$
-      .pipe(finalize(() => this.saving.set(false)))
-      .subscribe({
-        next: (response) => {
-          this.feedback.set(
-            response.message || 'Operación completada correctamente.'
-          );
-          const wasEditing = Boolean(value.id);
-          this.resetForm();
-          this.load(wasEditing ? this.page() : 0);
-        },
-        error: (error) => this.handleError(error),
-      });
+    request$.pipe(finalize(() => this.saving.set(false))).subscribe({
+      next: (response) => {
+        this.feedback.set(
+          response.message || 'Operación completada correctamente.'
+        );
+        const wasEditing = Boolean(value.id);
+        this.resetForm();
+        this.load(wasEditing ? this.page() : 0);
+      },
+      error: (error) => this.handleError(error),
+    });
   }
 
   onEdit(schedule: InstitutionEnrollmentSchedule) {

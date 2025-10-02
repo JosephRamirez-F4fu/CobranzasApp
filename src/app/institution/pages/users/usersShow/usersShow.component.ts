@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormBuilder,
@@ -41,7 +46,7 @@ type InstitutionUserFormGroup = FormGroup<{
   ],
   templateUrl: './usersShow.component.html',
   host: {
-    class: 'block min-h-full bg-slate-100 p-6',
+    class: 'block min-h-full p-6',
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -116,17 +121,17 @@ export default class UsersShowComponent {
       ? this.usersService.update(value.id, payload)
       : this.usersService.create(payload);
 
-    request$
-      .pipe(finalize(() => this.saving.set(false)))
-      .subscribe({
-        next: (response) => {
-          this.feedback.set(response.message || 'Operación completada correctamente.');
-          this.resetForm();
-          this.configurePasswordValidators(false);
-          this.load(value.id ? this.page() : 0);
-        },
-        error: (error) => this.handleError(error),
-      });
+    request$.pipe(finalize(() => this.saving.set(false))).subscribe({
+      next: (response) => {
+        this.feedback.set(
+          response.message || 'Operación completada correctamente.'
+        );
+        this.resetForm();
+        this.configurePasswordValidators(false);
+        this.load(value.id ? this.page() : 0);
+      },
+      error: (error) => this.handleError(error),
+    });
   }
 
   onEdit(user: InstitutionUser) {
@@ -162,7 +167,9 @@ export default class UsersShowComponent {
       .pipe(finalize(() => this.saving.set(false)))
       .subscribe({
         next: (response) => {
-          this.feedback.set(response.message || 'Usuario desactivado correctamente.');
+          this.feedback.set(
+            response.message || 'Usuario desactivado correctamente.'
+          );
           this.load(this.page());
         },
         error: (error) => this.handleError(error),
@@ -170,7 +177,11 @@ export default class UsersShowComponent {
   }
 
   onDelete(user: InstitutionUser) {
-    if (!confirm(`Esta acción eliminará permanentemente a ${user.nombreUsuario}. ¿Desea continuar?`)) {
+    if (
+      !confirm(
+        `Esta acción eliminará permanentemente a ${user.nombreUsuario}. ¿Desea continuar?`
+      )
+    ) {
       return;
     }
 

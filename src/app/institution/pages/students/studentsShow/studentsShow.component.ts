@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormBuilder,
@@ -52,7 +57,7 @@ type InstitutionStudentFiltersFormGroup = FormGroup<{
   ],
   templateUrl: './studentsShow.component.html',
   host: {
-    class: 'block min-h-full bg-slate-100 p-6',
+    class: 'block min-h-full  p-6',
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -75,7 +80,11 @@ export default class StudentsShowComponent {
       validators: [Validators.required],
     }),
     dni: this.fb.nonNullable.control('', {
-      validators: [Validators.required, Validators.minLength(8), Validators.maxLength(12)],
+      validators: [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.maxLength(12),
+      ],
     }),
     nivel: this.fb.nonNullable.control('', {
       validators: [Validators.required],
@@ -150,17 +159,17 @@ export default class StudentsShowComponent {
       ? this.studentsService.update(value.id, payload)
       : this.studentsService.create(payload);
 
-    request$
-      .pipe(finalize(() => this.saving.set(false)))
-      .subscribe({
-        next: (response) => {
-          this.feedback.set(response.message || 'Operación completada correctamente.');
-          const isEditing = Boolean(value.id);
-          this.resetForm();
-          this.load(isEditing ? this.page() : 0);
-        },
-        error: (error) => this.handleError(error),
-      });
+    request$.pipe(finalize(() => this.saving.set(false))).subscribe({
+      next: (response) => {
+        this.feedback.set(
+          response.message || 'Operación completada correctamente.'
+        );
+        const isEditing = Boolean(value.id);
+        this.resetForm();
+        this.load(isEditing ? this.page() : 0);
+      },
+      error: (error) => this.handleError(error),
+    });
   }
 
   onEdit(student: InstitutionStudent) {
@@ -180,7 +189,11 @@ export default class StudentsShowComponent {
   }
 
   onDelete(student: InstitutionStudent) {
-    if (!confirm(`Esta acción eliminará al alumno ${student.nombreCompleto}. ¿Desea continuar?`)) {
+    if (
+      !confirm(
+        `Esta acción eliminará al alumno ${student.nombreCompleto}. ¿Desea continuar?`
+      )
+    ) {
       return;
     }
 
@@ -190,7 +203,9 @@ export default class StudentsShowComponent {
       .pipe(finalize(() => this.saving.set(false)))
       .subscribe({
         next: (response) => {
-          this.feedback.set(response.message || 'Alumno eliminado correctamente.');
+          this.feedback.set(
+            response.message || 'Alumno eliminado correctamente.'
+          );
           const currentPage = this.page();
           this.load(currentPage);
         },

@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -16,7 +21,7 @@ import {
   imports: [CommonModule, RouterModule],
   templateUrl: './paymentDetails.component.html',
   host: {
-    class: 'block min-h-full bg-slate-100 p-6',
+    class: 'block min-h-full p-6',
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -29,17 +34,15 @@ export default class PaymentDetailsComponent {
   readonly error = signal<string | null>(null);
 
   constructor() {
-    this.route.queryParamMap
-      .pipe(takeUntilDestroyed())
-      .subscribe((params) => {
-        const idParam = params.get('studentId');
-        const id = idParam ? Number(idParam) : NaN;
-        if (!Number.isNaN(id) && id > 0) {
-          this.loadStatus(id);
-        } else {
-          this.status.set(null);
-        }
-      });
+    this.route.queryParamMap.pipe(takeUntilDestroyed()).subscribe((params) => {
+      const idParam = params.get('studentId');
+      const id = idParam ? Number(idParam) : NaN;
+      if (!Number.isNaN(id) && id > 0) {
+        this.loadStatus(id);
+      } else {
+        this.status.set(null);
+      }
+    });
   }
 
   get payments() {
