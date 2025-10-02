@@ -1,10 +1,12 @@
 import { Routes } from '@angular/router';
 import { InstitutionLayoutComponent } from './layout/institution.layout';
+import { INSTITUTION_SHARED_SERVICES } from './services';
 
 const InstitucionRoutes: Routes = [
   {
     path: '',
     component: InstitutionLayoutComponent,
+    providers: [...INSTITUTION_SHARED_SERVICES],
     children: [
       {
         path: 'configuracion',
