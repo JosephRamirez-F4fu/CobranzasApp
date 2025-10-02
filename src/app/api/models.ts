@@ -16,6 +16,7 @@ export type { ApiResponseListCuotaResponse } from './models/api-response-list-cu
 export type { ApiResponseListNotificacionResponse } from './models/api-response-list-notificacion-response';
 export type { ApiResponseListPagoResponse } from './models/api-response-list-pago-response';
 export type { ApiResponseNotificacionConfigracionResponse } from './models/api-response-notificacion-configracion-response';
+export type { ApiResponseOtpChallengeResponse } from './models/api-response-otp-challenge-response';
 export type { ApiResponsePageAlumnoResponse } from './models/api-response-page-alumno-response';
 export type { ApiResponsePageCronogramaResponse } from './models/api-response-page-cronograma-response';
 export type { ApiResponsePageCuentaResponse } from './models/api-response-page-cuenta-response';
@@ -42,6 +43,8 @@ export type { MatriculaRequest } from './models/matricula-request';
 export type { NotificacionConfigracionRegister } from './models/notificacion-configracion-register';
 export type { NotificacionConfigracionResponse } from './models/notificacion-configracion-response';
 export type { NotificacionResponse } from './models/notificacion-response';
+export type { OtpChallengeResponse } from './models/otp-challenge-response';
+export type { OtpVerificationRequest } from './models/otp-verification-request';
 export type { PageableObject } from './models/pageable-object';
 export type { PageAlumnoResponse } from './models/page-alumno-response';
 export type { PageCronogramaResponse } from './models/page-cronograma-response';

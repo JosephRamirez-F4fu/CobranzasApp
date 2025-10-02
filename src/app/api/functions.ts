@@ -105,6 +105,8 @@ export type { ListarNotificacionesPorConfiguracion$Params } from './fn/notificac
 export { listarNotificacionesPorConfiguracion } from './fn/notificaciones/listar-notificaciones-por-configuracion';
 export type { RenovarTokenDeAcceso$Params } from './fn/autenticacion/renovar-token-de-acceso';
 export { renovarTokenDeAcceso } from './fn/autenticacion/renovar-token-de-acceso';
+export type { CompletarAutenticacion$Params } from './fn/autenticacion/completar-autenticacion';
+export { completarAutenticacion } from './fn/autenticacion/completar-autenticacion';
 export type { CerrarSesionConRefreshToken$Params } from './fn/autenticacion/cerrar-sesion-con-refresh-token';
 export { cerrarSesionConRefreshToken } from './fn/autenticacion/cerrar-sesion-con-refresh-token';
 export type { IniciarSesionConCredenciales$Params } from './fn/autenticacion/iniciar-sesion-con-credenciales';

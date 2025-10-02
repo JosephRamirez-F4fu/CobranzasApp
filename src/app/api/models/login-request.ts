@@ -5,4 +5,5 @@ export interface LoginRequest {
   contrasena?: string;
   institutionCode?: string;
   nombreUsuario?: string;
+  recordarDispositivo?: boolean;
 }

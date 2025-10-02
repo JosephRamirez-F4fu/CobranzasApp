@@ -7,14 +7,14 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { ApiResponseAccessTokenResponse } from '../../models/api-response-access-token-response';
+import { ApiResponseOtpChallengeResponse } from '../../models/api-response-otp-challenge-response';
 import { LoginRequest } from '../../models/login-request';
 
 export interface IniciarSesionConCredenciales$Params {
       body: LoginRequest
 }
 
-export function iniciarSesionConCredenciales(http: HttpClient, rootUrl: string, params: IniciarSesionConCredenciales$Params, context?: HttpContext): Observable<StrictHttpResponse<ApiResponseAccessTokenResponse>> {
+export function iniciarSesionConCredenciales(http: HttpClient, rootUrl: string, params: IniciarSesionConCredenciales$Params, context?: HttpContext): Observable<StrictHttpResponse<ApiResponseOtpChallengeResponse>> {
   const rb = new RequestBuilder(rootUrl, iniciarSesionConCredenciales.PATH, 'post');
   if (params) {
     rb.body(params.body, 'application/json');
@@ -25,7 +25,7 @@ export function iniciarSesionConCredenciales(http: HttpClient, rootUrl: string, 
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<ApiResponseAccessTokenResponse>;
+      return r as StrictHttpResponse<ApiResponseOtpChallengeResponse>;
     })
   );
 }
