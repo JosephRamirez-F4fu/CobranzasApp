@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  inject,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormBuilder,
@@ -79,7 +73,7 @@ export default class UsersShowComponent {
     }),
   });
 
-  readonly editing = computed(() => this.form.controls.id.value !== null);
+  readonly editing = signal(false);
 
   private readonly pageSize = 10;
 
@@ -151,6 +145,7 @@ export default class UsersShowComponent {
             contrasena: '',
           });
           this.configurePasswordValidators(true);
+          this.editing.set(true);
         },
         error: (error) => this.handleError(error),
       });
@@ -215,6 +210,7 @@ export default class UsersShowComponent {
       nombreUsuario: '',
       contrasena: '',
     });
+    this.editing.set(false);
   }
 
   private configurePasswordValidators(isEditing: boolean) {
