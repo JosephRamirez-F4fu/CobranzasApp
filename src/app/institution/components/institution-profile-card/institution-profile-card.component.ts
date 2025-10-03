@@ -14,6 +14,9 @@ import { User } from '@services/user.service';
   imports: [CommonModule],
   templateUrl: './institution-profile-card.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    class: 'block text-slate-100',
+  },
 })
 export class InstitutionProfileCardComponent {
   readonly user = input.required<User>();

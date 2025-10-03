@@ -12,11 +12,11 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div class="flex flex-wrap items-center gap-3">
+    <div class="flex flex-wrap items-center gap-3 text-slate-100">
       <button
         *ngIf="!editing"
         type="button"
-        class="inline-flex items-center justify-center rounded-xl border border-sky-600 bg-sky-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-sky-700 focus:outline-none focus:ring-4 focus:ring-sky-200"
+        class="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-emerald-500/40 transition hover:-translate-y-0.5 hover:shadow-emerald-500/60 focus:outline-none focus:ring-2 focus:ring-emerald-400/40"
         (click)="edit.emit()"
       >
         {{ editLabel }}
@@ -25,14 +25,14 @@ import { CommonModule } from '@angular/common';
       <ng-container *ngIf="editing">
         <button
           type="submit"
-          class="inline-flex items-center justify-center rounded-xl border border-emerald-600 bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-emerald-700 focus:outline-none focus:ring-4 focus:ring-emerald-200 disabled:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60 disabled:shadow-none"
+          class="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-emerald-500/40 transition hover:-translate-y-0.5 hover:shadow-emerald-500/60 focus:outline-none focus:ring-2 focus:ring-emerald-400/40 disabled:translate-y-0 disabled:cursor-not-allowed disabled:opacity-70 disabled:shadow-none"
           [disabled]="saving || disableSave"
         >
           {{ saving ? savingLabel : saveLabel }}
         </button>
         <button
           type="button"
-          class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-600 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50 focus:outline-none focus:ring-4 focus:ring-slate-200"
+          class="inline-flex items-center justify-center rounded-full border border-slate-600/70 bg-slate-900/60 px-5 py-2 text-sm font-semibold text-slate-200 shadow-inner shadow-slate-950/40 transition hover:border-rose-400 hover:bg-rose-500/10 hover:text-white focus:outline-none focus:ring-2 focus:ring-rose-400/30"
           (click)="cancel.emit()"
         >
           {{ cancelLabel }}
@@ -41,6 +41,9 @@ import { CommonModule } from '@angular/common';
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    class: 'block text-slate-100',
+  },
 })
 export class ConfigFormActionsComponent {
   @Input() editing = false;

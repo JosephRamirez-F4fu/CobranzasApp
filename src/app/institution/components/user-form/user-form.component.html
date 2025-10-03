@@ -1,107 +1,107 @@
 <form
   [formGroup]="form"
   (ngSubmit)="onSubmit()"
-  class="grid gap-6 rounded-2xl bg-white p-6 shadow-xl shadow-slate-900/10"
+  class="grid gap-6 rounded-3xl border border-slate-700/70 bg-slate-950/60 p-6 text-slate-100 shadow-2xl shadow-slate-950/40 backdrop-blur-xl"
 >
-  <header class="space-y-1">
-    <h2 class="text-2xl font-semibold text-slate-900">
+  <header class="space-y-1 text-slate-200">
+    <h2 class="text-2xl font-semibold text-white">
       {{ editing ? 'Actualizar usuario administrador' : 'Registrar nuevo usuario administrador' }}
     </h2>
-    <p class="text-sm text-slate-500">
+    <p class="text-sm text-slate-300">
       Los usuarios creados desde este módulo siempre tendrán el rol <strong>ADMIN</strong> dentro de la institución.
     </p>
   </header>
 
   <div class="grid gap-4 sm:grid-cols-2">
-    <label class="flex flex-col gap-1 font-semibold text-slate-800">
-      <span class="text-sm">Nombre completo</span>
+    <label class="flex flex-col gap-2 font-semibold text-slate-200">
+      <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Nombre completo</span>
       <input
         type="text"
         formControlName="nombreCompleto"
         placeholder="Ej. Ana Torres"
-        class="rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-medium text-slate-900 shadow-sm transition focus:border-indigo-500 focus:outline-none focus:ring-4 focus:ring-indigo-200"
+        class="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
         [ngClass]="{
-          'border-rose-400 focus:border-rose-500 focus:ring-rose-200':
+          'border-rose-400 focus:border-rose-500 focus:ring-rose-400/30':
             form.controls['nombreCompleto'].invalid && form.controls['nombreCompleto'].touched
         }"
       />
       <small
         *ngIf="form.controls['nombreCompleto'].invalid && form.controls['nombreCompleto'].touched"
-        class="text-sm font-medium text-rose-500"
+        class="text-sm font-medium text-rose-400"
       >
         El nombre es obligatorio.
       </small>
     </label>
 
-    <label class="flex flex-col gap-1 font-semibold text-slate-800">
-      <span class="text-sm">Correo electrónico</span>
+    <label class="flex flex-col gap-2 font-semibold text-slate-200">
+      <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Correo electrónico</span>
       <input
         type="email"
         formControlName="correo"
         placeholder="usuario@institucion.com"
-        class="rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-medium text-slate-900 shadow-sm transition focus:border-indigo-500 focus:outline-none focus:ring-4 focus:ring-indigo-200"
+        class="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
         [ngClass]="{
-          'border-rose-400 focus:border-rose-500 focus:ring-rose-200':
+          'border-rose-400 focus:border-rose-500 focus:ring-rose-400/30':
             form.controls['correo'].invalid && form.controls['correo'].touched
         }"
       />
       <small
         *ngIf="form.controls['correo'].invalid && form.controls['correo'].touched"
-        class="text-sm font-medium text-rose-500"
+        class="text-sm font-medium text-rose-400"
       >
         Ingrese un correo válido.
       </small>
     </label>
 
-    <label class="flex flex-col gap-1 font-semibold text-slate-800">
-      <span class="text-sm">Nombre de usuario</span>
+    <label class="flex flex-col gap-2 font-semibold text-slate-200">
+      <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Nombre de usuario</span>
       <input
         type="text"
         formControlName="nombreUsuario"
         placeholder="Ej. atorres"
-        class="rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-medium text-slate-900 shadow-sm transition focus:border-indigo-500 focus:outline-none focus:ring-4 focus:ring-indigo-200"
+        class="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
         [ngClass]="{
-          'border-rose-400 focus:border-rose-500 focus:ring-rose-200':
+          'border-rose-400 focus:border-rose-500 focus:ring-rose-400/30':
             form.controls['nombreUsuario'].invalid && form.controls['nombreUsuario'].touched
         }"
       />
       <small
         *ngIf="form.controls['nombreUsuario'].invalid && form.controls['nombreUsuario'].touched"
-        class="text-sm font-medium text-rose-500"
+        class="text-sm font-medium text-rose-400"
       >
         El nombre de usuario es obligatorio.
       </small>
     </label>
 
     <ng-container *ngIf="!editing; else passwordInfo">
-      <label class="flex flex-col gap-1 font-semibold text-slate-800 sm:col-span-2">
-        <span class="text-sm">Contraseña</span>
+      <label class="sm:col-span-2 flex flex-col gap-2 font-semibold text-slate-200">
+        <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Contraseña</span>
         <input
           type="password"
           formControlName="contrasena"
           placeholder="Defina una contraseña temporal"
-          class="rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-medium text-slate-900 shadow-sm transition focus:border-indigo-500 focus:outline-none focus:ring-4 focus:ring-indigo-200"
+          class="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
           [ngClass]="{
-            'border-rose-400 focus:border-rose-500 focus:ring-rose-200':
+            'border-rose-400 focus:border-rose-500 focus:ring-rose-400/30':
               form.controls['contrasena'].invalid && form.controls['contrasena'].touched
           }"
         />
         <small
           *ngIf="form.controls['contrasena'].hasError('required') && form.controls['contrasena'].touched"
-          class="text-sm font-medium text-rose-500"
+          class="text-sm font-medium text-rose-400"
         >
           La contraseña es obligatoria.
         </small>
         <small
           *ngIf="form.controls['contrasena'].hasError('minlength') && form.controls['contrasena'].touched"
-          class="text-sm font-medium text-rose-500"
+          class="text-sm font-medium text-rose-400"
         >
           Debe contener al menos 6 caracteres.
         </small>
       </label>
     </ng-container>
     <ng-template #passwordInfo>
-      <div class="sm:col-span-2 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-600">
+      <div class="sm:col-span-2 rounded-xl border border-slate-700/60 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-200 shadow-inner shadow-slate-950/40">
         La contraseña actual se mantiene sin cambios por motivos de seguridad.
       </div>
     </ng-template>
@@ -111,7 +111,7 @@
     <button
       type="submit"
       [disabled]="form.invalid || saving"
-      class="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-indigo-500 to-violet-500 px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-500/30 transition hover:-translate-y-0.5 hover:shadow-indigo-500/40 disabled:cursor-not-allowed disabled:opacity-70"
+      class="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-emerald-500/40 transition hover:-translate-y-0.5 hover:shadow-emerald-500/60 disabled:cursor-not-allowed disabled:opacity-70"
     >
       {{ saving ? 'Guardando…' : (editing ? 'Actualizar usuario' : 'Registrar usuario') }}
     </button>
@@ -120,7 +120,7 @@
       *ngIf="editing"
       (click)="onCancel()"
       [disabled]="saving"
-      class="inline-flex items-center justify-center rounded-full bg-slate-200 px-6 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-300 disabled:cursor-not-allowed disabled:opacity-70"
+      class="inline-flex items-center justify-center rounded-full border border-slate-600/80 bg-slate-900/60 px-6 py-2.5 text-sm font-semibold text-slate-200 shadow-inner shadow-slate-950/40 transition hover:border-rose-400 hover:bg-rose-500/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
     >
       Cancelar
     </button>
@@ -129,7 +129,7 @@
       *ngIf="!editing"
       (click)="onClear()"
       [disabled]="saving"
-      class="inline-flex items-center justify-center rounded-full bg-slate-200 px-6 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-300 disabled:cursor-not-allowed disabled:opacity-70"
+      class="inline-flex items-center justify-center rounded-full border border-slate-600/80 bg-slate-900/60 px-6 py-2.5 text-sm font-semibold text-slate-200 shadow-inner shadow-slate-950/40 transition hover:border-slate-400 hover:bg-slate-900/80 hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
     >
       Limpiar
     </button>

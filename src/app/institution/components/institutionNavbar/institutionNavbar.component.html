@@ -1,9 +1,9 @@
 <nav
-  class="flex h-full flex-col overflow-hidden rounded-3xl border border-emerald-100/70 bg-gradient-to-b from-white/90 via-white to-emerald-50/70 shadow-2xl shadow-emerald-100/60"
+  class="flex h-full flex-col overflow-hidden rounded-3xl border border-slate-700/70 bg-slate-950/70 shadow-2xl shadow-slate-950/50 backdrop-blur-xl"
 >
-  <div class="border-b border-emerald-100/80 px-6 py-8 text-center">
+  <div class="border-b border-slate-800/70 px-6 py-8 text-center">
     <div
-      class="mx-auto mb-4 flex h-20 w-20 items-center justify-center overflow-hidden rounded-2xl bg-white shadow-inner shadow-emerald-200/70"
+      class="mx-auto mb-4 flex h-20 w-20 items-center justify-center overflow-hidden rounded-2xl border border-slate-700/70 bg-slate-900/60 shadow-inner shadow-slate-950/40"
     >
       <img
         [src]="institution().logoUrl || 'academic.png'"
@@ -11,8 +11,8 @@
         class="h-full w-full object-contain"
       />
     </div>
-    <h2 class="text-base font-semibold text-emerald-900">{{ institution().name }}</h2>
-    <p class="mt-1 text-xs font-medium uppercase tracking-[0.3em] text-emerald-500">
+    <h2 class="text-base font-semibold text-white">{{ institution().name }}</h2>
+    <p class="mt-1 text-xs font-medium uppercase tracking-[0.3em] text-emerald-300/80">
       Código {{ institution().code }}
     </p>
   </div>
@@ -25,12 +25,12 @@
             [routerLink]="item.path || '.'"
             [queryParams]="getQueryParams(item)"
             [routerLinkActiveOptions]="{ exact: !(item.children?.length) }"
-            routerLinkActive="bg-emerald-100/90 text-emerald-700 shadow-inner shadow-emerald-200/80"
-            class="group flex items-center justify-between rounded-2xl px-4 py-2.5 text-sm font-medium text-slate-600 transition-all duration-150 hover:bg-emerald-50 hover:text-emerald-700"
+            routerLinkActive="!border-emerald-400/70 !bg-emerald-500/15 !text-white !shadow-emerald-500/40"
+            class="group flex items-center justify-between rounded-2xl border border-transparent px-4 py-2.5 text-sm font-medium text-slate-200 transition-all duration-150 hover:border-emerald-400/40 hover:bg-slate-900/80 hover:text-white"
           >
             <span class="truncate">{{ item.label }}</span>
             @if (item.children?.length) {
-              <span class="text-xs text-emerald-400 transition-colors group-hover:text-emerald-500">▾</span>
+              <span class="text-xs text-emerald-400 transition-colors group-hover:text-emerald-300">▾</span>
             }
           </a>
 
@@ -41,8 +41,8 @@
                   <a
                     [routerLink]="child.path || '.'"
                     [queryParams]="getQueryParams(child)"
-                    routerLinkActive="bg-emerald-100/90 text-emerald-700 shadow-inner shadow-emerald-200/80"
-                    class="block rounded-xl px-3 py-2 text-sm text-slate-500 transition-colors hover:bg-emerald-50 hover:text-emerald-700"
+                    routerLinkActive="!border-emerald-400/70 !bg-emerald-500/15 !text-white !shadow-emerald-500/40"
+                    class="block rounded-xl border border-transparent px-3 py-2 text-sm text-slate-300 transition-colors hover:border-emerald-400/40 hover:bg-slate-900/80 hover:text-white"
                   >
                     {{ child.label }}
                   </a>
@@ -55,11 +55,11 @@
     </ul>
   </div>
 
-  <div class="border-t border-emerald-100/80 px-6 py-6">
+  <div class="border-t border-slate-800/70 px-6 py-6">
     <button
       type="button"
       (click)="logout()"
-      class="flex w-full items-center justify-center gap-2 rounded-2xl border border-red-100 bg-white/90 px-4 py-2.5 text-sm font-semibold text-red-600 transition-colors duration-150 hover:bg-red-50 hover:text-red-700"
+      class="flex w-full items-center justify-center gap-2 rounded-2xl border border-rose-400/40 bg-rose-500/10 px-4 py-2.5 text-sm font-semibold text-rose-200 transition-colors duration-150 hover:border-rose-400/70 hover:bg-rose-500/20 hover:text-white"
     >
       <span>Cerrar sesión</span>
     </button>

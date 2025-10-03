@@ -16,6 +16,9 @@ import { InstitutionStudent } from '../../services/institution-students.service'
   imports: [CommonModule, RouterModule],
   templateUrl: './student-table.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    class: 'block text-slate-100',
+  },
 })
 export class InstitutionStudentTableComponent {
   @Input() students: InstitutionStudent[] = [];

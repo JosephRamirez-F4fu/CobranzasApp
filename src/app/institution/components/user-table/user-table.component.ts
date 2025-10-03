@@ -14,6 +14,9 @@ import { InstitutionUser } from '../../services/institution-users.service';
   imports: [CommonModule],
   templateUrl: './user-table.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    class: 'block text-slate-100',
+  },
 })
 export class InstitutionUserTableComponent {
   @Input() users: InstitutionUser[] = [];

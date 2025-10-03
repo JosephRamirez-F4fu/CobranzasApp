@@ -15,6 +15,9 @@ import { InstitutionEnrollmentSchedule } from '../../services/institution-enroll
   imports: [CommonModule],
   templateUrl: './enrollment-schedule-table.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    class: 'block text-slate-100',
+  },
 })
 export class InstitutionEnrollmentScheduleTableComponent {
   @Input() schedules: InstitutionEnrollmentSchedule[] = [];
