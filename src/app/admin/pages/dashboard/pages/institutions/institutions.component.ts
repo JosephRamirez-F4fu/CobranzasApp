@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { InstitutionFormComponent } from './components/institution-form.component';
 import { InstitutionTableComponent } from './components/institution-table.component';
 import { InstitutionForCreate } from '@services/institutions.service';
@@ -10,6 +10,10 @@ import { InstitutionsPageService } from './institutions-page.service';
   imports: [InstitutionFormComponent, InstitutionTableComponent],
   templateUrl: './institutions.component.html',
   providers: [InstitutionsPageService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    class: 'block text-slate-100',
+  },
 })
 export default class InstitutionsComponent implements OnInit {
   protected readonly pageService = inject(InstitutionsPageService);

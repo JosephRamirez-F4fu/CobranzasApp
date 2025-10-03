@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { AdminLoginFormComponent } from './components/admin-login-form/admin-login-form.component';
 import {
   AdminLoginCredentials,
@@ -11,6 +11,10 @@ import {
   imports: [AdminLoginFormComponent],
   templateUrl: './adminLogin.component.html',
   providers: [AdminLoginPageService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    class: 'block text-slate-100',
+  },
 })
 export class AdminLoginComponent {
   protected readonly pageService = inject(AdminLoginPageService);

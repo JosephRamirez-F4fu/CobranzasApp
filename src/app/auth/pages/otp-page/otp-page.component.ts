@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { OtpPageService } from './otp-page.service';
 
@@ -9,6 +9,10 @@ import { OtpPageService } from './otp-page.service';
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './otp-page.component.html',
   providers: [OtpPageService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    class: 'block text-slate-100',
+  },
 })
 export class OtpPageComponent implements OnInit {
   protected readonly pageService = inject(OtpPageService);

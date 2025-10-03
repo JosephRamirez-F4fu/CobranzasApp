@@ -1,11 +1,16 @@
 import { LoginService } from '@services/admin-login.service';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'admin-navbar',
+  standalone: true,
   imports: [RouterLink, RouterLinkActive],
   templateUrl: './admin-navbar.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    class: 'block text-slate-100',
+  },
 })
 export class AdminNavbarComponent {
   private loginService = inject(LoginService);
