@@ -8,6 +8,9 @@ import { AdminHomeService } from './admin-home.service';
   templateUrl: './admin-home.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [AdminHomeService],
+  host: {
+    class: 'block text-slate-100',
+  },
 })
 export default class AdminHomeComponent {
   protected readonly homeService = inject(AdminHomeService);

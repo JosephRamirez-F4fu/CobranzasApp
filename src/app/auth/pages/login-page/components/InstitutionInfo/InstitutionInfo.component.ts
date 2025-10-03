@@ -6,6 +6,9 @@ import { InstitutionLogin } from '@services/institutions.service';
   imports: [],
   templateUrl: './InstitutionInfo.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    class: 'block text-slate-100',
+  },
 })
 export class InstitutionInfoComponent {
   institution = input<InstitutionLogin | null>(null);

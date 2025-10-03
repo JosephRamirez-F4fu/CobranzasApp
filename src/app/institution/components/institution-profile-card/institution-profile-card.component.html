@@ -1,36 +1,36 @@
 <div
-  class="w-full rounded-2xl border border-slate-200/80 bg-white/95 px-5 py-4 shadow-xl shadow-emerald-100/60 ring-1 ring-white/80"
+  class="w-full rounded-3xl border border-slate-700/70 bg-slate-950/70 px-5 py-4 text-slate-100 shadow-2xl shadow-slate-950/40 backdrop-blur-xl"
 >
   <div class="flex items-center gap-4">
     <div
-      class="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-green-600 text-lg font-semibold text-white shadow-inner shadow-emerald-900/20"
+      class="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-500 text-lg font-semibold text-white shadow-inner shadow-emerald-500/30"
     >
       {{ initials() }}
     </div>
     <div class="min-w-0">
-      <p class="truncate text-sm font-semibold text-slate-700">
+      <p class="truncate text-sm font-semibold text-white">
         {{ user().nombreCompleto || user().nombreUsuario }}
       </p>
-      <p class="text-xs font-medium uppercase tracking-widest text-emerald-600">
+      <p class="text-xs font-medium uppercase tracking-[0.35em] text-emerald-300/80">
         {{ roleLabel() }}
       </p>
     </div>
   </div>
 
-  <div class="mt-4 space-y-2 text-xs text-slate-500">
+  <div class="mt-4 space-y-2 text-xs text-slate-300">
     <div class="flex items-center gap-2" title="{{ user().correo }}">
-      <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
-      <span class="font-medium text-slate-600">Correo</span>
+      <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+      <span class="font-medium text-slate-200">Correo</span>
       <span class="truncate">{{ user().correo }}</span>
     </div>
     <div class="flex items-center gap-2" title="{{ user().nombreUsuario }}">
-      <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
-      <span class="font-medium text-slate-600">Usuario</span>
+      <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+      <span class="font-medium text-slate-200">Usuario</span>
       <span class="truncate">{{ user().nombreUsuario }}</span>
     </div>
     <div class="flex items-center gap-2" title="{{ institution().name }}">
-      <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
-      <span class="font-medium text-slate-600">Institución</span>
+      <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+      <span class="font-medium text-slate-200">Institución</span>
       <span class="truncate">{{ institution().name }}</span>
     </div>
   </div>

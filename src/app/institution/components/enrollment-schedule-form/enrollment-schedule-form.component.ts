@@ -14,6 +14,9 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './enrollment-schedule-form.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    class: 'block text-slate-100',
+  },
 })
 export class InstitutionEnrollmentScheduleFormComponent {
   @Input({ required: true }) form!: FormGroup;
