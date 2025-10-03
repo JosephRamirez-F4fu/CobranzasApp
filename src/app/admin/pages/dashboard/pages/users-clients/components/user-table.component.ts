@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { User } from '@services/user.service';
 import { Institution } from '@domain/interface/institution';
 
@@ -83,6 +83,10 @@ import { Institution } from '@domain/interface/institution';
       </div>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    class: 'block text-slate-100',
+  },
 })
 export class UserTableComponent {
   users = input.required<User[]>();

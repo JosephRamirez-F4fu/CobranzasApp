@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
   OnChanges,
   SimpleChanges,
@@ -103,6 +104,10 @@ import { Institution } from '@domain/interface/institution';
       </footer>
     </form>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    class: 'block text-slate-100',
+  },
 })
 export class UserFormComponent implements OnChanges {
   user = input<User | null>(null);

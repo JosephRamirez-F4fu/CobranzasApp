@@ -31,6 +31,9 @@ interface AdminHomeSummaryCard {
     </section>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    class: 'block text-slate-100',
+  },
 })
 export class AdminHomeSummaryComponent {
   readonly title = input.required<string>();

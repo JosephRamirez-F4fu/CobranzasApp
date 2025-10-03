@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Output,
@@ -95,6 +96,10 @@ import { InstitutionForCreate } from '@services/institutions.service';
       </footer>
     </form>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    class: 'block text-slate-100',
+  },
 })
 export class InstitutionFormComponent implements OnChanges {
   @Input() institution: InstitutionForCreate | null = null;

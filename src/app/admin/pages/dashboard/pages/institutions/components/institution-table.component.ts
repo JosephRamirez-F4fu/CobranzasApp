@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { InstitutionForCreate } from '@services/institutions.service';
 
 @Component({
@@ -78,6 +78,10 @@ import { InstitutionForCreate } from '@services/institutions.service';
       </div>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    class: 'block text-slate-100',
+  },
 })
 export class InstitutionTableComponent {
   institutions = input.required<InstitutionForCreate[]>();
