@@ -1,17 +1,28 @@
-<div class="max-w-4xl mx-auto py-12 px-4">
-  <div
-    class="bg-gradient-to-b from-white/70 to-blue-50 rounded-xl p-8 shadow-sm"
-  >
-    <div class="grid gap-8 md:grid-cols-2 items-center">
+<div class="flex flex-col gap-10">
+  <header class="space-y-3 text-center md:text-left">
+    <p class="text-xs font-semibold uppercase tracking-[0.45em] text-emerald-400">
+      Portal institucional
+    </p>
+    <h1 class="text-3xl font-semibold text-white md:text-4xl">Bienvenido nuevamente</h1>
+    <p class="text-sm text-slate-300 md:text-base">
+      Accede con tus credenciales para administrar pagos, usuarios y notificaciones de tu institución.
+    </p>
+  </header>
+
+  <div class="grid gap-8 lg:grid-cols-[1.1fr,0.9fr]">
+    <div
+      class="rounded-2xl border border-slate-700/70 bg-slate-900/40 p-6 shadow-inner shadow-emerald-900/40 backdrop-blur-xl md:p-8"
+    >
       <app-institution-info [institution]="pageService.institution()" />
-      <div class="w-full">
-        <app-login-form
-          class="w-full"
-          [authError]="pageService.loginError()"
-          [loading]="pageService.loginLoading()"
-          (loginOutput)="onLoginOutput($event)"
-        />
-      </div>
+    </div>
+
+    <div class="rounded-2xl border border-slate-700/70 bg-slate-950/70 p-6 shadow-2xl shadow-slate-950/40 backdrop-blur-xl md:p-8">
+      <app-login-form
+        class="w-full"
+        [authError]="pageService.loginError()"
+        [loading]="pageService.loginLoading()"
+        (loginOutput)="onLoginOutput($event)"
+      />
     </div>
   </div>
 </div>

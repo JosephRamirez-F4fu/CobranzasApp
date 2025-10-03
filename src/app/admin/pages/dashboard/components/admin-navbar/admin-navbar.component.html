@@ -1,44 +1,57 @@
 <aside
-  class="bg-blue-800 text-white shadow-md w-64 min-h-screen px-6 py-8 flex flex-col border-r-4 border-blue-900"
+  class="w-full rounded-3xl border border-slate-700/70 bg-slate-900/60 p-6 shadow-2xl shadow-slate-950/40 backdrop-blur-xl lg:w-80"
 >
-  <h2 class="text-2xl font-bold tracking-wide mb-10 text-center">
-    Panel de Administración
-  </h2>
-  <nav class="flex-1">
-    <ul class="flex flex-col gap-4 font-medium">
-      <li>
-        <a
-          routerLink="/admin/inicio"
-          routerLinkActive="!text-blue-800 !bg-white"
-          class="block px-4 py-3 rounded transition hover:bg-blue-700 hover:text-white"
-          >Inicio</a
-        >
-      </li>
-      <li>
-        <a
-          routerLink="/admin/instituciones"
-          routerLinkActive="!text-blue-800 !bg-white"
-          class="block px-4 py-3 rounded transition hover:bg-blue-700 hover:text-white"
-          >Instituciones</a
-        >
-      </li>
-      <li>
-        <a
-          routerLink="/admin/usuarios"
-          routerLinkActive="!text-blue-800 !bg-white"
-          class="block px-4 py-3 rounded transition hover:bg-blue-700 hover:text-white"
-          >Usuarios</a
-        >
-      </li>
-      <li>
-        <a
-          routerLink="/admin/logout"
-          routerLinkActive="!text-blue-800 !bg-white"
-          class="block px-4 py-3 rounded transition hover:bg-red-600 hover:text-white"
-          (click)="logout()"
-          >Cerrar sesión</a
-        >
-      </li>
-    </ul>
-  </nav>
+  <div class="space-y-6">
+    <header class="space-y-2">
+      <p class="text-xs font-semibold uppercase tracking-[0.4em] text-emerald-400">
+        Panel administrativo
+      </p>
+      <h2 class="text-xl font-semibold text-white">CobranzasApp</h2>
+    </header>
+
+    <nav>
+      <ul class="flex flex-col gap-3 text-sm font-semibold text-slate-300">
+        <li>
+          <a
+            routerLink="/admin/inicio"
+            routerLinkActive="!bg-emerald-500/20 !text-white !border-emerald-400/60 !shadow-emerald-500/30"
+            class="flex items-center justify-between rounded-2xl border border-transparent px-4 py-3 transition hover:border-emerald-400/40 hover:bg-slate-800/80 hover:text-white"
+          >
+            <span>Inicio</span>
+            <span class="text-xs font-semibold text-emerald-300/70">●</span>
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/admin/instituciones"
+            routerLinkActive="!bg-emerald-500/20 !text-white !border-emerald-400/60 !shadow-emerald-500/30"
+            class="flex items-center justify-between rounded-2xl border border-transparent px-4 py-3 transition hover:border-emerald-400/40 hover:bg-slate-800/80 hover:text-white"
+          >
+            <span>Instituciones</span>
+            <span class="text-xs font-semibold text-emerald-300/70">●</span>
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/admin/usuarios"
+            routerLinkActive="!bg-emerald-500/20 !text-white !border-emerald-400/60 !shadow-emerald-500/30"
+            class="flex items-center justify-between rounded-2xl border border-transparent px-4 py-3 transition hover:border-emerald-400/40 hover:bg-slate-800/80 hover:text-white"
+          >
+            <span>Usuarios</span>
+            <span class="text-xs font-semibold text-emerald-300/70">●</span>
+          </a>
+        </li>
+        <li>
+          <button
+            type="button"
+            (click)="logout()"
+            class="flex w-full items-center justify-between rounded-2xl border border-transparent px-4 py-3 text-left text-sm font-semibold text-rose-200 transition hover:border-rose-400/40 hover:bg-rose-500/10"
+          >
+            <span>Cerrar sesión</span>
+            <span class="text-xs font-semibold text-rose-300/80">×</span>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </div>
 </aside>
