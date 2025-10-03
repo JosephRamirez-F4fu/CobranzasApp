@@ -18,6 +18,8 @@ import {
 } from '@angular/router';
 import { Institution } from '@domain/interface/institution';
 import { filter, map } from 'rxjs/operators';
+import { LoginService } from '@services/admin-login.service';
+import { LoginDataService } from '@services/login-data.service';
 
 interface NavItem {
   path: string;
@@ -35,6 +37,8 @@ interface NavItem {
 export class InstitutionNavbarComponent {
   route = inject(ActivatedRoute);
   router = inject(Router);
+  private readonly loginService = inject(LoginService);
+  private readonly loginDataService = inject(LoginDataService);
   items = signal<NavItem[]>([]);
   institution = input.required<Institution>();
   mobileOpen = signal<boolean>(false); // nueva señal para responsive
@@ -158,5 +162,22 @@ export class InstitutionNavbarComponent {
       );
     });
   }
-  logout() {}
+  logout() {
+    const institutionCode =
+      this.loginDataService.getInstitutionCode() ?? this.institution().code;
+
+    this.loginService.logout().subscribe({
+      next: () => this.handleLogoutRedirect(institutionCode),
+      error: () => this.handleLogoutRedirect(institutionCode),
+    });
+  }
+
+  private handleLogoutRedirect(code: string | null | undefined) {
+    if (code) {
+      void this.router.navigate(['/auth/institucion', code]);
+      return;
+    }
+
+    void this.router.navigate(['/auth/not-found']);
+  }
 }
