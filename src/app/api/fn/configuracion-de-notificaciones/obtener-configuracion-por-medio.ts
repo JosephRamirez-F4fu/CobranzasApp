@@ -11,7 +11,7 @@ import { ApiResponseNotificacionConfigracionResponse } from '../../models/api-re
 
 export interface ObtenerConfiguracionPorMedio$Params {
   code: string;
-  medioEnvio: 'SMS' | 'WHATSAPP' | 'IVR' | 'EMAIL';
+  medioEnvio: 'SMS' | 'WHATSAPP' | 'EMAIL';
 }
 
 export function obtenerConfiguracionPorMedio(http: HttpClient, rootUrl: string, params: ObtenerConfiguracionPorMedio$Params, context?: HttpContext): Observable<StrictHttpResponse<ApiResponseNotificacionConfigracionResponse>> {

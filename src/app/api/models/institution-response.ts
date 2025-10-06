@@ -14,6 +14,7 @@ export interface InstitutionResponse {
   logoUrl?: string;
   name?: string;
   phoneNumber?: string;
+  plan?: string;
   production?: boolean;
   useLdap?: boolean;
 }

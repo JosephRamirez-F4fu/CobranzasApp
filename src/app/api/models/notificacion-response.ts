@@ -8,7 +8,7 @@ export interface NotificacionResponse {
   frecuencia?: string;
   horaEnvio?: string;
   id?: number;
-  medioEnvio?: 'SMS' | 'WHATSAPP' | 'IVR' | 'EMAIL';
+  medioEnvio?: 'SMS' | 'WHATSAPP' | 'EMAIL';
   mensaje?: string;
   numeroCuota?: number;
 }

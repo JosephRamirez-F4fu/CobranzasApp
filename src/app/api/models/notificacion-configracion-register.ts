@@ -8,6 +8,6 @@ export interface NotificacionConfigracionRegister {
   frecuencia?: string;
   horaEnvio?: string;
   institutionCode?: string;
-  medioEnvio?: 'SMS' | 'WHATSAPP' | 'IVR' | 'EMAIL';
+  medioEnvio?: 'SMS' | 'WHATSAPP' | 'EMAIL';
   mensaje?: string;
 }

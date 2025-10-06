@@ -3,8 +3,8 @@
 
 export interface InstitutionRequestRegister {
   address?: string;
-  code?: string;
   email?: string;
   name?: string;
   phoneNumber?: string;
+  plan?: 'BASICO' | 'AVANZADO' | 'PREMIUM';
 }

@@ -11,7 +11,7 @@ import { ApiResponseBoolean } from '../../models/api-response-boolean';
 
 export interface VerificarExistenciaDeConfiguracion$Params {
   code: string;
-  medioEnvio: 'SMS' | 'WHATSAPP' | 'IVR' | 'EMAIL';
+  medioEnvio: 'SMS' | 'WHATSAPP' | 'EMAIL';
 }
 
 export function verificarExistenciaDeConfiguracion(http: HttpClient, rootUrl: string, params: VerificarExistenciaDeConfiguracion$Params, context?: HttpContext): Observable<StrictHttpResponse<ApiResponseBoolean>> {

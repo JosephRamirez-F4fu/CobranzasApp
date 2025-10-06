@@ -9,6 +9,6 @@ export interface NotificacionConfigracionResponse {
   horaEnvio?: string;
   id?: number;
   institutionCode?: string;
-  medioEnvio?: 'SMS' | 'WHATSAPP' | 'IVR' | 'EMAIL';
+  medioEnvio?: 'SMS' | 'WHATSAPP' | 'EMAIL';
   mensaje?: string;
 }

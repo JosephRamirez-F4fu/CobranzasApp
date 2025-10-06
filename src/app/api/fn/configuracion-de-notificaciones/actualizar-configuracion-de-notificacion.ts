@@ -12,7 +12,7 @@ import { NotificacionConfigracionRegister } from '../../models/notificacion-conf
 
 export interface ActualizarConfiguracionDeNotificacion$Params {
   code: string;
-  medioEnvio: 'SMS' | 'WHATSAPP' | 'IVR' | 'EMAIL';
+  medioEnvio: 'SMS' | 'WHATSAPP' | 'EMAIL';
       body: NotificacionConfigracionRegister
 }
 
