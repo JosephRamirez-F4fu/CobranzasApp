@@ -15,7 +15,6 @@ export interface User {
   correo: string;
   rol: 'MASTER' | 'ADMIN';
   institutionId: number | null;
-  nombreUsuario: string;
 }
 
 export class UserMapper {
@@ -25,7 +24,7 @@ export class UserMapper {
       nombreCompleto: user.nombreCompleto,
       correo: user.correo,
       rol: user.rol,
-      nombreUsuario: user.nombreUsuario,
+      nombreUsuario: user.correo,
       institutionId: user.institutionId ?? undefined,
     };
   }
@@ -38,7 +37,6 @@ export class UserMapper {
       correo: dto?.correo ?? '',
       rol: (dto?.rol as 'MASTER' | 'ADMIN') ?? 'ADMIN',
       institutionId: dto?.institutionId ?? null,
-      nombreUsuario: dto?.nombreUsuario ?? '',
     };
   }
 }

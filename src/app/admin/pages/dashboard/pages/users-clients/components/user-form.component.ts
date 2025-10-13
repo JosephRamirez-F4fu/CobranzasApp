@@ -27,60 +27,51 @@ import { Institution } from '@domain/interface/institution';
           {{ editMode ? 'Actualizar usuario' : 'Crear nuevo usuario' }}
         </h2>
         <p class="text-sm text-slate-300">
-          Define los accesos y la institución asociada para gestionar roles administradores y maestros.
+          Configura el rol y el acceso usando el correo como credencial principal. El nombre de usuario ya no es necesario.
         </p>
       </header>
 
       <div class="grid gap-4 md:grid-cols-2">
-        <label class="grid gap-2 text-slate-200">
+        <label class="grid gap-2 text-slate-100">
           <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Nombre completo</span>
           <input
             formControlName="nombreCompleto"
-            class="w-full rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
+            class="w-full rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 placeholder:text-slate-200 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
             placeholder="Ej. Ana Torres"
           />
         </label>
 
-        <label class="grid gap-2 text-slate-200">
-          <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Nombre de usuario</span>
-          <input
-            formControlName="nombreUsuario"
-            class="w-full rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
-            placeholder="atorres"
-          />
-        </label>
-
-        <label class="grid gap-2 text-slate-200">
-          <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Correo electrónico</span>
+        <label class="grid gap-2 text-slate-100">
+          <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Correo electronico</span>
           <input
             formControlName="correo"
             type="email"
-            class="w-full rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
+            class="w-full rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 placeholder:text-slate-200 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
             placeholder="usuario@institucion.com"
           />
         </label>
 
         <ng-container *ngIf="!editMode; else passwordInfo">
-          <label class="grid gap-2 text-slate-200">
-            <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Contraseña</span>
+          <label class="grid gap-2 text-slate-100">
+            <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Contrasena</span>
             <input
               formControlName="contrasena"
               type="password"
-              class="w-full rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
-              placeholder="Contraseña temporal"
+              class="w-full rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 placeholder:text-slate-200 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
+              placeholder="Contrasena temporal"
             />
           </label>
         </ng-container>
 
-        <label class="md:col-span-2 grid gap-2 text-slate-200">
-          <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Institución</span>
+        <label class="md:col-span-2 grid gap-2 text-slate-100">
+          <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Institucion</span>
           <select
             formControlName="institutionId"
-            class="w-full rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
+            class="w-full rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 placeholder:text-slate-200 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
           >
-            <option value="" class="bg-slate-900 text-slate-200">Sin institución (rol MASTER)</option>
+            <option value="" class="bg-slate-900 text-slate-100">Sin institucion (rol MASTER)</option>
             @for (inst of institutions(); track inst.id) {
-              <option [value]="inst.id" class="bg-slate-900 text-slate-200">
+              <option [value]="inst.id" class="bg-slate-900 text-slate-100">
                 {{ inst.code }} - {{ inst.name }}
               </option>
             }
@@ -90,7 +81,7 @@ import { Institution } from '@domain/interface/institution';
 
       <ng-template #passwordInfo>
         <div class="rounded-2xl border border-slate-600/80 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-300">
-          La contraseña existente se mantiene por seguridad.
+          La contrasena existente se mantiene por seguridad.
         </div>
       </ng-template>
 
@@ -114,7 +105,6 @@ export class UserFormComponent implements OnChanges {
   add = output<User>();
   form = new FormBuilder().group({
     nombreCompleto: ['', Validators.required],
-    nombreUsuario: ['', Validators.required],
     correo: ['', [Validators.required, Validators.email]],
     contrasena: ['', Validators.required],
     institutionId: [''],
@@ -130,6 +120,7 @@ export class UserFormComponent implements OnChanges {
           this.user()?.institutionId !== null
             ? String(this.user()?.institutionId)
             : '',
+        contrasena: '',
       });
       this.editMode = true;
       this.form.get('contrasena')?.clearValidators();
@@ -148,7 +139,6 @@ export class UserFormComponent implements OnChanges {
       this.add.emit({
         id: this.user()?.id ?? null,
         nombreCompleto: value.nombreCompleto ?? '',
-        nombreUsuario: value.nombreUsuario ?? '',
         correo: value.correo ?? '',
         contrasena: value.contrasena ?? '',
         institutionId: value.institutionId ? Number(value.institutionId) : null,

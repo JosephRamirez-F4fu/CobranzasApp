@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { InstitutionUpdate } from '@domain/dtos/InstitutionUpdate.dto';
 import { InstitutionLDAPSettings } from '@domain/dtos/institutionLDAP.dto';
 import { Institution } from '@domain/interface/institution';
+import { InstitutionPlan } from '@domain/enums/institution-plan.enum';
 import type { ApiResponse } from '@shared/api/api.service';
 import { InstitutionsService } from './institutions.service';
 import { map } from 'rxjs/operators';
@@ -24,7 +25,7 @@ export class InstitutionConfigService {
       throw new Error('No institution selected');
     }
 
-    const body = this.mapToRegisterPayload(update, current.code);
+    const body = this.mapToRegisterPayload(update, current.plan);
 
     return this.api
       .actualizar({ id: current.id, body })
@@ -42,22 +43,20 @@ export class InstitutionConfigService {
 
   private mapToRegisterPayload(
     update: InstitutionUpdate,
-    code: string
-  ): InstitutionRequestRegister {
-    const payload: InstitutionRequestRegister & {
-      logoUrl?: string;
-      logoLoginUrl?: string;
-    } = {
+    plan: InstitutionPlan | null
+  ): InstitutionRequestRegister & {
+    logoUrl?: string;
+    logoLoginUrl?: string;
+  } {
+    return {
       address: update.address,
-      code,
       email: update.email,
       name: update.name,
       phoneNumber: update.phoneNumber,
+      plan: plan ?? undefined,
       logoUrl: update.logoUrl,
       logoLoginUrl: update.logoLoginUrl,
     };
-
-    return payload;
   }
 
   private mapToLdapPayload(
@@ -99,6 +98,7 @@ export class InstitutionConfigService {
       logoUrl: dto?.logoUrl ?? '',
       logoLoginUrl: dto?.logoLoginUrl ?? '',
       code: dto?.code ?? '',
+      plan: (dto?.plan as InstitutionPlan) ?? null,
     };
   }
 }

@@ -5,4 +5,5 @@ export interface NotificationConfig {
   diaDelMes: number;
   horaEnvio: string;
   activo: boolean;
+  notificationScenarioId?: number | null;
 }

@@ -3,12 +3,24 @@
 
 export interface NotificacionResponse {
   asunto?: string;
+  canal?: string;
   configuracionId?: number;
   cuotaId?: number;
+  destinatario?: string;
+  estado?: 'PENDIENTE' | 'ENVIANDO' | 'ENVIADA_PENDIENTE_CONFIRMACION' | 'ENTREGADA' | 'LEIDA' | 'FALLIDA' | 'REPROGRAMADA';
+  estadoProveedor?: string;
+  externalId?: string;
+  fechaConfirmacion?: string;
+  fechaEnvio?: string;
+  fechaProgramada?: string;
   frecuencia?: string;
-  horaEnvio?: string;
+  horaCreacion?: string;
   id?: number;
+  intentos?: number;
   medioEnvio?: 'SMS' | 'WHATSAPP' | 'EMAIL';
   mensaje?: string;
   numeroCuota?: number;
+  proximoIntento?: string;
+  ultimaActualizacion?: string;
+  ultimoError?: string;
 }

@@ -7,6 +7,10 @@ import {
 } from '@angular/core';
 import { Institution } from '@domain/interface/institution';
 import { User } from '@services/user.service';
+import {
+  INSTITUTION_PLAN_LABELS,
+  InstitutionPlan,
+} from '@domain/enums/institution-plan.enum';
 
 @Component({
   selector: 'institution-profile-card',
@@ -22,11 +26,10 @@ export class InstitutionProfileCardComponent {
   readonly user = input.required<User>();
   readonly institution = input.required<Institution>();
 
+  readonly planLabels = INSTITUTION_PLAN_LABELS;
+
   readonly initials = computed(() => {
-    const source =
-      this.user().nombreCompleto?.trim() ||
-      this.user().nombreUsuario?.trim() ||
-      '';
+    const source = this.user().nombreCompleto?.trim() || this.user().correo?.trim() || '';
     if (!source) {
       return 'US';
     }
@@ -44,4 +47,12 @@ export class InstitutionProfileCardComponent {
   readonly roleLabel = computed(() =>
     this.user().rol === 'MASTER' ? 'Master' : 'Admin'
   );
+
+  readonly planLabel = computed(() => {
+    const plan = this.institution().plan as InstitutionPlan | null;
+    if (!plan) {
+      return 'Sin plan';
+    }
+    return this.planLabels[plan];
+  });
 }

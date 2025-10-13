@@ -33,7 +33,7 @@ export class AdminLoginPageService {
 
     this.loginService
       .login({
-        nombreUsuario: credentials.email,
+        correo: credentials.email,
         contrasena: credentials.password,
         institutionCode: null,
       })

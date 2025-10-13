@@ -29,7 +29,7 @@ export class LoginFormComponent {
     this.loginForm.markAllAsTouched();
     if (this.loginForm.valid) {
       this.loginOutput.emit({
-        nombreUsuario: this.loginForm.value.email ?? '',
+        correo: this.loginForm.value.email ?? '',
         contrasena: this.loginForm.value.password ?? '',
         institutionCode: null,
       });

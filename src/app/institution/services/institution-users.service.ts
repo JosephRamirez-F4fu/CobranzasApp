@@ -13,7 +13,6 @@ export interface InstitutionUser {
   id: number;
   nombreCompleto: string;
   correo: string;
-  nombreUsuario: string;
   rol: 'ADMIN';
   activo: boolean;
   institutionId: number | null;
@@ -22,7 +21,6 @@ export interface InstitutionUser {
 export interface InstitutionUserPayload {
   nombreCompleto: string;
   correo: string;
-  nombreUsuario: string;
   contrasena?: string;
   institutionId?: number | null;
 }
@@ -131,7 +129,6 @@ export class InstitutionUsersService {
       id: dto?.id ?? 0,
       nombreCompleto: dto?.nombreCompleto ?? '',
       correo: dto?.correo ?? '',
-      nombreUsuario: dto?.nombreUsuario ?? '',
       rol: 'ADMIN',
       activo: dto?.activo ?? false,
       institutionId: dto?.institutionId ?? null,
@@ -142,7 +139,7 @@ export class InstitutionUsersService {
     return {
       nombreCompleto: payload.nombreCompleto,
       correo: payload.correo,
-      nombreUsuario: payload.nombreUsuario,
+      nombreUsuario: payload.correo,
       contrasena: payload.contrasena || undefined,
       institutionId: payload.institutionId ?? undefined,
       rol: 'ADMIN',

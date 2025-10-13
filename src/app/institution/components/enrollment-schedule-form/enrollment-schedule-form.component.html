@@ -3,24 +3,24 @@
   (ngSubmit)="onSubmit()"
   class="grid gap-6 rounded-3xl border border-slate-700/70 bg-slate-950/60 p-6 text-slate-100 shadow-2xl shadow-slate-950/40 backdrop-blur-xl"
 >
-  <header class="space-y-1 text-slate-200">
+  <header class="space-y-1 text-slate-100">
     <h2 class="text-2xl font-semibold text-white">
-      {{ editing ? 'Actualizar cronograma de matrícula' : 'Registrar nuevo cronograma de matrícula' }}
+      {{ editing ? 'Actualizar cronograma de matr?cula' : 'Registrar nuevo cronograma de matr?cula' }}
     </h2>
     <p class="text-sm text-slate-300">
-      Define los parámetros generales del cronograma. Podrás ajustar la cuota inicial desde la tabla.
+      Define los par?metros generales del cronograma. Podr?s ajustar la cuota inicial desde la tabla.
     </p>
   </header>
 
   <div class="grid gap-4 sm:grid-cols-2">
-    <label class="flex flex-col gap-2 font-semibold text-slate-200">
-      <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Año lectivo</span>
+    <label class="flex flex-col gap-2 font-semibold text-slate-100">
+      <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">A?o lectivo</span>
       <input
         type="number"
         formControlName="anioLectivo"
         placeholder="Ej. 2024"
         min="2000"
-        class="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
+        class="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 placeholder:text-slate-200 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
         [ngClass]="{
           'border-rose-400 focus:border-rose-500 focus:ring-rose-400/30':
             form.controls['anioLectivo'].invalid && form.controls['anioLectivo'].touched
@@ -30,21 +30,21 @@
         *ngIf="form.controls['anioLectivo'].invalid && form.controls['anioLectivo'].touched"
         class="text-sm font-medium text-rose-400"
       >
-        El año lectivo es obligatorio.
+        El a?o lectivo es obligatorio.
       </small>
     </label>
 
-    <label class="flex flex-col gap-2 font-semibold text-slate-200">
+    <label class="flex flex-col gap-2 font-semibold text-slate-100">
       <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Nivel educativo</span>
       <select
         formControlName="nivelEducativo"
-        class="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
+        class="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 placeholder:text-slate-200 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
         [ngClass]="{
           'border-rose-400 focus:border-rose-500 focus:ring-rose-400/30':
             form.controls['nivelEducativo'].invalid && form.controls['nivelEducativo'].touched
         }"
       >
-        <option value="">Seleccione una opción</option>
+        <option value="">Seleccione una opci?n</option>
         <option value="INICIAL">Inicial</option>
         <option value="PRIMARIA">Primaria</option>
         <option value="SECUNDARIA">Secundaria</option>
@@ -57,7 +57,7 @@
       </small>
     </label>
 
-    <label class="flex flex-col gap-2 font-semibold text-slate-200">
+    <label class="flex flex-col gap-2 font-semibold text-slate-100">
       <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Monto por cuota (S/)</span>
       <input
         type="number"
@@ -65,7 +65,7 @@
         placeholder="Ej. 350"
         min="0"
         step="0.01"
-        class="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
+        class="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 placeholder:text-slate-200 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
         [ngClass]="{
           'border-rose-400 focus:border-rose-500 focus:ring-rose-400/30':
             form.controls['montoCuota'].invalid && form.controls['montoCuota'].touched
@@ -79,14 +79,14 @@
       </small>
     </label>
 
-    <label class="flex flex-col gap-2 font-semibold text-slate-200">
-      <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Número de cuotas</span>
+    <label class="flex flex-col gap-2 font-semibold text-slate-100">
+      <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">N?mero de cuotas</span>
       <input
         type="number"
         formControlName="numCuotas"
         placeholder="Ej. 10"
         min="1"
-        class="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
+        class="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 placeholder:text-slate-200 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
         [ngClass]="{
           'border-rose-400 focus:border-rose-500 focus:ring-rose-400/30':
             form.controls['numCuotas'].invalid && form.controls['numCuotas'].touched
@@ -96,19 +96,19 @@
         *ngIf="form.controls['numCuotas'].invalid && form.controls['numCuotas'].touched"
         class="text-sm font-medium text-rose-400"
       >
-        Indique cuántas cuotas tendrá el cronograma.
+        Indique cu?ntas cuotas tendr? el cronograma.
       </small>
     </label>
 
-    <label class="flex flex-col gap-2 font-semibold text-slate-200">
-      <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Interés por mora (%)</span>
+    <label class="flex flex-col gap-2 font-semibold text-slate-100">
+      <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Inter?s por mora (%)</span>
       <input
         type="number"
         formControlName="interesMoraCuota"
         placeholder="Ej. 2.5"
         min="0"
         step="0.01"
-        class="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
+        class="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 placeholder:text-slate-200 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
         [ngClass]="{
           'border-rose-400 focus:border-rose-500 focus:ring-rose-400/30':
             form.controls['interesMoraCuota'].invalid && form.controls['interesMoraCuota'].touched
@@ -118,16 +118,16 @@
         *ngIf="form.controls['interesMoraCuota'].invalid && form.controls['interesMoraCuota'].touched"
         class="text-sm font-medium text-rose-400"
       >
-        Ingrese el porcentaje de interés moratorio.
+        Ingrese el porcentaje de inter?s moratorio.
       </small>
     </label>
 
-    <label class="flex flex-col gap-2 font-semibold text-slate-200 sm:col-span-2">
+    <label class="flex flex-col gap-2 font-semibold text-slate-100 sm:col-span-2">
       <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Fecha de inicio</span>
       <input
         type="date"
         formControlName="fechaInicio"
-        class="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
+        class="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 placeholder:text-slate-200 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
         [ngClass]="{
           'border-rose-400 focus:border-rose-500 focus:ring-rose-400/30':
             form.controls['fechaInicio'].invalid && form.controls['fechaInicio'].touched
@@ -141,9 +141,9 @@
       </small>
     </label>
 
-    <label class="flex items-center gap-3 rounded-xl border border-slate-700/60 bg-slate-900/60 px-4 py-3 text-sm font-semibold text-slate-200 shadow-inner shadow-slate-950/40 sm:col-span-2">
+    <label class="flex items-center gap-3 rounded-xl border border-slate-700/60 bg-slate-900/60 px-4 py-3 text-sm font-semibold text-slate-100 shadow-inner shadow-slate-950/40 sm:col-span-2">
       <input type="checkbox" formControlName="activo" class="h-4 w-4 rounded border-slate-600 bg-slate-900 text-emerald-300 focus:ring-emerald-400/40" />
-      <span>El cronograma estará activo al guardarlo</span>
+      <span>El cronograma estar? activo al guardarlo</span>
     </label>
   </div>
 
@@ -153,14 +153,14 @@
       [disabled]="form.invalid || saving"
       class="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-emerald-500/40 transition hover:-translate-y-0.5 hover:shadow-emerald-500/60 disabled:cursor-not-allowed disabled:opacity-70"
     >
-      {{ saving ? 'Guardando…' : (editing ? 'Actualizar cronograma' : 'Registrar cronograma') }}
+      {{ saving ? 'Guardando?' : (editing ? 'Actualizar cronograma' : 'Registrar cronograma') }}
     </button>
     <button
       type="button"
       *ngIf="editing"
       (click)="onCancel()"
       [disabled]="saving"
-      class="inline-flex items-center justify-center rounded-full border border-slate-600/80 bg-slate-900/60 px-6 py-2.5 text-sm font-semibold text-slate-200 shadow-inner shadow-slate-950/40 transition hover:border-rose-400 hover:bg-rose-500/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
+      class="inline-flex items-center justify-center rounded-full border border-slate-600/80 bg-slate-900/60 px-6 py-2.5 text-sm font-semibold text-slate-100 shadow-inner shadow-slate-950/40 transition hover:border-rose-400 hover:bg-rose-500/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
     >
       Cancelar
     </button>
@@ -169,7 +169,7 @@
       *ngIf="!editing"
       (click)="onClear()"
       [disabled]="saving"
-      class="inline-flex items-center justify-center rounded-full border border-slate-600/80 bg-slate-900/60 px-6 py-2.5 text-sm font-semibold text-slate-200 shadow-inner shadow-slate-950/40 transition hover:border-slate-400 hover:bg-slate-900/80 hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
+      class="inline-flex items-center justify-center rounded-full border border-slate-600/80 bg-slate-900/60 px-6 py-2.5 text-sm font-semibold text-slate-100 shadow-inner shadow-slate-950/40 transition hover:border-slate-400 hover:bg-slate-900/80 hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
     >
       Limpiar
     </button>

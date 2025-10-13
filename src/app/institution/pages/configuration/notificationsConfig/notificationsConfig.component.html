@@ -1,7 +1,7 @@
 <section class="mx-auto flex max-w-6xl flex-col gap-8 p-6 md:p-8">
   <app-config-section title="Notificaciones" maxWidthClass="w-full">
     @if (loading()) {
-    <p class="text-sm font-medium text-slate-500">Cargando configuración...</p>
+    <p class="text-sm font-medium text-slate-900">Cargando configuraci?n...</p>
     }
 
     <div class="mb-6 flex flex-wrap gap-3">
@@ -56,7 +56,7 @@
         </div>
 
         <div class="space-y-1">
-          <label class="mb-1 block text-sm font-semibold text-slate-700">Día del mes</label>
+          <label class="mb-1 block text-sm font-semibold text-slate-700">D?a del mes</label>
           <input
             type="number"
             formControlName="diadDelMes"
@@ -67,7 +67,7 @@
         </div>
 
         <div class="space-y-1">
-          <label class="mb-1 block text-sm font-semibold text-slate-700">Hora de envío</label>
+          <label class="mb-1 block text-sm font-semibold text-slate-700">Hora de env?o</label>
           <input
             type="time"
             formControlName="horaEnvio"
@@ -86,11 +86,11 @@
             class="w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-3 text-sm font-medium text-slate-800 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-200 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
           ></textarea>
           @if(form.controls.mensaje.invalid && form.controls.mensaje.touched){
-          <p class="text-xs font-medium text-rose-500">Mínimo 3 caracteres.</p>
+          <p class="text-xs font-medium text-rose-500">M?nimo 3 caracteres.</p>
           }
         </div>
 
-        @if(medioSeleccionado() === MedioEnvio.EMAIL){
+        @if(medioSeleccionado() === emailMedio){
         <div class="md:col-span-2 space-y-1">
           <label class="mb-1 block text-sm font-semibold text-slate-700">Asunto (Email)</label>
           <input

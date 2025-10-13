@@ -18,7 +18,6 @@ export interface UpdateProfileRequest {
   nombreCompleto: string;
   correo: string;
   rol: 'MASTER' | 'ADMIN';
-  nombreUsuario: string;
 }
 
 @Injectable({
@@ -63,7 +62,7 @@ export class AccountService {
       nombreCompleto: data.nombreCompleto,
       correo: data.correo,
       rol: data.rol,
-      nombreUsuario: data.nombreUsuario,
+      nombreUsuario: data.correo,
     };
   }
 
@@ -93,7 +92,6 @@ export class AccountService {
       correo: dto?.correo ?? '',
       rol: (dto?.rol as 'MASTER' | 'ADMIN') ?? 'ADMIN',
       institutionId: dto?.institutionId ?? null,
-      nombreUsuario: dto?.nombreUsuario ?? '',
     };
   }
 }

@@ -20,6 +20,9 @@ export class AuthService {
     }
   }
 
+  token = computed(() => this._accessToken());
+  refreshToken = computed(() => this._refreshToken());
+
   setAccessToken(accessToken: string) {
     this._accessToken.set(accessToken);
     localStorage.setItem('accessToken', accessToken);

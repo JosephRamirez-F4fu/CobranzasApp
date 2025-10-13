@@ -1,59 +1,59 @@
 <section class="mx-auto flex max-w-5xl flex-col gap-8 p-6 md:p-8">
-  <app-config-section title="Datos de la Institución" maxWidthClass="w-full">
+  <app-config-section title="Datos de la Instituci?n" maxWidthClass="w-full">
     <form class="space-y-6" [formGroup]="form" (ngSubmit)="save()">
       <div class="grid gap-6 md:grid-cols-2">
         <div class="space-y-1">
-          <label class="mb-1 block text-sm font-semibold text-slate-700">Nombre</label>
+          <label class="mb-1 block text-sm font-semibold text-slate-900">Nombre</label>
           <input
             formControlName="name"
             type="text"
-            class="w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-3 text-sm font-medium text-slate-800 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-200 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
+            class="w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-3 text-sm font-medium text-slate-800 placeholder:text-slate-900 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-200 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
           />
           @if(form.controls.name.invalid && form.controls.name.touched){
           <p class="text-xs font-medium text-rose-500">Requerido.</p>
           }
         </div>
         <div class="space-y-1">
-          <label class="mb-1 block text-sm font-semibold text-slate-700">Dirección</label>
+          <label class="mb-1 block text-sm font-semibold text-slate-900">Direcci?n</label>
           <input
             formControlName="address"
             type="text"
-            class="w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-3 text-sm font-medium text-slate-800 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-200 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
+            class="w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-3 text-sm font-medium text-slate-800 placeholder:text-slate-900 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-200 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
           />
         </div>
         <div class="space-y-1">
-          <label class="mb-1 block text-sm font-semibold text-slate-700">Teléfono</label>
+          <label class="mb-1 block text-sm font-semibold text-slate-900">Tel?fono</label>
           <input
             formControlName="phoneNumber"
             type="text"
-            class="w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-3 text-sm font-medium text-slate-800 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-200 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
+            class="w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-3 text-sm font-medium text-slate-800 placeholder:text-slate-900 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-200 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
           />
         </div>
         <div class="space-y-1">
-          <label class="mb-1 block text-sm font-semibold text-slate-700">Email</label>
+          <label class="mb-1 block text-sm font-semibold text-slate-900">Email</label>
           <input
             formControlName="email"
             type="email"
-            class="w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-3 text-sm font-medium text-slate-800 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-200 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
+            class="w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-3 text-sm font-medium text-slate-800 placeholder:text-slate-900 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-200 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
           />
           @if(form.controls.email.invalid && form.controls.email.touched){
-          <p class="text-xs font-medium text-rose-500">Correo inválido.</p>
+          <p class="text-xs font-medium text-rose-500">Correo inv?lido.</p>
           }
         </div>
         <div class="space-y-1">
-          <label class="mb-1 block text-sm font-semibold text-slate-700">Logo (URL)</label>
+          <label class="mb-1 block text-sm font-semibold text-slate-900">Logo (URL)</label>
           <input
             formControlName="logoUrl"
             type="text"
-            class="w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-3 text-sm font-medium text-slate-800 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-200 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
+            class="w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-3 text-sm font-medium text-slate-800 placeholder:text-slate-900 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-200 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
           />
         </div>
         <div class="space-y-1">
-          <label class="mb-1 block text-sm font-semibold text-slate-700">Logo Login (URL)</label>
+          <label class="mb-1 block text-sm font-semibold text-slate-900">Logo Login (URL)</label>
           <input
             formControlName="logoLoginUrl"
             type="text"
-            class="w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-3 text-sm font-medium text-slate-800 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-200 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
+            class="w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-3 text-sm font-medium text-slate-800 placeholder:text-slate-900 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-200 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
           />
         </div>
       </div>

@@ -4,21 +4,26 @@ import { Observable } from 'rxjs';
 import {
   ActualizarConfiguracionLdapDeInstitucion$Params,
   ActualizarInstitucionDesdeMaster$Params,
+  ActualizarPlan$Params,
   EliminarInstitucionPorIdentificador$Params,
   ListarInstitucionesConFiltros$Params,
+  ObtenerAccionesPorPlan$Params,
   ObtenerInstitucionPorCodigo$Params,
   ObtenerInstitucionPorIdentificador$Params,
   RegistrarInstitucionDesdeMaster$Params,
   actualizarConfiguracionLdapDeInstitucion,
   actualizarInstitucionDesdeMaster,
+  actualizarPlan,
   eliminarInstitucionPorIdentificador,
   listarInstitucionesConFiltros,
+  obtenerAccionesPorPlan,
   obtenerInstitucionPorCodigo,
   obtenerInstitucionPorIdentificador,
   registrarInstitucionDesdeMaster,
 } from '../functions';
 import { ApiResponseInstitutionResponse } from '../models/api-response-institution-response';
 import { ApiResponsePageInstitutionResponse } from '../models/api-response-page-institution-response';
+import { ApiResponsePlanActionsResponse } from '../models/api-response-plan-actions-response';
 import { ApiResponseVoid } from '../models/api-response-void';
 
 import { ApiFacadeBase } from './api-facade.base';
@@ -37,6 +42,12 @@ export class InstitucionesFacade extends ApiFacadeBase {
     params: ActualizarInstitucionDesdeMaster$Params
   ): Observable<ApiResponseInstitutionResponse> {
     return this.request(actualizarInstitucionDesdeMaster, params);
+  }
+
+  actualizarPlan(
+    params: ActualizarPlan$Params
+  ): Observable<ApiResponseInstitutionResponse> {
+    return this.request(actualizarPlan, params);
   }
 
   eliminar(
@@ -61,6 +72,12 @@ export class InstitucionesFacade extends ApiFacadeBase {
     params: ObtenerInstitucionPorCodigo$Params
   ): Observable<ApiResponseInstitutionResponse> {
     return this.request(obtenerInstitucionPorCodigo, params);
+  }
+
+  obtenerAccionesPorPlan(
+    params: ObtenerAccionesPorPlan$Params
+  ): Observable<ApiResponsePlanActionsResponse> {
+    return this.request(obtenerAccionesPorPlan, params);
   }
 
   actualizarLdap(

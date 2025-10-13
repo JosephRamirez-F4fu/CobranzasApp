@@ -1,5 +1,5 @@
 export interface loginRequest {
-  nombreUsuario: string;
+  correo: string;
   contrasena: string;
   instituionId: string;
 }

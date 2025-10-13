@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { InstitutionForCreate } from '@services/institutions.service';
+import { INSTITUTION_PLAN_LABELS } from '@domain/enums/institution-plan.enum';
 
 @Component({
   selector: 'institution-table',
@@ -13,19 +14,23 @@ import { InstitutionForCreate } from '@services/institutions.service';
         <table class="w-full table-auto text-left text-sm text-slate-200">
           <thead class="text-xs uppercase tracking-[0.25em] text-slate-400">
             <tr class="border-b border-slate-700/60">
-              <th class="py-3 pr-4">Código</th>
+              <th class="py-3 pr-4">Codigo</th>
               <th class="py-3 pr-4">Nombre</th>
+              <th class="py-3 pr-4">Plan</th>
               <th class="py-3 pr-4">Email</th>
-              <th class="py-3 pr-4">Teléfono</th>
-              <th class="py-3 pr-4">Dirección</th>
+              <th class="py-3 pr-4">Telefono</th>
+              <th class="py-3 pr-4">Direccion</th>
               <th class="py-3 text-center">Acciones</th>
             </tr>
           </thead>
           <tbody>
             @for (inst of institutions(); track inst) {
               <tr class="border-b border-slate-800/60 transition hover:bg-slate-900/60">
-                <td class="py-3 pr-4 font-semibold text-white">{{ inst.code }}</td>
+                <td class="py-3 pr-4 font-semibold text-white">{{ inst.code || 'No asignado' }}</td>
                 <td class="py-3 pr-4">{{ inst.name }}</td>
+                <td class="py-3 pr-4">
+                  {{ inst.plan ? planLabels[inst.plan] : 'Sin plan' }}
+                </td>
                 <td class="py-3 pr-4">{{ inst.email }}</td>
                 <td class="py-3 pr-4">{{ inst.phoneNumber }}</td>
                 <td class="py-3 pr-4">{{ inst.address }}</td>
@@ -48,7 +53,7 @@ import { InstitutionForCreate } from '@services/institutions.service';
               </tr>
             } @empty {
               <tr>
-                <td colspan="6" class="py-8 text-center text-sm text-slate-400">
+                <td colspan="7" class="py-8 text-center text-sm text-slate-400">
                   No hay instituciones registradas
                 </td>
               </tr>
@@ -58,7 +63,7 @@ import { InstitutionForCreate } from '@services/institutions.service';
       </div>
 
       <div class="flex flex-wrap items-center justify-between gap-3 text-sm text-slate-300">
-        <span>Página {{ page() }} de {{ totalPages() }}</span>
+        <span>Pagina {{ page() }} de {{ totalPages() }}</span>
         <div class="flex items-center gap-2">
           <button
             (click)="prevPage()"
@@ -92,6 +97,8 @@ export class InstitutionTableComponent {
   page = input.required<number>();
   totalPages = input.required<number>();
   pageChange = output<number>();
+
+  readonly planLabels = INSTITUTION_PLAN_LABELS;
 
   nextPage() {
     if (this.page() < this.totalPages()) this.pageChange.emit(this.page() + 1);

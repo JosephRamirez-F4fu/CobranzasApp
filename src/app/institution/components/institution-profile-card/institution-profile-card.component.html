@@ -9,7 +9,7 @@
     </div>
     <div class="min-w-0">
       <p class="truncate text-sm font-semibold text-white">
-        {{ user().nombreCompleto || user().nombreUsuario }}
+        {{ user().nombreCompleto || user().correo }}
       </p>
       <p class="text-xs font-medium uppercase tracking-[0.35em] text-emerald-300/80">
         {{ roleLabel() }}
@@ -23,15 +23,15 @@
       <span class="font-medium text-slate-200">Correo</span>
       <span class="truncate">{{ user().correo }}</span>
     </div>
-    <div class="flex items-center gap-2" title="{{ user().nombreUsuario }}">
-      <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
-      <span class="font-medium text-slate-200">Usuario</span>
-      <span class="truncate">{{ user().nombreUsuario }}</span>
-    </div>
     <div class="flex items-center gap-2" title="{{ institution().name }}">
       <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
-      <span class="font-medium text-slate-200">Institución</span>
+      <span class="font-medium text-slate-200">Institucion</span>
       <span class="truncate">{{ institution().name }}</span>
+    </div>
+    <div class="flex items-center gap-2" title="{{ planLabel() }}">
+      <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+      <span class="font-medium text-slate-200">Plan</span>
+      <span class="truncate">{{ planLabel() }}</span>
     </div>
   </div>
 </div>

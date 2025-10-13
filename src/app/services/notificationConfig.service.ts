@@ -1,17 +1,14 @@
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
+import { MEDIOS_ENVIO, MedioEnvio } from '@domain/enums/type-send';
 import { ConfiguracionDeNotificacionesFacade } from '../api/facades/configuracion-de-notificaciones.facade';
 import { NotificacionConfigracionRegister } from '../api/models/notificacion-configracion-register';
 import { ApiResponseNotificacionConfigracionResponse } from '../api/models/api-response-notificacion-configracion-response';
 import { ApiResponseBoolean } from '../api/models/api-response-boolean';
 import { NotificacionConfigracionResponse } from '../api/models/notificacion-configracion-response';
+import { NotificationScenarioSummary } from '../api/models/notification-scenario-summary';
 
-export enum MedioEnvio {
-  EMAIL = 'EMAIL',
-  SMS = 'SMS',
-  WHATSAPP = 'WHATSAPP',
-  IVR = 'IVR',
-}
+export { MEDIOS_ENVIO, type MedioEnvio };
 
 export interface NotificacionConfigRegister {
   medioEnvio: MedioEnvio;
@@ -22,6 +19,7 @@ export interface NotificacionConfigRegister {
   mensaje: string;
   asunto: string;
   institutionCode: string;
+  notificationScenarioId?: number | null;
 }
 
 export interface NotificacionConfigResponse {
@@ -34,6 +32,8 @@ export interface NotificacionConfigResponse {
   asunto: string;
   id: number;
   institutionCode: string;
+  notificationScenarioId: number | null;
+  notificationScenario?: NotificationScenarioSummary | null;
 }
 
 @Injectable({
@@ -87,12 +87,15 @@ export class NotificationConfigService {
       institutionCode: data.institutionCode,
       medioEnvio: data.medioEnvio,
       mensaje: data.mensaje,
+      notificationScenarioId: data.notificationScenarioId ?? undefined,
     };
   }
 
-  private mapResponse(
-    response: ApiResponseNotificacionConfigracionResponse
-  ): { data: NotificacionConfigResponse; message: string; status: boolean } {
+  private mapResponse(response: ApiResponseNotificacionConfigracionResponse): {
+    data: NotificacionConfigResponse;
+    message: string;
+    status: boolean;
+  } {
     return {
       data: this.toDomain(response.data),
       message: response.message ?? '',
@@ -115,8 +118,10 @@ export class NotificationConfigService {
       horaEnvio: dto?.horaEnvio ?? '',
       id: dto?.id ?? 0,
       institutionCode: dto?.institutionCode ?? '',
-      medioEnvio: (dto?.medioEnvio as MedioEnvio) ?? MedioEnvio.EMAIL,
+      medioEnvio: (dto?.medioEnvio as MedioEnvio) ?? 'EMAIL',
       mensaje: dto?.mensaje ?? '',
+      notificationScenarioId: dto?.notificationScenario?.id ?? null,
+      notificationScenario: dto?.notificationScenario ?? null,
     };
   }
 }

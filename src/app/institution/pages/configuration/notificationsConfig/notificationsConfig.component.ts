@@ -10,6 +10,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { finalize, of, switchMap } from 'rxjs';
 import { InstitutionsService } from '@services/institutions.service';
 import {
+  MEDIOS_ENVIO,
   MedioEnvio,
   NotificationConfigService,
   NotificacionConfigResponse,
@@ -38,12 +39,11 @@ export default class NotificationsConfigComponent {
   saving = signal(false);
   exists = signal(false);
 
-  MedioEnvio = MedioEnvio;
-  medios = Object.values(MedioEnvio) as MedioEnvio[];
-  medioSeleccionado = signal<MedioEnvio>(MedioEnvio.EMAIL);
+  readonly medios = MEDIOS_ENVIO;
+  readonly emailMedio: MedioEnvio = 'EMAIL';
+  medioSeleccionado = signal<MedioEnvio>(this.emailMedio);
 
   form = this.fb.group({
-    // solo informativo en UI
     medioEnvio: this.fb.control<string>('EMAIL'),
     frecuencia: this.fb.control<string>('', {
       validators: [Validators.required],
@@ -66,7 +66,6 @@ export default class NotificationsConfigComponent {
   constructor() {
     this.form.disable({ emitEvent: false });
 
-    // Carga cuando cambie institución o medio
     effect(() => {
       const code = this.institutions.institution()?.code;
       const medio = this.medioSeleccionado();
@@ -135,7 +134,6 @@ export default class NotificationsConfigComponent {
   enableEdit() {
     this.editing.set(true);
     this.form.enable({ emitEvent: false });
-    // mantener medio como solo lectura visual
     this.form.controls.medioEnvio.disable({ emitEvent: false });
   }
 
@@ -165,8 +163,7 @@ export default class NotificationsConfigComponent {
     const inst = this.institutions.institution();
     if (!inst?.code) return;
 
-    // Validación simple: asunto requerido para EMAIL
-    if (this.medioSeleccionado() === MedioEnvio.EMAIL) {
+    if (this.medioSeleccionado() === this.emailMedio) {
       this.form.controls.asunto.addValidators(Validators.required);
       this.form.controls.asunto.updateValueAndValidity({ emitEvent: false });
     } else {
@@ -189,6 +186,7 @@ export default class NotificationsConfigComponent {
       mensaje: this.form.value.mensaje!,
       asunto: this.form.value.asunto ?? '',
       institutionCode: inst.code,
+      notificationScenarioId: this.lastLoaded()?.notificationScenarioId ?? null,
     };
 
     this.saving.set(true);

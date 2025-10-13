@@ -3,12 +3,12 @@
   (ngSubmit)="onSubmit()"
   class="grid gap-6 rounded-3xl border border-slate-700/70 bg-slate-950/60 p-6 text-slate-100 shadow-2xl shadow-slate-950/40 backdrop-blur-xl"
 >
-  <header class="space-y-1 text-slate-200">
+  <header class="space-y-1 text-slate-100">
     <h2 class="text-2xl font-semibold text-white">
       {{ editing ? 'Actualizar alumno' : 'Registrar nuevo alumno' }}
     </h2>
     <p class="text-sm text-slate-300">
-      Gestiona los datos generales y la información de contacto del tutor desde este formulario.
+      Gestiona los datos generales y la informaci?n de contacto del tutor desde este formulario.
     </p>
   </header>
 
@@ -16,13 +16,13 @@
     <div class="space-y-4">
       <h3 class="text-sm font-semibold uppercase tracking-[0.35em] text-emerald-300/80">Datos del alumno</h3>
       <div class="grid gap-4 sm:grid-cols-2">
-        <label class="flex flex-col gap-2 font-semibold text-slate-200 sm:col-span-2">
+        <label class="flex flex-col gap-2 font-semibold text-slate-100 sm:col-span-2">
           <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Nombre completo</span>
           <input
             type="text"
             formControlName="nombreCompleto"
-            placeholder="Ej. María López"
-            class="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
+            placeholder="Ej. Mar?a L?pez"
+            class="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 placeholder:text-slate-200 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
             [ngClass]="{
               'border-rose-400 focus:border-rose-500 focus:ring-rose-400/30':
                 form.controls['nombreCompleto'].invalid && form.controls['nombreCompleto'].touched
@@ -36,13 +36,13 @@
           </small>
         </label>
 
-        <label class="flex flex-col gap-2 font-semibold text-slate-200">
+        <label class="flex flex-col gap-2 font-semibold text-slate-100">
           <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Documento de identidad</span>
           <input
             type="text"
             formControlName="dni"
             placeholder="DNI o documento equivalente"
-            class="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
+            class="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 placeholder:text-slate-200 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
             [ngClass]="{
               'border-rose-400 focus:border-rose-500 focus:ring-rose-400/30':
                 form.controls['dni'].invalid && form.controls['dni'].touched
@@ -52,17 +52,17 @@
             *ngIf="form.controls['dni'].invalid && form.controls['dni'].touched"
             class="text-sm font-medium text-rose-400"
           >
-            Ingrese un documento válido (entre 8 y 12 caracteres).
+            Ingrese un documento v?lido (entre 8 y 12 caracteres).
           </small>
         </label>
 
-        <label class="flex flex-col gap-2 font-semibold text-slate-200">
+        <label class="flex flex-col gap-2 font-semibold text-slate-100">
           <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Nivel</span>
           <input
             type="text"
             formControlName="nivel"
             placeholder="Ej. Secundaria"
-            class="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
+            class="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 placeholder:text-slate-200 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
             [ngClass]="{
               'border-rose-400 focus:border-rose-500 focus:ring-rose-400/30':
                 form.controls['nivel'].invalid && form.controls['nivel'].touched
@@ -76,13 +76,13 @@
           </small>
         </label>
 
-        <label class="flex flex-col gap-2 font-semibold text-slate-200">
+        <label class="flex flex-col gap-2 font-semibold text-slate-100">
           <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Grado</span>
           <input
             type="text"
             formControlName="grado"
-            placeholder="Ej. 3°"
-            class="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
+            placeholder="Ej. 3?"
+            class="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 placeholder:text-slate-200 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
             [ngClass]="{
               'border-rose-400 focus:border-rose-500 focus:ring-rose-400/30':
                 form.controls['grado'].invalid && form.controls['grado'].touched
@@ -96,13 +96,13 @@
           </small>
         </label>
 
-        <label class="flex flex-col gap-2 font-semibold text-slate-200">
-          <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Sección</span>
+        <label class="flex flex-col gap-2 font-semibold text-slate-100">
+          <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Secci?n</span>
           <input
             type="text"
             formControlName="seccion"
             placeholder="Ej. A"
-            class="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
+            class="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 placeholder:text-slate-200 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
             [ngClass]="{
               'border-rose-400 focus:border-rose-500 focus:ring-rose-400/30':
                 form.controls['seccion'].invalid && form.controls['seccion'].touched
@@ -112,17 +112,17 @@
             *ngIf="form.controls['seccion'].invalid && form.controls['seccion'].touched"
             class="text-sm font-medium text-rose-400"
           >
-            La sección es obligatoria.
+            La secci?n es obligatoria.
           </small>
         </label>
 
-        <label class="flex flex-col gap-2 font-semibold text-slate-200 sm:col-span-2">
-          <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Dirección</span>
+        <label class="flex flex-col gap-2 font-semibold text-slate-100 sm:col-span-2">
+          <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Direcci?n</span>
           <textarea
             rows="3"
             formControlName="direccion"
-            placeholder="Dirección completa de residencia"
-            class="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
+            placeholder="Direcci?n completa de residencia"
+            class="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 placeholder:text-slate-200 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
             [ngClass]="{
               'border-rose-400 focus:border-rose-500 focus:ring-rose-400/30':
                 form.controls['direccion'].invalid && form.controls['direccion'].touched
@@ -132,7 +132,7 @@
             *ngIf="form.controls['direccion'].invalid && form.controls['direccion'].touched"
             class="text-sm font-medium text-rose-400"
           >
-            La dirección es obligatoria.
+            La direcci?n es obligatoria.
           </small>
         </label>
       </div>
@@ -141,13 +141,13 @@
     <div class="space-y-4">
       <h3 class="text-sm font-semibold uppercase tracking-[0.35em] text-emerald-300/80">Responsable de pago</h3>
       <div class="grid gap-4">
-        <label class="flex flex-col gap-2 font-semibold text-slate-200">
+        <label class="flex flex-col gap-2 font-semibold text-slate-100">
           <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Nombre del responsable</span>
           <input
             type="text"
             formControlName="responsablePago"
-            placeholder="Ej. Juan Pérez"
-            class="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
+            placeholder="Ej. Juan P?rez"
+            class="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 placeholder:text-slate-200 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
             [ngClass]="{
               'border-rose-400 focus:border-rose-500 focus:ring-rose-400/30':
                 form.controls['responsablePago'].invalid && form.controls['responsablePago'].touched
@@ -161,13 +161,13 @@
           </small>
         </label>
 
-        <label class="flex flex-col gap-2 font-semibold text-slate-200">
-          <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Correo electrónico</span>
+        <label class="flex flex-col gap-2 font-semibold text-slate-100">
+          <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Correo electr?nico</span>
           <input
             type="email"
             formControlName="emailTutor"
             placeholder="responsable@correo.com"
-            class="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
+            class="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 placeholder:text-slate-200 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
             [ngClass]="{
               'border-rose-400 focus:border-rose-500 focus:ring-rose-400/30':
                 form.controls['emailTutor'].invalid && form.controls['emailTutor'].touched
@@ -177,17 +177,17 @@
             *ngIf="form.controls['emailTutor'].invalid && form.controls['emailTutor'].touched"
             class="text-sm font-medium text-rose-400"
           >
-            Ingrese un correo válido.
+            Ingrese un correo v?lido.
           </small>
         </label>
 
-        <label class="flex flex-col gap-2 font-semibold text-slate-200">
-          <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Teléfono de contacto</span>
+        <label class="flex flex-col gap-2 font-semibold text-slate-100">
+          <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Tel?fono de contacto</span>
           <input
             type="tel"
             formControlName="telefonoTutor"
-            placeholder="Número de contacto"
-            class="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
+            placeholder="N?mero de contacto"
+            class="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 placeholder:text-slate-200 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
           />
         </label>
       </div>
@@ -200,14 +200,14 @@
       [disabled]="form.invalid || saving"
       class="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-emerald-500/40 transition hover:-translate-y-0.5 hover:shadow-emerald-500/60 disabled:cursor-not-allowed disabled:opacity-70"
     >
-      {{ saving ? 'Guardando…' : (editing ? 'Actualizar alumno' : 'Registrar alumno') }}
+      {{ saving ? 'Guardando?' : (editing ? 'Actualizar alumno' : 'Registrar alumno') }}
     </button>
     <button
       type="button"
       *ngIf="editing"
       (click)="onCancel()"
       [disabled]="saving"
-      class="inline-flex items-center justify-center rounded-full border border-slate-600/80 bg-slate-900/60 px-6 py-2.5 text-sm font-semibold text-slate-200 shadow-inner shadow-slate-950/40 transition hover:border-rose-400 hover:bg-rose-500/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
+      class="inline-flex items-center justify-center rounded-full border border-slate-600/80 bg-slate-900/60 px-6 py-2.5 text-sm font-semibold text-slate-100 shadow-inner shadow-slate-950/40 transition hover:border-rose-400 hover:bg-rose-500/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
     >
       Cancelar
     </button>
@@ -216,7 +216,7 @@
       *ngIf="!editing"
       (click)="onClear()"
       [disabled]="saving"
-      class="inline-flex items-center justify-center rounded-full border border-slate-600/80 bg-slate-900/60 px-6 py-2.5 text-sm font-semibold text-slate-200 shadow-inner shadow-slate-950/40 transition hover:border-slate-400 hover:bg-slate-900/80 hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
+      class="inline-flex items-center justify-center rounded-full border border-slate-600/80 bg-slate-900/60 px-6 py-2.5 text-sm font-semibold text-slate-100 shadow-inner shadow-slate-950/40 transition hover:border-slate-400 hover:bg-slate-900/80 hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
     >
       Limpiar
     </button>

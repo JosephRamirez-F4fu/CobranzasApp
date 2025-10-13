@@ -10,4 +10,5 @@ export interface NotificacionConfigracionRegister {
   institutionCode?: string;
   medioEnvio?: 'SMS' | 'WHATSAPP' | 'EMAIL';
   mensaje?: string;
+  notificationScenarioId?: number;
 }

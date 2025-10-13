@@ -25,7 +25,7 @@ export class LoginService {
     return this.api
       .iniciarSesion({
         body: {
-          nombreUsuario: credentials.nombreUsuario,
+          nombreUsuario: credentials.correo,
           contrasena: credentials.contrasena,
           institutionCode: credentials.institutionCode ?? undefined,
         },

@@ -1,3 +1,5 @@
+import { InstitutionPlan } from '../enums/institution-plan.enum';
+
 export interface Institution {
   id: number;
   ldapHost: string;
@@ -13,4 +15,5 @@ export interface Institution {
   logoUrl: string;
   logoLoginUrl: string;
   code: string;
+  plan: InstitutionPlan | null;
 }

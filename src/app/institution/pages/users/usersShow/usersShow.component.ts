@@ -23,7 +23,6 @@ interface InstitutionUserFormValue {
   id: number | null;
   nombreCompleto: string;
   correo: string;
-  nombreUsuario: string;
   contrasena: string;
 }
 
@@ -31,7 +30,6 @@ type InstitutionUserFormGroup = FormGroup<{
   id: FormControl<number | null>;
   nombreCompleto: FormControl<string>;
   correo: FormControl<string>;
-  nombreUsuario: FormControl<string>;
   contrasena: FormControl<string>;
 }>;
 
@@ -69,9 +67,6 @@ export default class UsersShowComponent {
     }),
     correo: this.fb.nonNullable.control('', {
       validators: [Validators.required, Validators.email],
-    }),
-    nombreUsuario: this.fb.nonNullable.control('', {
-      validators: [Validators.required],
     }),
     contrasena: this.fb.nonNullable.control('', {
       validators: [Validators.required, Validators.minLength(6)],
@@ -112,7 +107,6 @@ export default class UsersShowComponent {
     const payload = {
       nombreCompleto: value.nombreCompleto,
       correo: value.correo,
-      nombreUsuario: value.nombreUsuario,
       contrasena: value.contrasena || undefined,
     };
 
@@ -124,7 +118,7 @@ export default class UsersShowComponent {
     request$.pipe(finalize(() => this.saving.set(false))).subscribe({
       next: (response) => {
         this.feedback.set(
-          response.message || 'Operación completada correctamente.'
+          response.message || 'Operacion completada correctamente.'
         );
         this.resetForm();
         this.configurePasswordValidators(false);
@@ -146,7 +140,6 @@ export default class UsersShowComponent {
             id: data.id,
             nombreCompleto: data.nombreCompleto,
             correo: data.correo,
-            nombreUsuario: data.nombreUsuario,
             contrasena: '',
           });
           this.configurePasswordValidators(true);
@@ -157,7 +150,7 @@ export default class UsersShowComponent {
   }
 
   onDeactivate(user: InstitutionUser) {
-    if (!confirm(`¿Desea desactivar al usuario ${user.nombreUsuario}?`)) {
+    if (!confirm(`Desea desactivar al usuario ${user.correo}?`)) {
       return;
     }
 
@@ -179,7 +172,7 @@ export default class UsersShowComponent {
   onDelete(user: InstitutionUser) {
     if (
       !confirm(
-        `Esta acción eliminará permanentemente a ${user.nombreUsuario}. ¿Desea continuar?`
+        `Esta accion eliminara permanentemente a ${user.correo}. Desea continuar?`
       )
     ) {
       return;
@@ -218,7 +211,6 @@ export default class UsersShowComponent {
       id: null,
       nombreCompleto: '',
       correo: '',
-      nombreUsuario: '',
       contrasena: '',
     });
     this.editing.set(false);
@@ -234,7 +226,7 @@ export default class UsersShowComponent {
   }
 
   private handleError(error: unknown) {
-    let message = 'Ocurrió un error inesperado. Inténtelo nuevamente.';
+    let message = 'Ocurrio un error inesperado. Intentelo nuevamente.';
     if (error instanceof HttpErrorResponse) {
       message =
         (error.error && (error.error.message || error.error.error)) ||

@@ -7,12 +7,18 @@ import {
   CrearCronogramaParaInstitucionAutenticada$Params,
   EliminarCronogramaDeInstitucionAutenticada$Params,
   ListarCronogramasConFiltros$Params,
+  ListarCuotasPorCronograma$Params,
+  ObtenerCronogramaConCuotas$Params,
   actualizarCronogramaExistente,
   actualizarCuotaDeCronograma,
   crearCronogramaParaInstitucionAutenticada,
   eliminarCronogramaDeInstitucionAutenticada,
   listarCronogramasConFiltros,
+  listarCuotasPorCronograma,
+  obtenerCronogramaConCuotas,
 } from '../functions';
+import { ApiResponseCronogramaDetalleResponse } from '../models/api-response-cronograma-detalle-response';
+import { ApiResponseListCuotaResponse } from '../models/api-response-list-cuota-response';
 import { ApiResponsePageCronogramaResponse } from '../models/api-response-page-cronograma-response';
 import { ApiResponseString } from '../models/api-response-string';
 
@@ -50,5 +56,17 @@ export class CronogramasFacade extends ApiFacadeBase {
     params?: ListarCronogramasConFiltros$Params
   ): Observable<ApiResponsePageCronogramaResponse> {
     return this.request(listarCronogramasConFiltros, params);
+  }
+
+  listarCuotas(
+    params: ListarCuotasPorCronograma$Params
+  ): Observable<ApiResponseListCuotaResponse> {
+    return this.request(listarCuotasPorCronograma, params);
+  }
+
+  obtenerDetalle(
+    params: ObtenerCronogramaConCuotas$Params
+  ): Observable<ApiResponseCronogramaDetalleResponse> {
+    return this.request(obtenerCronogramaConCuotas, params);
   }
 }

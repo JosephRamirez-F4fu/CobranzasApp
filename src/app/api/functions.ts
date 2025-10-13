@@ -45,6 +45,16 @@ export type { ObtenerConfiguracionPorCodigoInstitucion$Params } from './fn/pasar
 export { obtenerConfiguracionPorCodigoInstitucion } from './fn/pasarela-de-pago/obtener-configuracion-por-codigo-institucion';
 export type { VerificarExistenciaDePasarela$Params } from './fn/pasarela-de-pago/verificar-existencia-de-pasarela';
 export { verificarExistenciaDePasarela } from './fn/pasarela-de-pago/verificar-existencia-de-pasarela';
+export type { ObtenerEscenario$Params } from './fn/escenarios-de-notificacion/obtener-escenario';
+export { obtenerEscenario } from './fn/escenarios-de-notificacion/obtener-escenario';
+export type { ActualizarEscenario$Params } from './fn/escenarios-de-notificacion/actualizar-escenario';
+export { actualizarEscenario } from './fn/escenarios-de-notificacion/actualizar-escenario';
+export type { EliminarEscenario$Params } from './fn/escenarios-de-notificacion/eliminar-escenario';
+export { eliminarEscenario } from './fn/escenarios-de-notificacion/eliminar-escenario';
+export type { ListarEscenarios$Params } from './fn/escenarios-de-notificacion/listar-escenarios';
+export { listarEscenarios } from './fn/escenarios-de-notificacion/listar-escenarios';
+export type { CrearEscenario$Params } from './fn/escenarios-de-notificacion/crear-escenario';
+export { crearEscenario } from './fn/escenarios-de-notificacion/crear-escenario';
 export type { ActualizarConfiguracionDeNotificacion$Params } from './fn/configuracion-de-notificaciones/actualizar-configuracion-de-notificacion';
 export { actualizarConfiguracionDeNotificacion } from './fn/configuracion-de-notificaciones/actualizar-configuracion-de-notificacion';
 export type { RegistrarConfiguracionDeNotificacion$Params } from './fn/configuracion-de-notificaciones/registrar-configuracion-de-notificacion';
@@ -59,12 +69,16 @@ export type { ActualizarInstitucionDesdeMaster$Params } from './fn/instituciones
 export { actualizarInstitucionDesdeMaster } from './fn/instituciones/actualizar-institucion-desde-master';
 export type { EliminarInstitucionPorIdentificador$Params } from './fn/instituciones/eliminar-institucion-por-identificador';
 export { eliminarInstitucionPorIdentificador } from './fn/instituciones/eliminar-institucion-por-identificador';
+export type { ActualizarPlan$Params } from './fn/instituciones/actualizar-plan';
+export { actualizarPlan } from './fn/instituciones/actualizar-plan';
 export type { ActualizarConfiguracionLdapDeInstitucion$Params } from './fn/instituciones/actualizar-configuracion-ldap-de-institucion';
 export { actualizarConfiguracionLdapDeInstitucion } from './fn/instituciones/actualizar-configuracion-ldap-de-institucion';
 export type { ListarInstitucionesConFiltros$Params } from './fn/instituciones/listar-instituciones-con-filtros';
 export { listarInstitucionesConFiltros } from './fn/instituciones/listar-instituciones-con-filtros';
 export type { RegistrarInstitucionDesdeMaster$Params } from './fn/instituciones/registrar-institucion-desde-master';
 export { registrarInstitucionDesdeMaster } from './fn/instituciones/registrar-institucion-desde-master';
+export type { ObtenerAccionesPorPlan$Params } from './fn/instituciones/obtener-acciones-por-plan';
+export { obtenerAccionesPorPlan } from './fn/instituciones/obtener-acciones-por-plan';
 export type { ObtenerInstitucionPorCodigo$Params } from './fn/instituciones/obtener-institucion-por-codigo';
 export { obtenerInstitucionPorCodigo } from './fn/instituciones/obtener-institucion-por-codigo';
 export type { ActualizarMontoYSaldoDeCuenta$Params } from './fn/estado-de-cuenta/actualizar-monto-y-saldo-de-cuenta';
@@ -75,6 +89,8 @@ export type { ListarEstadosDeCuentaConFiltros$Params } from './fn/estado-de-cuen
 export { listarEstadosDeCuentaConFiltros } from './fn/estado-de-cuenta/listar-estados-de-cuenta-con-filtros';
 export type { ObtenerEstadoCuentaDeAlumnoPorCronograma$Params } from './fn/estado-de-cuenta/obtener-estado-cuenta-de-alumno-por-cronograma';
 export { obtenerEstadoCuentaDeAlumnoPorCronograma } from './fn/estado-de-cuenta/obtener-estado-cuenta-de-alumno-por-cronograma';
+export type { ObtenerCronogramaConCuotas$Params } from './fn/cronogramas/obtener-cronograma-con-cuotas';
+export { obtenerCronogramaConCuotas } from './fn/cronogramas/obtener-cronograma-con-cuotas';
 export type { ActualizarCronogramaExistente$Params } from './fn/cronogramas/actualizar-cronograma-existente';
 export { actualizarCronogramaExistente } from './fn/cronogramas/actualizar-cronograma-existente';
 export type { EliminarCronogramaDeInstitucionAutenticada$Params } from './fn/cronogramas/eliminar-cronograma-de-institucion-autenticada';
@@ -111,3 +127,5 @@ export type { CerrarSesionConRefreshToken$Params } from './fn/autenticacion/cerr
 export { cerrarSesionConRefreshToken } from './fn/autenticacion/cerrar-sesion-con-refresh-token';
 export type { IniciarSesionConCredenciales$Params } from './fn/autenticacion/iniciar-sesion-con-credenciales';
 export { iniciarSesionConCredenciales } from './fn/autenticacion/iniciar-sesion-con-credenciales';
+export type { RecibirNotificacion$Params } from './fn/notification-webhook-controller/recibir-notificacion';
+export { recibirNotificacion } from './fn/notification-webhook-controller/recibir-notificacion';

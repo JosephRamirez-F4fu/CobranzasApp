@@ -1,21 +1,25 @@
 import { inject, Injectable, signal } from '@angular/core';
 import type { ApiResponse } from 'src/app/shared/api/api.service';
 import { Institution } from '@domain/interface/institution';
+import { InstitutionPlan } from '@domain/enums/institution-plan.enum';
 import { map, tap } from 'rxjs/operators';
 import { InstitucionesFacade } from '../api/facades/instituciones.facade';
 import { ApiResponseInstitutionResponse } from '../api/models/api-response-institution-response';
 import { ApiResponsePageInstitutionResponse } from '../api/models/api-response-page-institution-response';
+import { ApiResponsePlanActionsResponse } from '../api/models/api-response-plan-actions-response';
 import { InstitutionRequestRegister } from '../api/models/institution-request-register';
 import { InstitutionResponse } from '../api/models/institution-response';
 import { ApiResponseVoid } from '../api/models/api-response-void';
+import { PlanActionsResponse } from '../api/models/plan-actions-response';
 
 export interface InstitutionForCreate {
   id: number | null;
   email: string;
   phoneNumber: string;
   address: string | null;
-  code: string;
   name: string;
+  plan: InstitutionPlan | null;
+  code?: string | null;
 }
 
 export interface InstitutionLogin {
@@ -24,6 +28,15 @@ export interface InstitutionLogin {
   code: string;
   name: string;
   id: number;
+  plan: InstitutionPlan | null;
+}
+
+export interface InstitutionPlanActions {
+  plan: InstitutionPlan | null;
+  accionesDestacadas: string[];
+  canalesDisponibles: string[];
+  escenariosDeEnvio: number;
+  personalizacionPorEscenario: boolean;
 }
 
 export class InstitutionMapper {
@@ -34,6 +47,7 @@ export class InstitutionMapper {
       code: dto.code,
       name: dto.name,
       id: dto.id,
+      plan: dto.plan,
     };
   }
 
@@ -43,8 +57,9 @@ export class InstitutionMapper {
       email: dto.email,
       phoneNumber: dto.phoneNumber,
       address: dto.address ?? null,
-      code: dto.code,
       name: dto.name,
+      plan: dto.plan,
+      code: dto.code,
     };
   }
 }
@@ -78,6 +93,12 @@ export class InstitutionsService {
       .pipe(map((response) => this.mapInstitutionResponse(response)));
   }
 
+  updatePlan(id: number, plan: InstitutionPlan) {
+    return this.api
+      .actualizarPlan({ id, body: { plan } })
+      .pipe(map((response) => this.mapInstitutionResponse(response)));
+  }
+
   delete(id: number) {
     return this.api
       .eliminar({ id })
@@ -88,6 +109,12 @@ export class InstitutionsService {
     return this.api
       .listar({ page, size })
       .pipe(map((response) => this.mapPagedResponse(response)));
+  }
+
+  getPlanActions(id: number) {
+    return this.api
+      .obtenerAccionesPorPlan({ id })
+      .pipe(map((response) => this.mapPlanActionsResponse(response)));
   }
 
   getByCode(code: string) {
@@ -104,10 +131,10 @@ export class InstitutionsService {
   ): InstitutionRequestRegister {
     return {
       address: institution.address ?? undefined,
-      code: institution.code,
       email: institution.email,
       name: institution.name,
       phoneNumber: institution.phoneNumber,
+      plan: institution.plan ?? undefined,
     };
   }
 
@@ -116,6 +143,16 @@ export class InstitutionsService {
   ): ApiResponse<Institution> {
     return {
       data: this.toDomain(response.data),
+      message: response.message ?? '',
+      status: response.success ?? false,
+    };
+  }
+
+  private mapPlanActionsResponse(
+    response: ApiResponsePlanActionsResponse
+  ): ApiResponse<InstitutionPlanActions> {
+    return {
+      data: this.toPlanActions(response.data),
       message: response.message ?? '',
       status: response.success ?? false,
     };
@@ -159,6 +196,17 @@ export class InstitutionsService {
       logoUrl: dto?.logoUrl ?? '',
       logoLoginUrl: dto?.logoLoginUrl ?? '',
       code: dto?.code ?? '',
+      plan: (dto?.plan as InstitutionPlan) ?? null,
+    };
+  }
+
+  private toPlanActions(dto?: PlanActionsResponse | null): InstitutionPlanActions {
+    return {
+      accionesDestacadas: dto?.accionesDestacadas ?? [],
+      canalesDisponibles: dto?.canalesDisponibles ?? [],
+      escenariosDeEnvio: dto?.escenariosDeEnvio ?? 0,
+      personalizacionPorEscenario: dto?.personalizacionPorEscenario ?? false,
+      plan: (dto?.plan as InstitutionPlan) ?? null,
     };
   }
 }

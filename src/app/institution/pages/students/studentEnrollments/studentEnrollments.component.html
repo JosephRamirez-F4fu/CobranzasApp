@@ -3,16 +3,16 @@
     <p class="text-sm font-semibold uppercase tracking-wide text-indigo-500">
       Alumnos
     </p>
-    <h1 class="text-3xl font-bold text-slate-900">Matrículas del alumno</h1>
+    <h1 class="text-3xl font-bold text-slate-900">Matr?culas del alumno</h1>
     <p class="text-sm text-slate-500">
-      Visualiza las matrículas activas y pasadas del alumno, con sus montos y
+      Visualiza las matr?culas activas y pasadas del alumno, con sus montos y
       estado de pago.
     </p>
     <a
       routerLink="/institucion/alumnos"
       class="inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 transition hover:-translate-y-0.5 hover:text-indigo-500"
     >
-      ← Volver al listado de alumnos
+      ? Volver al listado de alumnos
     </a>
   </header>
 
@@ -21,7 +21,7 @@
   </div>
 
   <div *ngIf="loading()" class="rounded-xl border border-dashed border-slate-200 bg-white px-4 py-6 text-center text-sm text-slate-500">
-    Cargando matrículas…
+    Cargando matr?culas?
   </div>
 
   <ng-container *ngIf="!loading()">
@@ -37,7 +37,7 @@
             <header class="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <p class="text-sm font-semibold text-indigo-600">{{ enrollment.periodoAcademico || 'Periodo sin definir' }}</p>
-                <h3 class="text-xl font-bold text-slate-900">Matrícula #{{ enrollment.id }}</h3>
+                <h3 class="text-xl font-bold text-slate-900">Matr?cula #{{ enrollment.id }}</h3>
               </div>
               <span
                 class="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold"
@@ -75,7 +75,7 @@
                 {{ enrollment.pagos.length }} pago{{ enrollment.pagos.length === 1 ? '' : 's' }} registrados
               </span>
               <span class="inline-flex items-center gap-1 rounded-full bg-white px-3 py-1 font-semibold text-slate-500">
-                Último movimiento:
+                ?ltimo movimiento:
                 {{ enrollment.pagos.length ? (enrollment.pagos[enrollment.pagos.length - 1].fechaPago | date:'mediumDate') : 'Sin registros' }}
               </span>
             </div>
@@ -83,17 +83,17 @@
         </div>
         <ng-template #noEnrollments>
           <p class="rounded-xl border border-dashed border-slate-200 bg-white px-4 py-3 text-sm text-slate-500">
-            El alumno aún no cuenta con matrículas asociadas.
+            El alumno a?n no cuenta con matr?culas asociadas.
           </p>
         </ng-template>
 
         <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
           <header class="space-y-2">
-            <h3 class="text-xl font-semibold text-slate-900">Registrar nueva matrícula</h3>
+            <h3 class="text-xl font-semibold text-slate-900">Registrar nueva matr?cula</h3>
             <p class="text-sm text-slate-500">
               Solo se pueden asignar cronogramas que pertenezcan al nivel actual del alumno
               <strong class="font-semibold text-slate-900">{{ studentLevel() || 'no definido' }}</strong>.
-              Los cronogramas de otros niveles se muestran deshabilitados para evitar matrículas incorrectas.
+              Los cronogramas de otros niveles se muestran deshabilitados para evitar matr?culas incorrectas.
             </p>
           </header>
 
@@ -110,7 +110,7 @@
           </div>
 
           <div *ngIf="schedulesLoading()" class="mt-4 rounded-xl border border-dashed border-slate-200 bg-white px-4 py-3 text-sm text-slate-500">
-            Cargando cronogramas disponibles…
+            Cargando cronogramas disponibles?
           </div>
 
           <form
@@ -121,7 +121,7 @@
           >
             <div class="space-y-2">
               <label class="block text-sm font-semibold text-slate-700" for="scheduleId">
-                Cronograma académico
+                Cronograma acad?mico
               </label>
               <select
                 id="scheduleId"
@@ -134,7 +134,7 @@
                   [ngValue]="schedule.id"
                   [disabled]="isScheduleDisabled(schedule)"
                 >
-                  {{ schedule.anioLectivo }} · Nivel {{ schedule.nivelEducativo || 'Sin nivel' }} ·
+                  {{ schedule.anioLectivo }} ? Nivel {{ schedule.nivelEducativo || 'Sin nivel' }} ?
                   {{ schedule.numCuotas }} cuota{{ schedule.numCuotas === 1 ? '' : 's' }} de
                   {{ schedule.montoCuota | currency:'PEN':'symbol':'1.2-2' }}
                 </option>
@@ -149,12 +149,12 @@
                 No se encontraron cronogramas activos para el nivel {{ studentLevel() || 'del alumno' }}.
               </p>
               <p *ngIf="hasFieldError('scheduleId')" class="text-xs font-semibold text-rose-600">
-                Selecciona un cronograma válido para continuar.
+                Selecciona un cronograma v?lido para continuar.
               </p>
             </div>
 
             <div *ngIf="scheduleDetailLoading()" class="rounded-xl border border-dashed border-slate-200 bg-white px-4 py-3 text-sm text-slate-500">
-              Obteniendo detalle del cronograma seleccionado…
+              Obteniendo detalle del cronograma seleccionado?
             </div>
 
             <div *ngIf="scheduleDetailError() as scheduleDetailErrorMessage" class="rounded-xl bg-rose-50 px-4 py-3 text-sm font-semibold text-rose-700 shadow-sm">
@@ -168,7 +168,7 @@
                     Detalle del cronograma seleccionado
                   </p>
                   <h4 class="text-lg font-semibold text-slate-900">
-                    Periodo académico: {{ detail.items[0]?.academicPeriod || 'Sin definir' }}
+                  Periodo academico: {{ detail.items.length ? detail.items[0].academicPeriod : 'Sin definir' }}
                   </h4>
                 </div>
                 <span class="text-xs font-semibold text-slate-500">
@@ -196,11 +196,11 @@
                   class="h-4 w-4 rounded border border-slate-300 text-indigo-600 focus:ring-indigo-500"
                 />
                 <span>
-                  Confirmo que el cronograma seleccionado pertenece al nivel {{ studentLevel() || 'actual del alumno' }} y deseo proceder con la matrícula.
+                  Confirmo que el cronograma seleccionado pertenece al nivel {{ studentLevel() || 'actual del alumno' }} y deseo proceder con la matr?cula.
                 </span>
               </label>
               <p *ngIf="hasFieldError('confirm')" class="text-xs font-semibold text-rose-600">
-                Debes confirmar que comprendes la restricción de nivel antes de matricular.
+                Debes confirmar que comprendes la restricci?n de nivel antes de matricular.
               </p>
             </div>
 
@@ -209,7 +209,7 @@
               class="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/60 disabled:cursor-not-allowed disabled:opacity-60"
               [disabled]="enrolling() || enrollmentForm.invalid"
             >
-              <ng-container *ngIf="enrolling(); else enrollLabel">Matriculando alumno…</ng-container>
+              <ng-container *ngIf="enrolling(); else enrollLabel">Matriculando alumno?</ng-container>
               <ng-template #enrollLabel>Matricular al alumno</ng-template>
             </button>
           </form>
@@ -220,7 +220,7 @@
 
   <ng-template #selectStudent>
     <div class="rounded-2xl border border-dashed border-slate-200 bg-white p-8 text-center text-sm text-slate-500">
-      Selecciona un alumno desde el módulo de alumnos para revisar sus matrículas.
+      Selecciona un alumno desde el m?dulo de alumnos para revisar sus matr?culas.
     </div>
   </ng-template>
 </section>

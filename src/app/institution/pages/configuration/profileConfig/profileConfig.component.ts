@@ -37,9 +37,6 @@ export default class ProfileConfigComponent {
     correo: this.fb.control<string>('', {
       validators: [Validators.required, Validators.email],
     }),
-    nombreUsuario: this.fb.control<string>('', {
-      validators: [Validators.required],
-    }),
   });
 
   formChangPassword = this.fb.group({
@@ -76,7 +73,6 @@ export default class ProfileConfigComponent {
         this.form.patchValue({
           nombreCompleto: res.data.nombreCompleto,
           correo: res.data.correo,
-          nombreUsuario: res.data.nombreUsuario,
         });
       });
   }
@@ -92,10 +88,10 @@ export default class ProfileConfigComponent {
       this.form.reset({
         nombreCompleto: u.nombreCompleto,
         correo: u.correo,
-        nombreUsuario: u.nombreUsuario,
       });
     }
     this.editing.set(false);
+    this.form.disable();
   }
 
   save() {
@@ -108,13 +104,13 @@ export default class ProfileConfigComponent {
       .updateProfile({
         nombreCompleto: this.form.value.nombreCompleto!,
         correo: this.form.value.correo!,
-        rol: this.account.user()!.rol, // mantener el rol actual --- IGNORE ---
-        nombreUsuario: this.form.value.nombreUsuario!,
+        rol: this.account.user()!.rol,
       })
       .pipe(finalize(() => this.saving.set(false)))
       .subscribe((res) => {
         this.account.user.set(res.data);
         this.editing.set(false);
+        this.form.disable();
       });
   }
 
@@ -132,7 +128,7 @@ export default class ProfileConfigComponent {
         newPassword: this.formChangPassword.value.newPassword!,
       })
       .pipe(finalize(() => this.saving.set(false)))
-      .subscribe((res) => {
+      .subscribe(() => {
         this.formChangPassword.reset();
       });
   }
