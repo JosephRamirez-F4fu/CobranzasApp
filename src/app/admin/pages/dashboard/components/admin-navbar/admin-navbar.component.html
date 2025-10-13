@@ -1,54 +1,52 @@
-<aside
-  class="w-full rounded-3xl border border-slate-700/70 bg-slate-900/60 p-6 shadow-2xl shadow-slate-950/40 backdrop-blur-xl lg:w-80"
->
-  <div class="space-y-6">
-    <header class="space-y-2">
-      <p class="text-xs font-semibold uppercase tracking-[0.4em] text-emerald-400">
+<aside class="workspace-card workspace-card--sidebar">
+  <div class="workspace-stack">
+    <header class="workspace-dashboard-panel">
+      <p class="workspace-eyebrow">
         Panel administrativo
       </p>
-      <h2 class="text-xl font-semibold text-white">CobranzasApp</h2>
+      <h2 class="workspace-heading-md">CobranzasApp</h2>
     </header>
 
     <nav>
-      <ul class="flex flex-col gap-3 text-sm font-semibold text-slate-300">
+      <ul class="workspace-nav">
         <li>
           <a
             routerLink="/admin/inicio"
-            routerLinkActive="!bg-emerald-500/20 !text-white !border-emerald-400/60 !shadow-emerald-500/30"
-            class="flex items-center justify-between rounded-2xl border border-transparent px-4 py-3 transition hover:border-emerald-400/40 hover:bg-slate-800/80 hover:text-white"
+            routerLinkActive="workspace-nav-link-active"
+            class="workspace-nav-link"
           >
             <span>Inicio</span>
-            <span class="text-xs font-semibold text-emerald-300/70">●</span>
+            <span class="workspace-nav-link-indicator">●</span>
           </a>
         </li>
         <li>
           <a
             routerLink="/admin/instituciones"
-            routerLinkActive="!bg-emerald-500/20 !text-white !border-emerald-400/60 !shadow-emerald-500/30"
-            class="flex items-center justify-between rounded-2xl border border-transparent px-4 py-3 transition hover:border-emerald-400/40 hover:bg-slate-800/80 hover:text-white"
+            routerLinkActive="workspace-nav-link-active"
+            class="workspace-nav-link"
           >
             <span>Instituciones</span>
-            <span class="text-xs font-semibold text-emerald-300/70">●</span>
+            <span class="workspace-nav-link-indicator">●</span>
           </a>
         </li>
         <li>
           <a
             routerLink="/admin/usuarios"
-            routerLinkActive="!bg-emerald-500/20 !text-white !border-emerald-400/60 !shadow-emerald-500/30"
-            class="flex items-center justify-between rounded-2xl border border-transparent px-4 py-3 transition hover:border-emerald-400/40 hover:bg-slate-800/80 hover:text-white"
+            routerLinkActive="workspace-nav-link-active"
+            class="workspace-nav-link"
           >
             <span>Usuarios</span>
-            <span class="text-xs font-semibold text-emerald-300/70">●</span>
+            <span class="workspace-nav-link-indicator">●</span>
           </a>
         </li>
         <li>
           <button
             type="button"
             (click)="logout()"
-            class="flex w-full items-center justify-between rounded-2xl border border-transparent px-4 py-3 text-left text-sm font-semibold text-rose-200 transition hover:border-rose-400/40 hover:bg-rose-500/10"
+            class="workspace-nav-button workspace-nav-button-danger"
           >
             <span>Cerrar sesión</span>
-            <span class="text-xs font-semibold text-rose-300/80">×</span>
+            <span class="workspace-nav-link-indicator">×</span>
           </button>
         </li>
       </ul>

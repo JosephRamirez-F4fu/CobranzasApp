@@ -6,19 +6,19 @@
   [ctaHref]="landingPageService.hero().ctaHref"
   [backgroundImage]="landingPageService.hero().backgroundImage"
 ></hero>
-<section id="features" class="relative py-16 bg-gray-50">
+<section id="features" class="app-section bg-gray-50">
   <div
     class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/diagmonds-light.png')] pointer-events-none"
   ></div>
   <features [features]="landingPageService.features()"></features>
 </section>
-<section id="detalles" class="relative py-16 bg-white">
+<section id="detalles" class="app-section bg-white">
   <div
     class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/hexellence.png')] pointer-events-none"
   ></div>
   <details-section [details]="landingPageService.details()"></details-section>
 </section>
-<section id="proceso" class="relative py-16 bg-blue-50 overflow-hidden">
+<section id="proceso" class="app-section overflow-hidden bg-blue-50">
   <svg
     class="absolute top-0 left-0 w-full h-16 text-blue-100"
     viewBox="0 0 1440 80"
@@ -32,13 +32,13 @@
   </svg>
   <process [steps]="landingPageService.process()"></process>
 </section>
-<section id="testimonios" class="relative py-16 bg-gray-50">
+<section id="testimonios" class="app-section bg-gray-50">
   <div
     class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/dots.png')] pointer-events-none"
   ></div>
   <testimonials [testimonials]="landingPageService.testimonials()"></testimonials>
 </section>
-<section id="contacto" class="relative py-16 bg-white">
+<section id="contacto" class="app-section bg-white">
   <contact-form
     [companyEmail]="landingPageService.companyEmail()"
     [loading]="landingPageService.loading()"

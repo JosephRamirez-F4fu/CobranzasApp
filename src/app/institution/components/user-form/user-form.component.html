@@ -1,98 +1,87 @@
 <form
   [formGroup]="form"
   (ngSubmit)="onSubmit()"
-  class="grid gap-6 rounded-3xl border border-slate-700/70 bg-slate-950/60 p-6 text-slate-100 shadow-2xl shadow-slate-950/40 backdrop-blur-xl"
+  class="workspace-form-card"
 >
-  <header class="space-y-1 text-slate-100">
-    <h2 class="text-2xl font-semibold text-white">
+  <header class="workspace-form-header">
+    <h2 class="workspace-form-title">
       {{ editing ? 'Actualizar usuario administrador' : 'Registrar nuevo usuario administrador' }}
     </h2>
-    <p class="text-sm text-slate-300">
-      Los accesos se gestionan con el correo electronico del usuario. Los perfiles creados aqui siempre tendran el rol <strong>ADMIN</strong> dentro de la institucion.
+    <p class="workspace-form-subtitle">
+      Los accesos se gestionan con el correo electronico del usuario. Los perfiles creados aqui siempre tendran el rol <strong>
+        ADMIN
+      </strong>
+      dentro de la institucion.
     </p>
   </header>
 
-  <div class="grid gap-4 sm:grid-cols-2">
-    <label class="flex flex-col gap-2 font-semibold text-slate-100">
-      <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Nombre completo</span>
+  <div class="workspace-fieldset">
+    <label class="workspace-field">
+      <span class="workspace-label">Nombre completo</span>
       <input
         type="text"
         formControlName="nombreCompleto"
         placeholder="Ej. Ana Torres"
-        class="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 placeholder:text-slate-200 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
+        class="workspace-input"
         [ngClass]="{
-          'border-rose-400 focus:border-rose-500 focus:ring-rose-400/30':
-            form.controls['nombreCompleto'].invalid && form.controls['nombreCompleto'].touched
+          'workspace-input-error': form.controls['nombreCompleto'].invalid && form.controls['nombreCompleto'].touched
         }"
       />
       <small
         *ngIf="form.controls['nombreCompleto'].invalid && form.controls['nombreCompleto'].touched"
-        class="text-sm font-medium text-rose-400"
+        class="workspace-error"
       >
         El nombre es obligatorio.
       </small>
     </label>
 
-    <label class="flex flex-col gap-2 font-semibold text-slate-100">
-      <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Correo electronico</span>
+    <label class="workspace-field">
+      <span class="workspace-label">Correo electronico</span>
       <input
         type="email"
         formControlName="correo"
         placeholder="usuario@institucion.com"
-        class="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 placeholder:text-slate-200 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
-        [ngClass]="{
-          'border-rose-400 focus:border-rose-500 focus:ring-rose-400/30':
-            form.controls['correo'].invalid && form.controls['correo'].touched
-        }"
+        class="workspace-input"
+        [ngClass]="{ 'workspace-input-error': form.controls['correo'].invalid && form.controls['correo'].touched }"
       />
-      <small
-        *ngIf="form.controls['correo'].invalid && form.controls['correo'].touched"
-        class="text-sm font-medium text-rose-400"
-      >
+      <small *ngIf="form.controls['correo'].invalid && form.controls['correo'].touched" class="workspace-error">
         Ingrese un correo valido.
       </small>
     </label>
 
     <ng-container *ngIf="!editing; else passwordInfo">
-      <label class="sm:col-span-2 flex flex-col gap-2 font-semibold text-slate-100">
-        <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Contrasena</span>
+      <label class="workspace-field workspace-field--full">
+        <span class="workspace-label">Contrasena</span>
         <input
           type="password"
           formControlName="contrasena"
           placeholder="Defina una contrasena temporal"
-          class="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 placeholder:text-slate-200 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
-          [ngClass]="{
-            'border-rose-400 focus:border-rose-500 focus:ring-rose-400/30':
-              form.controls['contrasena'].invalid && form.controls['contrasena'].touched
-          }"
+          class="workspace-input"
+          [ngClass]="{ 'workspace-input-error': form.controls['contrasena'].invalid && form.controls['contrasena'].touched }"
         />
         <small
           *ngIf="form.controls['contrasena'].hasError('required') && form.controls['contrasena'].touched"
-          class="text-sm font-medium text-rose-400"
+          class="workspace-error"
         >
           La contrasena es obligatoria.
         </small>
         <small
           *ngIf="form.controls['contrasena'].hasError('minlength') && form.controls['contrasena'].touched"
-          class="text-sm font-medium text-rose-400"
+          class="workspace-error"
         >
           Debe contener al menos 6 caracteres.
         </small>
       </label>
     </ng-container>
     <ng-template #passwordInfo>
-      <div class="sm:col-span-2 rounded-xl border border-slate-700/60 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 placeholder:text-slate-200 shadow-inner shadow-slate-950/40">
+      <div class="workspace-info-box workspace-field--full">
         La contrasena actual se mantiene sin cambios por motivos de seguridad.
       </div>
     </ng-template>
   </div>
 
-  <footer class="flex flex-wrap items-center gap-3">
-    <button
-      type="submit"
-      [disabled]="form.invalid || saving"
-      class="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-emerald-500/40 transition hover:-translate-y-0.5 hover:shadow-emerald-500/60 disabled:cursor-not-allowed disabled:opacity-70"
-    >
+  <footer class="workspace-form-actions">
+    <button type="submit" [disabled]="form.invalid || saving" class="workspace-primary-btn">
       {{ saving ? 'Guardando.' : (editing ? 'Actualizar usuario' : 'Registrar usuario') }}
     </button>
     <button
@@ -100,7 +89,7 @@
       *ngIf="editing"
       (click)="onCancel()"
       [disabled]="saving"
-      class="inline-flex items-center justify-center rounded-full border border-slate-600/80 bg-slate-900/60 px-6 py-2.5 text-sm font-semibold text-slate-100 shadow-inner shadow-slate-950/40 transition hover:border-rose-400 hover:bg-rose-500/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
+      class="workspace-danger-btn"
     >
       Cancelar
     </button>
@@ -109,7 +98,7 @@
       *ngIf="!editing"
       (click)="onClear()"
       [disabled]="saving"
-      class="inline-flex items-center justify-center rounded-full border border-slate-600/80 bg-slate-900/60 px-6 py-2.5 text-sm font-semibold text-slate-100 shadow-inner shadow-slate-950/40 transition hover:border-slate-400 hover:bg-slate-900/80 hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
+      class="workspace-secondary-btn"
     >
       Limpiar
     </button>

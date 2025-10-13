@@ -1,18 +1,16 @@
-<nav class="fixed top-0 left-0 w-full bg-white/80 backdrop-blur z-50 shadow-sm">
-  <div class="max-w-6xl mx-auto flex items-center justify-between px-6 py-3">
-    <span class="font-bold text-blue-700 text-lg">{{ title() }}</span>
-    <ul class="flex space-x-6 font-semibold text-gray-700">
-      <li><a href="#hero" class="hover:text-blue-600 transition">Inicio</a></li>
+<nav class="app-navbar">
+  <div class="app-navbar-container">
+    <span class="text-lg font-bold text-blue-700">{{ title() }}</span>
+    <ul class="flex items-center gap-6">
+      <li><a href="#hero" class="app-navbar-link">Inicio</a></li>
       <li>
-        <a href="#features" class="hover:text-blue-600 transition"
-          >Características</a
-        >
+        <a href="#features" class="app-navbar-link">Características</a>
       </li>
       <li>
-        <a href="#detalles" class="hover:text-blue-600 transition">Detalles</a>
+        <a href="#detalles" class="app-navbar-link">Detalles</a>
       </li>
       <li>
-        <a href="#contacto" class="hover:text-blue-600 transition">Contacto</a>
+        <a href="#contacto" class="app-navbar-link">Contacto</a>
       </li>
     </ul>
   </div>

@@ -1,23 +1,19 @@
-<div class="flex flex-col gap-6">
-  <header
-    class="rounded-3xl border border-slate-700/70 bg-slate-900/70 p-6 shadow-2xl shadow-emerald-900/40 backdrop-blur-xl md:flex md:items-center md:justify-between"
-  >
-    <div class="space-y-2">
-      <p class="text-xs font-semibold uppercase tracking-[0.45em] text-emerald-400">
+<div class="workspace-dashboard-layout">
+  <header class="workspace-panel workspace-panel--header">
+    <div class="workspace-panel__intro">
+      <p class="workspace-eyebrow">
         Centro de control
       </p>
-      <h1 class="text-3xl font-semibold text-white">Administración general</h1>
-      <p class="text-sm text-slate-300 md:max-w-2xl">
+      <h1 class="workspace-heading">Administración general</h1>
+      <p class="workspace-subheading">
         Gestiona instituciones, usuarios y la configuración global de la plataforma desde un entorno moderno y consistente.
       </p>
     </div>
   </header>
 
-  <div class="flex flex-col gap-6 lg:flex-row">
+  <div class="workspace-dashboard-bar">
     <admin-navbar />
-    <section
-      class="flex-1 rounded-3xl border border-slate-700/70 bg-slate-950/70 p-6 shadow-2xl shadow-slate-950/40 backdrop-blur-xl"
-    >
+    <section class="workspace-card workspace-card--stretch">
       <router-outlet></router-outlet>
     </section>
   </div>
