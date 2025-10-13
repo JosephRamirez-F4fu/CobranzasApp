@@ -1,7 +1,5 @@
-<div class="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 text-slate-100">
-  <div
-    class="institution-theme mx-auto flex min-h-screen w-full max-w-[1440px] gap-6 px-4 py-6 md:px-8 lg:px-12"
-  >
+<div class="workspace-shell">
+  <div class="institution-theme workspace-dashboard">
     @if (layoutService.institution()) {
       <aside class="hidden w-72 shrink-0 md:block">
         <institution-navbar [institution]="layoutService.institution()!" />
@@ -10,15 +8,13 @@
 
     <main class="flex-1">
       <div class="flex flex-col gap-6">
-        <header
-          class="flex flex-col gap-6 rounded-3xl border border-slate-700/70 bg-slate-900/70 p-6 shadow-2xl shadow-emerald-900/40 backdrop-blur-lg lg:flex-row lg:items-center lg:justify-between"
-        >
+        <header class="workspace-panel flex flex-col gap-6 p-6 lg:flex-row lg:items-center lg:justify-between">
           <div class="space-y-2">
-            <p class="text-xs font-semibold uppercase tracking-[0.45em] text-emerald-400">
+            <p class="workspace-eyebrow">
               Panel institucional
             </p>
-            <h1 class="text-3xl font-semibold text-slate-100">Área Institución</h1>
-            <p class="text-sm text-slate-300">
+            <h1 class="workspace-heading">Área Institución</h1>
+            <p class="workspace-subheading">
               Administra usuarios, estudiantes y cronogramas desde un solo lugar.
             </p>
           </div>
@@ -32,9 +28,7 @@
           }
         </header>
 
-        <section
-          class="min-h-[70vh] rounded-3xl border border-slate-700/70 bg-slate-900/60 p-4 shadow-xl shadow-slate-950/40 backdrop-blur"
-        >
+        <section class="workspace-router-surface min-h-[70vh]">
           <router-outlet />
         </section>
       </div>
