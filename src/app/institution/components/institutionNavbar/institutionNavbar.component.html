@@ -4,11 +4,11 @@
       <img
         [src]="institution().logoUrl || 'academic.png'"
         alt="logo"
-        class="h-full w-full object-contain"
+        class="workspace-sidebar-avatar__image"
       />
     </div>
-    <h2 class="text-base font-semibold text-white">{{ institution().name }}</h2>
-    <p class="mt-1 workspace-label">
+    <h2 class="workspace-sidebar-title">{{ institution().name }}</h2>
+    <p class="workspace-label">
       Código {{ institution().code }}
     </p>
   </div>
@@ -22,11 +22,11 @@
             [queryParams]="getQueryParams(item)"
             [routerLinkActiveOptions]="{ exact: !(item.children?.length) }"
             routerLinkActive="workspace-nav-link-active"
-            class="group workspace-nav-link"
+            class="workspace-nav-link"
           >
             <span class="truncate">{{ item.label }}</span>
             @if (item.children?.length) {
-              <span class="text-xs text-emerald-400 transition-colors group-hover:text-emerald-300">▾</span>
+              <span class="workspace-nav-arrow">▾</span>
             }
           </a>
 
@@ -52,7 +52,7 @@
   </div>
 
   <div class="workspace-sidebar-footer">
-    <button type="button" (click)="logout()" class="workspace-danger-btn w-full justify-center gap-2">
+    <button type="button" (click)="logout()" class="workspace-danger-btn workspace-btn-block">
       <span>Cerrar sesión</span>
     </button>
   </div>

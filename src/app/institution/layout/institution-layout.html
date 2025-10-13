@@ -1,15 +1,15 @@
 <div class="workspace-shell">
-  <div class="institution-theme workspace-dashboard">
+  <div class="institution-theme workspace-dashboard workspace-dashboard--with-sidebar">
     @if (layoutService.institution()) {
-      <aside class="hidden w-72 shrink-0 md:block">
+      <aside class="workspace-dashboard__sidebar">
         <institution-navbar [institution]="layoutService.institution()!" />
       </aside>
     }
 
-    <main class="flex-1">
-      <div class="flex flex-col gap-6">
-        <header class="workspace-panel flex flex-col gap-6 p-6 lg:flex-row lg:items-center lg:justify-between">
-          <div class="space-y-2">
+    <main class="workspace-dashboard__content">
+      <div class="workspace-main">
+        <header class="workspace-panel workspace-panel--header">
+          <div class="workspace-panel__intro">
             <p class="workspace-eyebrow">
               Panel institucional
             </p>
@@ -21,14 +21,14 @@
 
           @if (layoutService.user() && layoutService.institution()) {
             <institution-profile-card
-              class="w-full max-w-sm"
+              class="institution-profile-card-slot"
               [user]="layoutService.user()!"
               [institution]="layoutService.institution()!"
             />
           }
         </header>
 
-        <section class="workspace-router-surface min-h-[70vh]">
+        <section class="workspace-router-surface workspace-router-surface--tall">
           <router-outlet />
         </section>
       </div>

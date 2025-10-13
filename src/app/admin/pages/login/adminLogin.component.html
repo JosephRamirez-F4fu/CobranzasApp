@@ -4,12 +4,12 @@
       Panel administrativo
     </p>
     <h1 class="workspace-heading-lg">Acceso a CobranzasApp</h1>
-    <p class="mx-auto max-w-2xl workspace-subheading md:mx-0 md:text-base">
+    <p class="workspace-subheading workspace-subheading--center">
       Inicia sesión para supervisar instituciones, usuarios y la configuración central de la plataforma.
     </p>
   </header>
 
-  <section class="w-full max-w-3xl workspace-card-lg">
+  <section class="workspace-card-lg workspace-card--auth">
     <admin-login-form
       (submitCredentials)="onSubmit($event)"
       [loading]="pageService.loading()"

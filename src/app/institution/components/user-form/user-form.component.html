@@ -50,7 +50,7 @@
     </label>
 
     <ng-container *ngIf="!editing; else passwordInfo">
-      <label class="workspace-field sm:col-span-2">
+      <label class="workspace-field workspace-field--full">
         <span class="workspace-label">Contrasena</span>
         <input
           type="password"
@@ -74,13 +74,13 @@
       </label>
     </ng-container>
     <ng-template #passwordInfo>
-      <div class="workspace-info-box sm:col-span-2">
+      <div class="workspace-info-box workspace-field--full">
         La contrasena actual se mantiene sin cambios por motivos de seguridad.
       </div>
     </ng-template>
   </div>
 
-  <footer class="flex flex-wrap items-center gap-3">
+  <footer class="workspace-form-actions">
     <button type="submit" [disabled]="form.invalid || saving" class="workspace-primary-btn">
       {{ saving ? 'Guardando.' : (editing ? 'Actualizar usuario' : 'Registrar usuario') }}
     </button>

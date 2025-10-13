@@ -12,11 +12,11 @@
     </p>
   </header>
 
-  <section class="grid gap-6 lg:grid-cols-2">
-    <div class="space-y-4">
+  <section class="workspace-two-column">
+    <div class="workspace-column">
       <h3 class="workspace-section-title">Datos del alumno</h3>
       <div class="workspace-fieldset">
-        <label class="workspace-field sm:col-span-2">
+        <label class="workspace-field workspace-field--full">
           <span class="workspace-label">Nombre completo</span>
           <input
             type="text"
@@ -89,7 +89,7 @@
           </small>
         </label>
 
-        <label class="workspace-field sm:col-span-2">
+        <label class="workspace-field workspace-field--full">
           <span class="workspace-label">Direcci?n</span>
           <textarea
             rows="3"
@@ -105,7 +105,7 @@
       </div>
     </div>
 
-    <div class="space-y-4">
+    <div class="workspace-column">
       <h3 class="workspace-section-title">Responsable de pago</h3>
       <div class="workspace-fieldset">
         <label class="workspace-field">
@@ -159,7 +159,7 @@
           </small>
         </label>
 
-        <label class="workspace-field sm:col-span-2">
+        <label class="workspace-field workspace-field--full">
           <span class="workspace-label">Observaciones</span>
           <textarea
             rows="3"
@@ -172,7 +172,7 @@
     </div>
   </section>
 
-  <footer class="flex flex-wrap items-center gap-3">
+  <footer class="workspace-form-actions">
     <button type="submit" [disabled]="form.invalid || saving" class="workspace-primary-btn">
       {{ saving ? 'Guardando.' : (editing ? 'Actualizar alumno' : 'Registrar alumno') }}
     </button>
