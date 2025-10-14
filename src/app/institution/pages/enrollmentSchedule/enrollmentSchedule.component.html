@@ -1,4 +1,4 @@
-<section class="mx-auto grid max-w-6xl gap-6">
+<section class="workspace-stack">
   <app-institution-enrollment-schedule-form
     [form]="form"
     [saving]="saving()"
@@ -8,69 +8,56 @@
     (cleared)="onClearForm()"
   ></app-institution-enrollment-schedule-form>
 
-  <div
-    *ngIf="feedback() as message"
-    class="rounded-xl bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-700 shadow-lg shadow-emerald-500/20"
-  >
+  <div *ngIf="feedback() as message" class="workspace-message workspace-message--success">
     {{ message }}
   </div>
 
-  <form
-    [formGroup]="filtersForm"
-    (ngSubmit)="onApplyFilters()"
-    class="grid gap-4 rounded-2xl bg-white p-4 shadow-lg shadow-slate-900/5 sm:grid-cols-[repeat(auto-fit,minmax(220px,1fr))]"
-  >
-    <div class="flex flex-col gap-1">
-      <label class="text-xs font-semibold uppercase tracking-wide text-slate-900" for="filter-year">
-        A?o lectivo
-      </label>
+  <form [formGroup]="filtersForm" (ngSubmit)="onApplyFilters()" class="workspace-filters">
+    <div class="workspace-filter-field">
+      <label class="workspace-filter-label" for="filter-year">Año lectivo</label>
       <input
         id="filter-year"
         type="number"
         formControlName="anioLectivo"
         placeholder="Ej. 2024"
         min="2000"
-        class="rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-900 placeholder:text-slate-900 shadow-sm transition focus:border-indigo-500 focus:outline-none focus:ring-4 focus:ring-indigo-200"
+        class="workspace-input workspace-input--compact"
       />
     </div>
-    <div class="flex flex-col gap-1">
-      <label class="text-xs font-semibold uppercase tracking-wide text-slate-900" for="filter-level">
-        Nivel educativo
-      </label>
+
+    <div class="workspace-filter-field">
+      <label class="workspace-filter-label" for="filter-level">Nivel educativo</label>
       <select
         id="filter-level"
         formControlName="nivelEducativo"
-        class="rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-900 placeholder:text-slate-900 shadow-sm transition focus:border-indigo-500 focus:outline-none focus:ring-4 focus:ring-indigo-200"
+        class="workspace-input workspace-input--compact"
       >
         <option value="">Todos</option>
         <option *ngFor="let level of levels" [value]="level">{{ level | titlecase }}</option>
       </select>
     </div>
-    <div class="flex flex-col gap-1">
-      <label class="text-xs font-semibold uppercase tracking-wide text-slate-900" for="filter-status">
-        Estado
-      </label>
+
+    <div class="workspace-filter-field">
+      <label class="workspace-filter-label" for="filter-status">Estado</label>
       <select
         id="filter-status"
         formControlName="activo"
-        class="rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-900 placeholder:text-slate-900 shadow-sm transition focus:border-indigo-500 focus:outline-none focus:ring-4 focus:ring-indigo-200"
+        class="workspace-input workspace-input--compact"
       >
         <option value="">Todos</option>
         <option value="true">Activos</option>
         <option value="false">Inactivos</option>
       </select>
     </div>
-    <div class="flex items-end gap-3">
-      <button
-        type="submit"
-        class="inline-flex items-center justify-center rounded-full bg-indigo-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-500/30 transition hover:-translate-y-0.5 hover:shadow-indigo-500/40"
-      >
+
+    <div class="workspace-filter-actions">
+      <button type="submit" class="workspace-primary-btn workspace-btn-compact">
         Aplicar filtros
       </button>
       <button
         type="button"
         (click)="onResetFilters()"
-        class="inline-flex items-center justify-center rounded-full bg-slate-200 px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-300"
+        class="workspace-secondary-btn workspace-btn-compact"
       >
         Limpiar filtros
       </button>
@@ -93,73 +80,73 @@
     *ngIf="selectedQuotaSchedule() as schedule"
     [formGroup]="quotaForm"
     (ngSubmit)="onSubmitQuota()"
-    class="grid gap-4 rounded-2xl bg-white p-6 shadow-xl shadow-slate-900/10"
+    class="workspace-card workspace-form"
   >
-    <header class="space-y-1">
-      <h3 class="text-lg font-semibold text-slate-900">
+    <header class="workspace-form-header">
+      <h3 class="workspace-heading-md">
         Editar cuota del cronograma {{ schedule.anioLectivo }} - {{ schedule.nivelEducativo | titlecase }}
       </h3>
-      <p class="text-sm text-slate-900">
+      <p class="workspace-subheading">
         Actualiza el monto y la fecha de vencimiento de la cuota seleccionada.
       </p>
     </header>
 
-    <div class="grid gap-4 sm:grid-cols-2">
-      <label class="flex flex-col gap-1 font-semibold text-slate-900">
-        <span class="text-sm">Monto (S/)</span>
+    <div class="workspace-fieldset">
+      <label class="workspace-field">
+        <span class="workspace-label">Monto (S/)</span>
         <input
           type="number"
           formControlName="monto"
           placeholder="Ej. 350"
           min="0"
           step="0.01"
-          class="rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-medium text-slate-900 placeholder:text-slate-900 shadow-sm transition focus:border-indigo-500 focus:outline-none focus:ring-4 focus:ring-indigo-200"
+          class="workspace-input workspace-input--compact"
           [ngClass]="{
-            'border-rose-400 focus:border-rose-500 focus:ring-rose-200':
+            'workspace-input-error':
               quotaForm.controls['monto'].invalid && quotaForm.controls['monto'].touched
           }"
         />
         <small
           *ngIf="quotaForm.controls['monto'].invalid && quotaForm.controls['monto'].touched"
-          class="text-sm font-medium text-rose-500"
+          class="workspace-error"
         >
-          Ingrese un monto v?lido.
+          Ingrese un monto válido.
         </small>
       </label>
 
-      <label class="flex flex-col gap-1 font-semibold text-slate-900">
-        <span class="text-sm">Fecha de vencimiento</span>
+      <label class="workspace-field">
+        <span class="workspace-label">Fecha de vencimiento</span>
         <input
           type="date"
           formControlName="fechaVencimiento"
-          class="rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-medium text-slate-900 placeholder:text-slate-900 shadow-sm transition focus:border-indigo-500 focus:outline-none focus:ring-4 focus:ring-indigo-200"
+          class="workspace-input workspace-input--compact"
           [ngClass]="{
-            'border-rose-400 focus:border-rose-500 focus:ring-rose-200':
+            'workspace-input-error':
               quotaForm.controls['fechaVencimiento'].invalid && quotaForm.controls['fechaVencimiento'].touched
           }"
         />
         <small
           *ngIf="quotaForm.controls['fechaVencimiento'].invalid && quotaForm.controls['fechaVencimiento'].touched"
-          class="text-sm font-medium text-rose-500"
+          class="workspace-error"
         >
           Seleccione una fecha de vencimiento.
         </small>
       </label>
     </div>
 
-    <footer class="flex flex-wrap items-center gap-3">
+    <footer class="workspace-form-actions">
       <button
         type="submit"
         [disabled]="quotaForm.invalid || quotaSaving()"
-        class="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-amber-500 to-orange-500 px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-amber-500/30 transition hover:-translate-y-0.5 hover:shadow-amber-500/40 disabled:cursor-not-allowed disabled:opacity-70"
+        class="workspace-primary-btn"
       >
-        {{ quotaSaving() ? 'Actualizando?' : 'Actualizar cuota' }}
+        {{ quotaSaving() ? 'Actualizando…' : 'Actualizar cuota' }}
       </button>
       <button
         type="button"
         (click)="onCancelQuotaEdit()"
         [disabled]="quotaSaving()"
-        class="inline-flex items-center justify-center rounded-full bg-slate-200 px-6 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-300 disabled:cursor-not-allowed disabled:opacity-70"
+        class="workspace-secondary-btn"
       >
         Cancelar
       </button>

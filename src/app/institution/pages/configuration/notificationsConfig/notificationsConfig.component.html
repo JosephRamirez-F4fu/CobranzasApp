@@ -1,107 +1,114 @@
-<section class="mx-auto flex max-w-6xl flex-col gap-8 p-6 md:p-8">
+<section class="workspace-stack">
   <app-config-section title="Notificaciones" maxWidthClass="w-full">
     @if (loading()) {
-    <p class="text-sm font-medium text-slate-900">Cargando configuraci?n...</p>
+      <p class="workspace-subheading">Cargando configuración...</p>
     }
 
-    <div class="mb-6 flex flex-wrap gap-3">
+    <div class="workspace-form-actions">
       @for (m of medios; track m) {
-      <button
-        type="button"
-        (click)="selectMedio(m)"
-        class="rounded-full border px-4 py-2 text-sm font-semibold transition focus:outline-none focus:ring-4 focus:ring-sky-200"
-        [ngClass]="
-          medioSeleccionado() === m
-            ? 'border-sky-600 bg-sky-600 text-white shadow-lg shadow-sky-500/30'
-            : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50'
-        "
-      >
-        {{ m }}
-      </button>
+        <button
+          type="button"
+          (click)="selectMedio(m)"
+          class="workspace-pill"
+          [ngClass]="
+            medioSeleccionado() === m
+              ? 'workspace-pill--accent'
+              : 'workspace-pill--ghost'
+          "
+        >
+          {{ m }}
+        </button>
       }
     </div>
 
-    <form [formGroup]="form" (ngSubmit)="save()" class="space-y-6">
-      <div class="grid gap-6 md:grid-cols-2">
-        <div class="space-y-1">
-          <label class="mb-1 block text-sm font-semibold text-slate-700">Medio</label>
+    <form [formGroup]="form" (ngSubmit)="save()" class="workspace-form">
+      <div class="workspace-fieldset">
+        <label class="workspace-field">
+          <span class="workspace-label">Medio</span>
           <input
             type="text"
             formControlName="medioEnvio"
-            class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 shadow-sm"
+            class="workspace-input workspace-input--compact"
             readonly
           />
+        </label>
+
+        <div class="workspace-checkbox-row">
+          <input id="activo" type="checkbox" formControlName="activo" />
+          <label for="activo">Habilitado</label>
         </div>
 
-        <div class="mt-2 flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50/60 px-4 py-3 md:mt-0">
-          <input
-            id="activo"
-            type="checkbox"
-            formControlName="activo"
-            class="h-4 w-4 rounded border-slate-300 text-sky-600 focus:ring-sky-500"
-          />
-          <label for="activo" class="text-sm font-semibold text-slate-700">Habilitado</label>
-        </div>
-
-        <div class="space-y-1">
-          <label class="mb-1 block text-sm font-semibold text-slate-700">Frecuencia</label>
+        <label class="workspace-field">
+          <span class="workspace-label">Frecuencia</span>
           <input
             type="text"
             formControlName="frecuencia"
-            class="w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-3 text-sm font-medium text-slate-800 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-200 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
+            class="workspace-input workspace-input--compact"
+            [ngClass]="{
+              'workspace-input-error': form.controls.frecuencia.invalid && form.controls.frecuencia.touched
+            }"
           />
           @if(form.controls.frecuencia.invalid && form.controls.frecuencia.touched){
-          <p class="text-xs font-medium text-rose-500">Requerido.</p>
+            <p class="workspace-error">Requerido.</p>
           }
-        </div>
+        </label>
 
-        <div class="space-y-1">
-          <label class="mb-1 block text-sm font-semibold text-slate-700">D?a del mes</label>
+        <label class="workspace-field">
+          <span class="workspace-label">Día del mes</span>
           <input
             type="number"
             formControlName="diadDelMes"
-            class="w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-3 text-sm font-medium text-slate-800 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-200 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
+            class="workspace-input workspace-input--compact"
             min="1"
             max="31"
           />
-        </div>
+        </label>
 
-        <div class="space-y-1">
-          <label class="mb-1 block text-sm font-semibold text-slate-700">Hora de env?o</label>
+        <label class="workspace-field">
+          <span class="workspace-label">Hora de envío</span>
           <input
             type="time"
             formControlName="horaEnvio"
-            class="w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-3 text-sm font-medium text-slate-800 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-200 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
+            class="workspace-input workspace-input--compact"
+            [ngClass]="{
+              'workspace-input-error': form.controls.horaEnvio.invalid && form.controls.horaEnvio.touched
+            }"
           />
           @if(form.controls.horaEnvio.invalid && form.controls.horaEnvio.touched){
-          <p class="text-xs font-medium text-rose-500">Requerido.</p>
+            <p class="workspace-error">Requerido.</p>
           }
-        </div>
+        </label>
 
-        <div class="md:col-span-2 space-y-1">
-          <label class="mb-1 block text-sm font-semibold text-slate-700">Mensaje</label>
+        <label class="workspace-field workspace-field--full">
+          <span class="workspace-label">Mensaje</span>
           <textarea
             rows="4"
             formControlName="mensaje"
-            class="w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-3 text-sm font-medium text-slate-800 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-200 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
+            class="workspace-input workspace-input--compact"
+            [ngClass]="{
+              'workspace-input-error': form.controls.mensaje.invalid && form.controls.mensaje.touched
+            }"
           ></textarea>
           @if(form.controls.mensaje.invalid && form.controls.mensaje.touched){
-          <p class="text-xs font-medium text-rose-500">M?nimo 3 caracteres.</p>
+            <p class="workspace-error">Mínimo 3 caracteres.</p>
           }
-        </div>
+        </label>
 
         @if(medioSeleccionado() === emailMedio){
-        <div class="md:col-span-2 space-y-1">
-          <label class="mb-1 block text-sm font-semibold text-slate-700">Asunto (Email)</label>
-          <input
-            type="text"
-            formControlName="asunto"
-            class="w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-3 text-sm font-medium text-slate-800 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-200 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
-          />
-          @if(form.controls.asunto.invalid && form.controls.asunto.touched){
-          <p class="text-xs font-medium text-rose-500">Requerido.</p>
-          }
-        </div>
+          <label class="workspace-field workspace-field--full">
+            <span class="workspace-label">Asunto (Email)</span>
+            <input
+              type="text"
+              formControlName="asunto"
+              class="workspace-input workspace-input--compact"
+              [ngClass]="{
+                'workspace-input-error': form.controls.asunto.invalid && form.controls.asunto.touched
+              }"
+            />
+            @if(form.controls.asunto.invalid && form.controls.asunto.touched){
+              <p class="workspace-error">Requerido.</p>
+            }
+          </label>
         }
       </div>
 
