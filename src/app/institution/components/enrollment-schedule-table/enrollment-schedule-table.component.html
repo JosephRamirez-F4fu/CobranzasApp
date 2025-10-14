@@ -1,101 +1,91 @@
-<section class="grid gap-4 rounded-3xl border border-slate-700/70 bg-slate-950/60 p-6 text-slate-100 shadow-2xl shadow-slate-950/40 backdrop-blur-xl">
-  <header class="flex flex-col gap-1">
-    <h2 class="text-xl font-semibold text-white">Cronogramas registrados</h2>
-    <p *ngIf="!loading" class="text-sm text-slate-300">
-      {{ totalItems }} cronograma{{ totalItems === 1 ? '' : 's' }} en total.
-    </p>
-    <p *ngIf="loading" class="text-sm text-slate-300">Cargando información…</p>
+<section class="workspace-table-card">
+  <header class="workspace-table__header">
+    <div>
+      <h2 class="workspace-table__title">Cronogramas registrados</h2>
+      <p class="workspace-table__subtitle">
+        Gestiona los cronogramas de matrícula y ajusta sus cuotas desde este panel.
+      </p>
+    </div>
   </header>
 
-  <div *ngIf="schedules.length; else emptyState" class="overflow-x-auto">
-    <table class="min-w-full divide-y divide-slate-700/70">
-      <thead class="bg-slate-900/80">
-        <tr>
-          <th scope="col" class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.25em] text-slate-300">
-            Año lectivo
-          </th>
-          <th scope="col" class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.25em] text-slate-300">
-            Nivel
-          </th>
-          <th scope="col" class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.25em] text-slate-300">
-            Cuotas
-          </th>
-          <th scope="col" class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.25em] text-slate-300">
-            Monto por cuota
-          </th>
-          <th scope="col" class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.25em] text-slate-300">
-            Interés mora
-          </th>
-          <th scope="col" class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.25em] text-slate-300">
-            Próximo vencimiento
-          </th>
-          <th scope="col" class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.25em] text-slate-300">
-            Estado
-          </th>
-          <th scope="col" class="px-4 py-3 text-right text-xs font-semibold uppercase tracking-[0.25em] text-slate-300">
-            Acciones
-          </th>
-        </tr>
-      </thead>
-      <tbody class="divide-y divide-slate-800 bg-slate-950/40 text-sm text-slate-200">
-        <tr *ngFor="let schedule of schedules; trackBy: trackById" class="transition hover:bg-slate-900/60">
-          <td class="px-4 py-3 font-medium text-white">{{ schedule.anioLectivo || '—' }}</td>
-          <td class="px-4 py-3 capitalize">{{ schedule.nivelEducativo || '—' }}</td>
-          <td class="px-4 py-3">{{ schedule.numCuotas || 0 }}</td>
-          <td class="px-4 py-3 font-semibold text-white">S/ {{ schedule.montoCuota | number: '1.2-2' }}</td>
-          <td class="px-4 py-3">{{ schedule.interesMoraCuota | number: '1.2-2' }} %</td>
-          <td class="px-4 py-3">{{ schedule.fechaVencimiento || 'Pendiente' }}</td>
-          <td class="px-4 py-3">
-            <span
-              class="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold"
-              [ngClass]="{
-                'bg-emerald-500/20 text-emerald-200 ring-1 ring-emerald-400/40': schedule.activo,
-                'bg-rose-500/20 text-rose-200 ring-1 ring-rose-400/40': !schedule.activo
-              }"
-            >
-              {{ schedule.activo ? 'Activo' : 'Inactivo' }}
-            </span>
-          </td>
-          <td class="flex flex-wrap items-center justify-end gap-2 px-4 py-3">
-            <button
-              type="button"
-              (click)="edit.emit(schedule)"
-              class="inline-flex items-center justify-center rounded-full bg-slate-900/60 px-4 py-2 text-xs font-semibold text-slate-200 shadow-inner shadow-slate-950/40 transition hover:border hover:border-emerald-400/50 hover:bg-emerald-500/20 hover:text-white"
-            >
-              Editar
-            </button>
-            <button
-              type="button"
-              (click)="editQuota.emit(schedule)"
-              class="inline-flex items-center justify-center rounded-full border border-amber-400/40 bg-amber-500/10 px-4 py-2 text-xs font-semibold text-amber-200 transition hover:border-amber-300/60 hover:bg-amber-500/20 hover:text-white"
-            >
-              Editar cuota
-            </button>
-            <button
-              type="button"
-              (click)="remove.emit(schedule)"
-              class="inline-flex items-center justify-center rounded-full border border-rose-400/40 bg-rose-500/10 px-4 py-2 text-xs font-semibold text-rose-200 transition hover:border-rose-300/60 hover:bg-rose-500/20 hover:text-white"
-            >
-              Eliminar
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <ng-container *ngIf="schedules.length; else emptyState">
+    <div class="workspace-table-wrapper">
+      <table class="workspace-table">
+        <thead>
+          <tr>
+            <th scope="col">Año</th>
+            <th scope="col">Nivel</th>
+            <th scope="col">Cuotas</th>
+            <th scope="col">Monto cuota</th>
+            <th scope="col">Estado</th>
+            <th scope="col" class="workspace-table__align-right">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let schedule of schedules; trackBy: trackById">
+            <td>
+              <span class="workspace-label">{{ schedule.anioLectivo }}</span>
+              <span class="workspace-table__muted">ID {{ schedule.id }}</span>
+            </td>
+            <td>
+              <span class="workspace-label">{{ schedule.nivelEducativo | titlecase }}</span>
+              <span class="workspace-table__muted">Inicio {{ schedule.fechaInicio | date: 'd MMM yyyy' }}</span>
+            </td>
+            <td>
+              {{ schedule.numCuotas }} cuotas
+              <span class="workspace-table__muted">Interés mora {{ schedule.interesMoraCuota }}%</span>
+            </td>
+            <td>
+              S/ {{ schedule.montoCuota | number: '1.2-2' }}
+              <span class="workspace-table__muted">Cuota inicial S/ {{ schedule.montoCuotaInicial | number: '1.2-2' }}</span>
+            </td>
+            <td>
+              <span
+                class="workspace-pill"
+                [ngClass]="schedule.activo ? 'workspace-pill--accent' : 'workspace-pill--ghost'"
+              >
+                {{ schedule.activo ? 'Activo' : 'Inactivo' }}
+              </span>
+            </td>
+            <td class="workspace-table__align-right">
+              <div class="workspace-table-actions">
+                <button type="button" (click)="edit.emit(schedule)" class="workspace-pill workspace-pill--ghost">
+                  Editar
+                </button>
+                <button
+                  type="button"
+                  (click)="editQuota.emit(schedule)"
+                  class="workspace-pill workspace-pill--info"
+                >
+                  Cuota
+                </button>
+                <button
+                  type="button"
+                  (click)="remove.emit(schedule)"
+                  class="workspace-pill workspace-pill--danger"
+                >
+                  Eliminar
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
 
   <ng-template #emptyState>
-    <div class="rounded-xl border border-dashed border-slate-700/60 bg-slate-900/50 p-8 text-center text-sm text-slate-300">
-      <p>No hay cronogramas registrados en la institución.</p>
+    <div class="workspace-empty-state">
+      <p>No se registraron cronogramas todavía.</p>
     </div>
   </ng-template>
 
-  <footer *ngIf="totalPages > 0" class="flex items-center justify-end gap-3 text-sm text-slate-300">
+  <footer *ngIf="totalPages > 0" class="workspace-pagination">
     <button
       type="button"
       (click)="onPrevious()"
       [disabled]="page === 0 || loading"
-      class="inline-flex items-center justify-center rounded-full border border-slate-600/70 bg-slate-900/60 px-4 py-2 text-xs font-semibold text-slate-200 shadow-inner shadow-slate-950/40 transition hover:border-emerald-400/40 hover:bg-slate-900/80 hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
+      class="workspace-pill workspace-pill--ghost"
     >
       Anterior
     </button>
@@ -104,7 +94,7 @@
       type="button"
       (click)="onNext()"
       [disabled]="page >= totalPages - 1 || loading"
-      class="inline-flex items-center justify-center rounded-full border border-slate-600/70 bg-slate-900/60 px-4 py-2 text-xs font-semibold text-slate-200 shadow-inner shadow-slate-950/40 transition hover:border-emerald-400/40 hover:bg-slate-900/80 hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
+      class="workspace-pill workspace-pill--ghost"
     >
       Siguiente
     </button>

@@ -1,100 +1,115 @@
-<section class="mx-auto flex max-w-4xl flex-col gap-8 p-6 md:p-8">
+<section class="workspace-stack">
   <app-config-section title="Perfil de Usuario" maxWidthClass="w-full">
     @if (loading()) {
-    <p class="text-sm font-medium text-slate-500">Cargando...</p>
+      <p class="workspace-subheading">Cargando...</p>
     } @else {
-    <form class="space-y-6" [formGroup]="form" (ngSubmit)="save()">
-      <div class="grid gap-6 md:grid-cols-2">
-        <div class="space-y-1">
-          <label class="mb-1 block text-sm font-semibold text-slate-900">Nombre completo</label>
-          <input
-            type="text"
-            formControlName="nombreCompleto"
-            class="w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-3 text-sm font-medium text-slate-800 placeholder:text-slate-900 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-200 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
-          />
-          @if(form.controls.nombreCompleto.invalid && form.controls.nombreCompleto.touched){
-          <p class="text-xs font-medium text-rose-500">Requerido.</p>
-          }
-        </div>
-        <div class="space-y-1">
-          <label class="mb-1 block text-sm font-semibold text-slate-900">Correo</label>
-          <input
-            type="email"
-            formControlName="correo"
-            class="w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-3 text-sm font-medium text-slate-800 placeholder:text-slate-900 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-200 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
-          />
-          @if(form.controls.correo.invalid && form.controls.correo.touched){
-          <p class="text-xs font-medium text-rose-500">Correo invalido.</p>
-          }
-        </div>
-      </div>
+      <form class="workspace-form" [formGroup]="form" (ngSubmit)="save()">
+        <div class="workspace-fieldset">
+          <label class="workspace-field">
+            <span class="workspace-label">Nombre completo</span>
+            <input
+              type="text"
+              formControlName="nombreCompleto"
+              class="workspace-input workspace-input--compact"
+              [ngClass]="{
+                'workspace-input-error':
+                  form.controls.nombreCompleto.invalid && form.controls.nombreCompleto.touched
+              }"
+            />
+            @if(form.controls.nombreCompleto.invalid && form.controls.nombreCompleto.touched){
+              <p class="workspace-error">Requerido.</p>
+            }
+          </label>
 
-      <app-config-form-actions
-        [editing]="editing()"
-        [saving]="saving()"
-        (edit)="enableEdit()"
-        (cancel)="cancel()"
-      />
-    </form>
+          <label class="workspace-field">
+            <span class="workspace-label">Correo</span>
+            <input
+              type="email"
+              formControlName="correo"
+              class="workspace-input workspace-input--compact"
+              [ngClass]="{
+                'workspace-input-error': form.controls.correo.invalid && form.controls.correo.touched
+              }"
+            />
+            @if(form.controls.correo.invalid && form.controls.correo.touched){
+              <p class="workspace-error">Correo inválido.</p>
+            }
+          </label>
+        </div>
+
+        <app-config-form-actions
+          [editing]="editing()"
+          [saving]="saving()"
+          (edit)="enableEdit()"
+          (cancel)="cancel()"
+        />
+      </form>
     }
   </app-config-section>
 
-  <app-config-section title="Cambiar Contrasena" maxWidthClass="w-full">
-    <form
-      class="space-y-6"
-      [formGroup]="formChangPassword"
-      (ngSubmit)="changePassword()"
-    >
-      <div class="space-y-1">
-        <label class="mb-1 block text-sm font-semibold text-slate-900">Contrasena Actual</label>
+  <app-config-section title="Cambiar Contraseña" maxWidthClass="w-full">
+    <form class="workspace-form" [formGroup]="formChangPassword" (ngSubmit)="changePassword()">
+      <label class="workspace-field">
+        <span class="workspace-label">Contraseña actual</span>
         <input
           type="password"
           formControlName="oldPassword"
-          class="w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-3 text-sm font-medium text-slate-800 placeholder:text-slate-900 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-200"
+          class="workspace-input workspace-input--compact"
           autocomplete="current-password"
+          [ngClass]="{
+            'workspace-input-error':
+              formChangPassword.controls.oldPassword.invalid && formChangPassword.controls.oldPassword.touched
+          }"
         />
         @if(formChangPassword.controls.oldPassword.invalid && formChangPassword.controls.oldPassword.touched){
-        <p class="text-xs font-medium text-rose-500">Requerido.</p>
+          <p class="workspace-error">Requerido.</p>
         }
-      </div>
-      <div class="grid gap-6 md:grid-cols-2">
-        <div class="space-y-1">
-          <label class="mb-1 block text-sm font-semibold text-slate-900">Nueva Contrasena</label>
+      </label>
+
+      <div class="workspace-fieldset">
+        <label class="workspace-field">
+          <span class="workspace-label">Nueva contraseña</span>
           <input
             type="password"
             formControlName="newPassword"
-            class="w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-3 text-sm font-medium text-slate-800 placeholder:text-slate-900 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-200"
+            class="workspace-input workspace-input--compact"
             autocomplete="new-password"
+            [ngClass]="{
+              'workspace-input-error':
+                formChangPassword.controls.newPassword.invalid && formChangPassword.controls.newPassword.touched
+            }"
           />
           @if(formChangPassword.controls.newPassword.invalid && formChangPassword.controls.newPassword.touched){
-          <p class="text-xs font-medium text-rose-500">
-            La contrasena debe tener al menos 6 caracteres.
-          </p>
+            <p class="workspace-error">La contraseña debe tener al menos 6 caracteres.</p>
           }
-        </div>
-        <div class="space-y-1">
-          <label class="mb-1 block text-sm font-semibold text-slate-900"
-            >Confirmar Nueva Contrasena</label
-          >
+        </label>
+
+        <label class="workspace-field">
+          <span class="workspace-label">Confirmar nueva contraseña</span>
           <input
             type="password"
             formControlName="confirmNewPassword"
-            class="w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-3 text-sm font-medium text-slate-800 placeholder:text-slate-900 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-200"
+            class="workspace-input workspace-input--compact"
             autocomplete="new-password"
+            [ngClass]="{
+              'workspace-input-error':
+                formChangPassword.controls.confirmNewPassword.invalid &&
+                formChangPassword.controls.confirmNewPassword.touched
+            }"
           />
           @if(formChangPassword.controls.confirmNewPassword.invalid && formChangPassword.controls.confirmNewPassword.touched){
-          <p class="text-xs font-medium text-rose-500">Las contrasenas no coinciden.</p>
+            <p class="workspace-error">Las contraseñas no coinciden.</p>
           }
-        </div>
+        </label>
       </div>
 
-      <div class="flex flex-wrap gap-3">
+      <div class="workspace-form-actions">
         <button
           type="submit"
-          class="inline-flex items-center justify-center rounded-xl border border-emerald-600 bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-emerald-700 focus:outline-none focus:ring-4 focus:ring-emerald-200 disabled:cursor-not-allowed disabled:opacity-60 disabled:shadow-none"
+          class="workspace-primary-btn workspace-btn-compact"
           [disabled]="changingPassword()"
         >
-          @if(changingPassword()){ Cambiando... } @else { Cambiar Contrasena }
+          @if(changingPassword()){ Cambiando... } @else { Cambiar contraseña }
         </button>
       </div>
     </form>

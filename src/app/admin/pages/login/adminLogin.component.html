@@ -1,15 +1,15 @@
-<div class="flex flex-col items-center gap-10 text-center md:text-left">
-  <header class="space-y-3 md:w-full">
-    <p class="text-xs font-semibold uppercase tracking-[0.45em] text-emerald-400">
+<div class="workspace-auth-page">
+  <header class="workspace-page-header">
+    <p class="workspace-eyebrow">
       Panel administrativo
     </p>
-    <h1 class="text-3xl font-semibold text-white md:text-4xl">Acceso a CobranzasApp</h1>
-    <p class="mx-auto max-w-2xl text-sm text-slate-300 md:mx-0 md:text-base">
+    <h1 class="workspace-heading-lg">Acceso a CobranzasApp</h1>
+    <p class="workspace-subheading workspace-subheading--center">
       Inicia sesión para supervisar instituciones, usuarios y la configuración central de la plataforma.
     </p>
   </header>
 
-  <section class="w-full max-w-3xl rounded-3xl border border-slate-700/70 bg-slate-950/70 p-8 shadow-2xl shadow-slate-950/40 backdrop-blur-xl">
+  <section class="workspace-card-lg workspace-card--auth">
     <admin-login-form
       (submitCredentials)="onSubmit($event)"
       [loading]="pageService.loading()"
