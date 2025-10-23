@@ -5,14 +5,12 @@
     </h2>
     <ul class="app-section-subtitle mb-6 list-disc space-y-2 pl-5 text-left">
       @for (bullet of details().bullets; track bullet) {
-        <li>{{ bullet }}</li>
+      <li>{{ bullet }}</li>
       }
     </ul>
-    <a
-      [href]="details().ctaHref"
-      class="btn-primary"
-      >{{ details().ctaLabel }}</a
-    >
+    <a [href]="details().ctaHref" class="btn-primary">{{
+      details().ctaLabel
+    }}</a>
   </div>
   <div class="flex justify-center md:justify-end">
     <img

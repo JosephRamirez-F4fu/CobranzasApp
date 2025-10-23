@@ -3,7 +3,9 @@
     <div>
       <h2 class="workspace-table__title">Usuarios registrados</h2>
       <p class="workspace-table__subtitle" *ngIf="!loading">
-        {{ totalItems }} usuario{{ totalItems === 1 ? '' : 's' }} habilitado{{ totalItems === 1 ? '' : 's' }}.
+        {{ totalItems }} usuario{{ totalItems === 1 ? "" : "s" }} habilitado{{
+          totalItems === 1 ? "" : "s"
+        }}.
       </p>
       <p class="workspace-table__subtitle" *ngIf="loading">
         Cargando información…
@@ -27,21 +29,23 @@
           <tr *ngFor="let user of users; trackBy: trackById">
             <td>
               <span class="workspace-label">{{ user.nombreCompleto }}</span>
-              <span class="workspace-table__muted">{{ user.username }}</span>
             </td>
             <td>
               {{ user.rol | titlecase }}
             </td>
             <td>
-              <span>{{ user.email || 'Sin correo' }}</span>
-              <span class="workspace-table__muted">{{ user.telefono || 'Sin teléfono' }}</span>
+              <span>{{ user.correo }}</span>
             </td>
             <td>
               <span
                 class="workspace-pill"
-                [ngClass]="user.activo ? 'workspace-pill--accent' : 'workspace-pill--ghost'"
+                [ngClass]="
+                  user.activo
+                    ? 'workspace-pill--accent'
+                    : 'workspace-pill--ghost'
+                "
               >
-                {{ user.activo ? 'Activo' : 'Inactivo' }}
+                {{ user.activo ? "Activo" : "Inactivo" }}
               </span>
             </td>
             <td class="workspace-table__align-right">

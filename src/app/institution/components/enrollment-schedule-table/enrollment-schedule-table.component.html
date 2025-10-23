@@ -3,7 +3,8 @@
     <div>
       <h2 class="workspace-table__title">Cronogramas registrados</h2>
       <p class="workspace-table__subtitle">
-        Gestiona los cronogramas de matrícula y ajusta sus cuotas desde este panel.
+        Gestiona los cronogramas de matrícula y ajusta sus cuotas desde este
+        panel.
       </p>
     </div>
   </header>
@@ -28,28 +29,45 @@
               <span class="workspace-table__muted">ID {{ schedule.id }}</span>
             </td>
             <td>
-              <span class="workspace-label">{{ schedule.nivelEducativo | titlecase }}</span>
-              <span class="workspace-table__muted">Inicio {{ schedule.fechaInicio | date: 'd MMM yyyy' }}</span>
+              <span class="workspace-label">{{
+                schedule.nivelEducativo | titlecase
+              }}</span>
+              <span class="workspace-table__muted"
+                >Inicio {{ schedule.fechaInicio | date : "d MMM yyyy" }}</span
+              >
             </td>
             <td>
               {{ schedule.numCuotas }} cuotas
-              <span class="workspace-table__muted">Interés mora {{ schedule.interesMoraCuota }}%</span>
+              <span class="workspace-table__muted"
+                >Interés mora {{ schedule.interesMoraCuota }}%</span
+              >
             </td>
             <td>
-              S/ {{ schedule.montoCuota | number: '1.2-2' }}
-              <span class="workspace-table__muted">Cuota inicial S/ {{ schedule.montoCuotaInicial | number: '1.2-2' }}</span>
+              S/ {{ schedule.montoCuota | number : "1.2-2" }}
+              <span class="workspace-table__muted"
+                >Cuota inicial S/
+                {{ schedule.montoCuota | number : "1.2-2" }}</span
+              >
             </td>
             <td>
               <span
                 class="workspace-pill"
-                [ngClass]="schedule.activo ? 'workspace-pill--accent' : 'workspace-pill--ghost'"
+                [ngClass]="
+                  schedule.activo
+                    ? 'workspace-pill--accent'
+                    : 'workspace-pill--ghost'
+                "
               >
-                {{ schedule.activo ? 'Activo' : 'Inactivo' }}
+                {{ schedule.activo ? "Activo" : "Inactivo" }}
               </span>
             </td>
             <td class="workspace-table__align-right">
               <div class="workspace-table-actions">
-                <button type="button" (click)="edit.emit(schedule)" class="workspace-pill workspace-pill--ghost">
+                <button
+                  type="button"
+                  (click)="edit.emit(schedule)"
+                  class="workspace-pill workspace-pill--ghost"
+                >
                   Editar
                 </button>
                 <button
