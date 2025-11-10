@@ -28,19 +28,28 @@ import {
     >
       <header class="space-y-2 text-slate-100">
         <h2 class="text-2xl font-semibold text-white">
-          {{ editMode ? 'Actualizar institucion' : 'Registrar nueva institucion' }}
+          {{
+            editMode ? 'Actualizar institucion' : 'Registrar nueva institucion'
+          }}
         </h2>
         <p class="text-sm text-slate-300">
-          Completa los datos principales de la institucion. El codigo se genera automaticamente y el plan solo se define al crearla.
+          Completa los datos principales de la institucion. El codigo se genera
+          automaticamente y el plan solo se define al crearla.
         </p>
-        <p *ngIf="editMode && institution?.code" class="text-xs font-semibold text-emerald-300/80">
+        <p
+          *ngIf="editMode && institution?.code"
+          class="text-xs font-semibold text-emerald-300/80"
+        >
           Codigo asignado: {{ institution?.code }}
         </p>
       </header>
 
       <div class="grid gap-4 md:grid-cols-2">
         <label class="grid gap-2 text-slate-100">
-          <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Nombre</span>
+          <span
+            class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80"
+            >Nombre</span
+          >
           <input
             formControlName="name"
             class="w-full rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 placeholder:text-slate-200 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
@@ -49,7 +58,10 @@ import {
         </label>
 
         <label class="grid gap-2 text-slate-100">
-          <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Correo electronico</span>
+          <span
+            class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80"
+            >Correo electronico</span
+          >
           <input
             formControlName="email"
             type="email"
@@ -59,7 +71,10 @@ import {
         </label>
 
         <label class="grid gap-2 text-slate-100">
-          <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Telefono</span>
+          <span
+            class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80"
+            >Telefono</span
+          >
           <input
             formControlName="phoneNumber"
             class="w-full rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 placeholder:text-slate-200 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
@@ -68,30 +83,45 @@ import {
         </label>
 
         <label class="grid gap-2 text-slate-100">
-          <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Plan</span>
+          <span
+            class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80"
+            >Plan</span
+          >
           <select
             formControlName="plan"
             [disabled]="editMode"
             class="w-full rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 placeholder:text-slate-200 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
           >
             <option [ngValue]="null" disabled>Selecciona un plan</option>
-            <option *ngFor="let plan of plans" [ngValue]="plan" class="bg-slate-900 text-slate-100">
+            <option
+              *ngFor="let plan of plans"
+              [ngValue]="plan"
+              class="bg-slate-900 text-slate-100"
+            >
               {{ planLabels[plan] }}
             </option>
           </select>
           <small
-            *ngIf="form.controls['plan'].invalid && form.controls['plan'].touched && !editMode"
+            *ngIf="
+              form.controls['plan'].invalid &&
+              form.controls['plan'].touched &&
+              !editMode
+            "
             class="text-xs font-medium text-rose-400"
           >
             Selecciona un plan para la institucion.
           </small>
           <small *ngIf="editMode" class="text-xs text-slate-400">
-            El plan solo puede cambiarse desde el modulo administrador al crear la institucion.
+            El plan solo puede cambiarse desde el modulo administrador al crear
+            la institucion.
           </small>
         </label>
 
         <label class="md:col-span-2 grid gap-2 text-slate-100">
-          <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80">Direccion</span>
+          <span
+            class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/80"
+            >Direccion</span
+          >
           <input
             formControlName="address"
             class="w-full rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-sm font-medium text-slate-100 placeholder:text-slate-200 shadow-inner shadow-slate-950/50 transition focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"

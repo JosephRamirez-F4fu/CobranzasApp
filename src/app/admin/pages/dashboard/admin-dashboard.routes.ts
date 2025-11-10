@@ -17,6 +17,18 @@ const adminDashboardRoutes: Routes = [
           import('./pages/users-clients/users-clients.component'),
       },
       {
+        path: 'variables',
+        loadComponent: () => import('./pages/variables/variables.component'),
+      },
+      {
+        path: 'perfiles',
+        loadComponent: () => import('./pages/perfiles/perfiles.component'),
+      },
+      {
+        path: 'scoring',
+        loadComponent: () => import('./pages/scoring/scoring.component'),
+      },
+      {
         path: 'inicio',
         loadComponent: () => import('./pages/home/admin-home.component'),
       },

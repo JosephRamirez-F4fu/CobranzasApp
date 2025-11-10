@@ -1,0 +1,35 @@
+<section class="space-y-8 text-slate-100">
+  <header class="space-y-2">
+    <p class="text-xs font-semibold uppercase tracking-[0.45em] text-amber-400">
+      Monitoreo de scoring
+    </p>
+    <h1 class="text-3xl font-semibold text-white">Logs y configuración</h1>
+    <p class="text-sm text-slate-300 md:max-w-3xl">
+      Consulta los registros del motor de scoring y actualiza la configuración base utilizada por la nueva API.
+    </p>
+  </header>
+
+  <scoring-search
+    (search)="onSearch($event)"
+    (reset)="onSearchReset()"
+    [loading]="pageService.loading()"
+  ></scoring-search>
+
+  <div class="grid gap-6 lg:grid-cols-3">
+    <scoring-table
+      class="lg:col-span-2"
+      [logs]="pageService.logs()"
+      [loading]="pageService.loading()"
+      [pagination]="pageService.pagination()"
+      (pageChange)="onPageChange($event)"
+      (export)="onExport()"
+      [exporting]="pageService.exporting()"
+    ></scoring-table>
+
+    <scoring-config-form
+      class="lg:col-span-1"
+      [configuration]="pageService.configuration()"
+      (save)="onConfigurationSaved($event)"
+    ></scoring-config-form>
+  </div>
+</section>

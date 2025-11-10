@@ -1,0 +1,34 @@
+<section class="space-y-8 text-slate-100">
+  <header class="space-y-2">
+    <p class="text-xs font-semibold uppercase tracking-[0.45em] text-cyan-400">
+      Configuración de perfiles
+    </p>
+    <h1 class="text-3xl font-semibold text-white">Perfiles de Scoring</h1>
+    <p class="text-sm text-slate-300 md:max-w-3xl">
+      Gestiona los perfiles que definen los rangos de score utilizados por el nuevo motor de scoring.
+    </p>
+  </header>
+
+  <perfil-search
+    (search)="onSearch($event)"
+    (reset)="onSearchReset()"
+    [loading]="pageService.loading()"
+  ></perfil-search>
+
+  <perfil-form
+    (save)="onPerfilSaved($event)"
+    (cancel)="onCancelEdit()"
+    [perfil]="pageService.editingPerfil()"
+  ></perfil-form>
+
+  <perfil-table
+    [perfiles]="pageService.perfiles()"
+    [loading]="pageService.loading()"
+    [page]="pageService.page()"
+    [totalPages]="pageService.totalPages()"
+    (pageChange)="onPageChange($event)"
+    (edit)="onEditRequest($event)"
+    (del)="onDeleteRequest($event)"
+    (toggleStatus)="onToggleStatus($event)"
+  ></perfil-table>
+</section>
