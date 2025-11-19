@@ -117,13 +117,10 @@ export class ScoringService {
   private buildQueryString(filters: ScoringLogFilters = {}) {
     const params: string[] = [];
 
-    if (filters.page != null) {
-      params.push(`page=${this.encode(filters.page)}`);
-    }
-
-    if (filters.size != null) {
-      params.push(`size=${this.encode(filters.size)}`);
-    }
+    const limit = filters.size ?? 10;
+    const pageIndex = filters.page ?? 0;
+    params.push(`limit=${this.encode(limit)}`);
+    params.push(`skip=${this.encode(pageIndex * limit)}`);
 
     if (filters.perfil?.trim()) {
       params.push(`perfil=${this.encode(filters.perfil.trim())}`);
@@ -133,19 +130,30 @@ export class ScoringService {
       params.push(`cuenta=${this.encode(filters.cuenta.trim())}`);
     }
 
-    if (filters.fechaInicio) {
-      params.push(`fecha_inicio=${this.encode(filters.fechaInicio)}`);
-    }
-
-    if (filters.fechaFin) {
-      params.push(`fecha_fin=${this.encode(filters.fechaFin)}`);
-    }
+    const { minDate, maxDate } = this.resolveDateRange(filters);
+    params.push(`min_date=${this.encode(minDate)}`);
+    params.push(`max_date=${this.encode(maxDate)}`);
 
     return params.join('&');
   }
 
   private encode(value: string | number | boolean) {
     return encodeURIComponent(String(value));
+  }
+
+  private resolveDateRange(filters: ScoringLogFilters) {
+    const today = new Date();
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(today.getDate() - 30);
+
+    const minDate = filters.fechaInicio ?? this.formatDate(thirtyDaysAgo);
+    const maxDate = filters.fechaFin ?? this.formatDate(today);
+
+    return { minDate, maxDate };
+  }
+
+  private formatDate(date: Date) {
+    return date.toISOString().split('T')[0];
   }
 }
 

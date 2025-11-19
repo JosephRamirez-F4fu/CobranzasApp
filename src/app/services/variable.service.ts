@@ -152,13 +152,10 @@ export class VariableService {
   private buildQueryString(filters: VariableFilters = {}) {
     const params: string[] = [];
 
-    if (filters.page != null) {
-      params.push(`page=${this.encode(filters.page)}`);
-    }
-
-    if (filters.size != null) {
-      params.push(`size=${this.encode(filters.size)}`);
-    }
+    const limit = filters.size ?? 10;
+    const pageIndex = filters.page ?? 0;
+    params.push(`limit=${this.encode(limit)}`);
+    params.push(`skip=${this.encode(pageIndex * limit)}`);
 
     if (filters.tipo != null) {
       params.push(`tipo=${this.encode(filters.tipo)}`);
