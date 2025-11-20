@@ -1,0 +1,42 @@
+<section class="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-[#020a05] px-4 py-12">
+  <div
+    class="absolute inset-0 bg-gradient-to-br from-[#071c0f] via-[#031306] to-[#010503]"
+  ></div>
+  <div
+    class="pointer-events-none absolute left-1/2 top-24 h-96 w-96 -translate-x-1/2 rounded-full bg-[#1fe27f]/20 blur-[120px]"
+  ></div>
+
+  <div class="relative mb-12 flex w-full max-w-5xl flex-col gap-4 px-2 text-white">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-3 text-base font-semibold">
+        <span
+          class="flex h-10 w-10 items-center justify-center rounded-full bg-[#17C964] text-xl text-[#020a05]"
+        >
+          C
+        </span>
+        <div>
+          <p class="text-sm uppercase tracking-[0.3em] text-[#8FE8AF]">
+            CobraloPe
+          </p>
+          <p class="text-base text-[#cfead9]">Automatiza tu cobranza end-to-end</p>
+        </div>
+      </div>
+      <div class="text-sm text-[#8FE8AF]">Portal de administradores</div>
+    </div>
+    <div class="max-w-2xl">
+      <h1 class="text-3xl font-semibold text-white">
+        Ingresa al panel y controla tus cobranzas en tiempo real
+      </h1>
+      <p class="text-base text-[#b5c9ba]">
+        Registra pagos, gestiona instituciones y envía recordatorios desde un solo
+        lugar.
+      </p>
+    </div>
+  </div>
+
+  <div
+    class="relative w-full max-w-md rounded-[32px] border border-white/5 bg-[#050d06]/80 p-8 shadow-[0_30px_80px_rgba(0,0,0,0.6)] backdrop-blur"
+  >
+    <router-outlet></router-outlet>
+  </div>
+</section>

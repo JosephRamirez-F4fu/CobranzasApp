@@ -1,0 +1,59 @@
+<form class="space-y-6" [formGroup]="form" (ngSubmit)="submit()">
+  <div class="space-y-2">
+    <label class="block text-sm font-medium text-white" for="email">
+      Correo institucional
+    </label>
+    <input
+      id="email"
+      type="email"
+      autocomplete="email"
+      formControlName="email"
+      class="w-full rounded-2xl border border-[#12331d] bg-[#050d06] px-4 py-3 text-sm text-white placeholder:text-[#4d6b5a] focus:border-[#1fe27f] focus:outline-none focus:ring-2 focus:ring-[#1fe27f]/30"
+      placeholder="admin@colegio.com"
+    />
+    <p
+      class="text-xs text-rose-400"
+      *ngIf="form.controls.email.touched && form.controls.email.invalid"
+    >
+      Ingresa un correo válido
+    </p>
+  </div>
+
+  <div class="space-y-2">
+    <label class="block text-sm font-medium text-white" for="password">
+      Contraseña
+    </label>
+    <input
+      id="password"
+      type="password"
+      autocomplete="current-password"
+      formControlName="password"
+      class="w-full rounded-2xl border border-[#12331d] bg-[#050d06] px-4 py-3 text-sm text-white placeholder:text-[#4d6b5a] focus:border-[#1fe27f] focus:outline-none focus:ring-2 focus:ring-[#1fe27f]/30"
+      placeholder="********"
+    />
+    <p
+      class="text-xs text-rose-400"
+      *ngIf="form.controls.password.touched && form.controls.password.invalid"
+    >
+      La contraseña es obligatoria
+    </p>
+  </div>
+
+  <div
+    class="rounded-2xl border border-red-500/30 bg-red-900/30 px-4 py-2 text-sm text-rose-200"
+    *ngIf="errorMessage()"
+  >
+    {{ errorMessage() }}
+  </div>
+
+  <button
+    class="flex w-full items-center justify-center rounded-2xl bg-[#1fe27f] px-4 py-3 text-sm font-semibold text-[#02270f] shadow-[0_15px_40px_rgba(31,226,127,0.35)] transition hover:bg-[#18c468] disabled:cursor-not-allowed disabled:bg-[#1b462b] disabled:text-[#6da581]"
+    type="submit"
+    [disabled]="isSubmitting()"
+  >
+    <span *ngIf="!isSubmitting()">Iniciar sesión</span>
+    <span *ngIf="isSubmitting()">Ingresando...</span>
+  </button>
+
+  <app-social-login-buttons [email]="form.controls.email.value"></app-social-login-buttons>
+</form>

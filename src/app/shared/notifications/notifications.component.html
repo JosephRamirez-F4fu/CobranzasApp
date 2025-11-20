@@ -1,0 +1,19 @@
+<div
+  class="pointer-events-none fixed inset-x-0 top-4 z-50 flex flex-col items-end gap-3 px-4 sm:px-6"
+>
+  <article
+    class="pointer-events-auto flex w-full max-w-sm items-start gap-3 rounded-2xl border px-4 py-3 text-sm text-white shadow-2xl transition"
+    *ngFor="let message of messages()"
+    [ngClass]="bg(message.type)"
+  >
+    <span class="text-lg">{{ icon(message.type) }}</span>
+    <p class="flex-1">{{ message.message }}</p>
+    <button
+      type="button"
+      class="rounded-full px-2 text-xs text-white/70 transition hover:text-white"
+      (click)="dismiss(message.id)"
+    >
+      ✕
+    </button>
+  </article>
+</div>

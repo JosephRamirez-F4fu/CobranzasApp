@@ -1,8 +1,0 @@
-export enum MetodoPago {
-  EFECTIVO,
-  TARJETA_DEBITO,
-  TARJETA_CREDITO,
-  TRANSFERENCIA_BANCARIA,
-  YAPE,
-  PLIN,
-}

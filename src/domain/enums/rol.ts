@@ -1,9 +1,0 @@
-enum Rol {
-  MASTER,
-  ADMIN,
-  CAJERO,
-  CLIENTE,
-  SISTEMA,
-  TUTOR,
-  CONSULTOR,
-}

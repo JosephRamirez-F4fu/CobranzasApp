@@ -5,15 +5,14 @@ import {
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
-import { routes } from './app.routes';
+import { routes } from './routes';
 import {
   provideHttpClient,
   withFetch,
   withInterceptors,
 } from '@angular/common/http';
-import { bearerInterceptor } from './shared/interceptors/bearer.interceptor';
-import { credentialsInterceptor } from './shared/interceptors/credentials.interceptor';
-import { refreshInterceptor } from './shared/interceptors/refresh.interceptor';
+import { authTokenInterceptor } from './core/http/interceptors/auth-token.interceptor';
+import { authRefreshInterceptor } from './core/http/interceptors/auth-refresh.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -22,11 +21,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(
       withFetch(),
-      withInterceptors([
-        credentialsInterceptor,
-        bearerInterceptor,
-        refreshInterceptor,
-      ])
+      withInterceptors([authTokenInterceptor, authRefreshInterceptor])
     ),
   ],
 };

@@ -1,0 +1,36 @@
+<div class="space-y-3">
+  <div class="flex items-center gap-3 text-sm text-[#7aa589]">
+    <span class="h-px flex-1 bg-[#1b2c1f]"></span>
+    <span>O continúa con</span>
+    <span class="h-px flex-1 bg-[#1b2c1f]"></span>
+  </div>
+
+  <div class="flex flex-col gap-3 sm:flex-row">
+    <button
+      type="button"
+      class="flex flex-1 items-center justify-center gap-2 rounded-2xl border border-[#13341e] bg-[#050d06] px-4 py-3 text-sm font-semibold text-white transition hover:border-[#1fe27f] hover:text-[#1fe27f]"
+      (click)="login('google')"
+      [disabled]="isLoading()"
+    >
+      <span class="text-lg">🟢</span>
+      <span>Google</span>
+    </button>
+
+    <button
+      type="button"
+      class="flex flex-1 items-center justify-center gap-2 rounded-2xl border border-[#13341e] bg-[#050d06] px-4 py-3 text-sm font-semibold text-white transition hover:border-[#1fe27f] hover:text-[#1fe27f]"
+      (click)="login('outlook')"
+      [disabled]="isLoading()"
+    >
+      <span class="text-lg">💼</span>
+      <span>Outlook</span>
+    </button>
+  </div>
+
+  <p
+    class="rounded-2xl border border-rose-500/40 bg-rose-900/30 px-4 py-2 text-xs text-rose-100"
+    *ngIf="errorMessage()"
+  >
+    {{ errorMessage() }}
+  </p>
+</div>
