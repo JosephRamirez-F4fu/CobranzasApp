@@ -1,0 +1,31 @@
+<section class="auth-card">
+  <h1>Confirmar Institución</h1>
+  <p class="subtitle">
+    Ingresa los tokens enviados al correo del administrador para activar la cuenta.
+  </p>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <label>
+      ID de institución
+      <input type="number" formControlName="institucion_id" />
+    </label>
+
+    <label>
+      Token de institución
+      <input type="text" formControlName="institucion_token" />
+    </label>
+
+    <label>
+      Correo del administrador
+      <input type="email" formControlName="admin_email" />
+    </label>
+
+    <label>
+      Token del administrador
+      <input type="text" formControlName="admin_token" />
+    </label>
+
+    <button type="submit" [disabled]="isSubmitting()">Confirmar</button>
+    <div class="error" *ngIf="errorMessage()">{{ errorMessage() }}</div>
+  </form>
+</section>

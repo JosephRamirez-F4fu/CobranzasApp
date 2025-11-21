@@ -9,14 +9,14 @@ import { RequestBuilder } from '../../request-builder';
 
 import { RegistroInstitucionRequest } from '../../models/registro-institucion-request';
 
-export interface RegistrarInstitucionAuthInstitucionesPost$Params {
+export interface RegistrarInstitucionPorGestorAuthGestorInstitucionesPost$Params {
       body: RegistroInstitucionRequest
 }
 
-export function registrarInstitucionAuthInstitucionesPost(http: HttpClient, rootUrl: string, params: RegistrarInstitucionAuthInstitucionesPost$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+export function registrarInstitucionPorGestorAuthGestorInstitucionesPost(http: HttpClient, rootUrl: string, params: RegistrarInstitucionPorGestorAuthGestorInstitucionesPost$Params, context?: HttpContext): Observable<StrictHttpResponse<{
 [key: string]: any;
 }>> {
-  const rb = new RequestBuilder(rootUrl, registrarInstitucionAuthInstitucionesPost.PATH, 'post');
+  const rb = new RequestBuilder(rootUrl, registrarInstitucionPorGestorAuthGestorInstitucionesPost.PATH, 'post');
   if (params) {
     rb.body(params.body, 'application/json');
   }
@@ -33,4 +33,4 @@ export function registrarInstitucionAuthInstitucionesPost(http: HttpClient, root
   );
 }
 
-registrarInstitucionAuthInstitucionesPost.PATH = '/auth/instituciones';
+registrarInstitucionPorGestorAuthGestorInstitucionesPost.PATH = '/auth/gestor/instituciones';

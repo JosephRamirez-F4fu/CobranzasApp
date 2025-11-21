@@ -1,0 +1,12 @@
+﻿# Front Tasks
+- [x] Implementar vista LoginGestor (formulario email/contraseña, manejo de errores)
+- [x] Implementar flujo protegido para DashboardGestor y RegistrarInstitucion
+- [x] Crear vista ConfirmarAdmin enlazada con POST /auth/instituciones/confirmar
+- [ ] Actualizar LoginAdmin tradicional y vista OAuth con los nuevos endpoints
+- [ ] Ajustar LoginSSO para validar dominios/proveedores permitidos
+- [ ] Integrar verificación de sesión (`GET /auth/me`) en paneles
+- [ ] Agregar manejo de errores global para tokens inválidos/expirados
+- [x] Actualizar AuthApiService para exponer login de gestor (POST /auth/gestor/login) y registro
+- [x] Extender LoginFacade (o nuevo GestorLoginFacade) para usar el endpoint de gestor y almacenar la sesión respectiva
+- [x] Ajustar rutas para incluir páginas específicas de gestores (LoginGestor + dashboard)
+- [ ] Documentar en README del front cómo probar el flujo completo

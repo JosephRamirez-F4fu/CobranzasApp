@@ -1,0 +1,48 @@
+<section class="auth-card">
+  <h1>Registrar Institución</h1>
+  <p class="subtitle">
+    Completa los datos para crear la institución y enviar los tokens de confirmación.
+  </p>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <label>
+      Nombre de la institución
+      <input type="text" formControlName="institucion_nombre" />
+    </label>
+
+    <label>
+      Dirección
+      <input type="text" formControlName="institucion_direccion" />
+    </label>
+
+    <label>
+      Teléfono
+      <input type="text" formControlName="institucion_telefono" />
+    </label>
+
+    <label>
+      Plan
+      <input type="text" formControlName="plan" />
+    </label>
+
+    <hr />
+
+    <label>
+      Nombre del administrador
+      <input type="text" formControlName="admin_nombre" />
+    </label>
+
+    <label>
+      Correo del administrador
+      <input type="email" formControlName="admin_email" />
+    </label>
+
+    <label>
+      Contraseña temporal
+      <input type="password" formControlName="admin_password" />
+    </label>
+
+    <button type="submit" [disabled]="isSubmitting()">Guardar</button>
+    <div class="error" *ngIf="errorMessage()">{{ errorMessage() }}</div>
+  </form>
+</section>

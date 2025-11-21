@@ -12,6 +12,11 @@ export const routes: Routes = [
       import('./admin/routes').then((m) => m.adminRoutes),
   },
   {
+    path: 'gestor',
+    loadChildren: () =>
+      import('./gestor/routes').then((m) => m.gestorRoutes),
+  },
+  {
     path: '**',
     redirectTo: '',
   },
